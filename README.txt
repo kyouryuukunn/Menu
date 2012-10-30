@@ -25,7 +25,80 @@ first.ksで
 と呼び出す
 
 設定
-まずMenu.ksの6行目からのつぎの変数を設定する
+AfterInit.tjsに次の設定をする(なければ作る)
+kag.tagHandlers.s = function(elm)
+{
+	// 実行停止
+	stablePosibility = true;
+	if (!sf.skipcontinue)
+		cancelSkip(); //スキップをキャンセルするのをやめます。
+	if (!sf.autocontinue)
+		cancelAutoMode();
+	if(!usingExtraConductor) incRecordLabel(true);
+	inSleep = true;
+	if(recordHistoryOfStore == 2) // 2 : 選択肢 ( @s タグ ) ごと
+	setToRecordHistory();
+	notifyStable();
+	return -1;
+} incontextof kag;
+kag.onCloseQuery = function ()
+{
+	saveSystemVariables();
+	//if(!askOnClose) { global.Window.onCloseQuery(true); return; }
+	if(!askOnClose && !sf.exitAsk) { global.Window.onCloseQuery(true); return; }
+	global.Window.onCloseQuery(askYesNo("終了しますか？"));
+} incontextof kag;
+kag.onHelpAboutMenuItemClick = function (sender)
+{
+	// 「このソフトについて」ウィンドウを表示
+	tf.exitAsktemp=sf.exitAsk;
+	sf.exitAsk=0;
+	var win = new global.KAGWindow(false, aboutWidth, aboutHeight);
+	win.setPos(left + ((width - win.width)>>1), top + ((height - win.height)>>1));
+	win.process('about.ks' ,,, true); // about.ks を immediate で表示
+	win.showModal(); // モード付きで表示
+	invalidate win;
+	sf.exitAsk=tf.exitAsktemp;
+} incontextof kag;
+kag.goToStartWithAsk = function ()
+{
+	// 最初に戻る(確認あり)
+	//var result = askYesNo("最初に戻ります。よろしいですか ?");
+	//if(result) goToStart();
+	if (sf.titleAsk)
+	{
+		if (askYesNo("タイトルに戻りますか?")) goToStart();
+	}
+	else
+	{
+		goToStart();
+	}
+} incontextof kag;
+kag.restoreFromRightClick = function ()
+{
+	// 右クリックサブルーチンから抜けるときに呼ばれる
+	if(typeof this.rightClickMenuItem != "undefined")
+	{
+		if(rightClickName == "default")
+			rightClickMenuItem.caption = rightClickCurrentMenuName = rightClickDefaultName;
+		else
+			rightClickMenuItem.caption = rightClickCurrentMenuName = rightClickName;
+	}
+	// ここから下を追加
+	// 右クリック中でautoMode設定された場合に対応。 
+	if(autoMode) 
+	{
+		enterAutoMode(); 
+		// inStable = 0でenterAutoMode()内でPrimaryClick()され 
+		// ないので、ここでclickしておく 
+		conductor.trigger('click'); 
+	}
+	// 右クリック中でskipMode設定された場合に対応
+	if(skipMode_rclick)
+	skipToNextStopByKey();
+} incontextof kag;
+
+次にMenu.ksの6行目からのつぎの変数を設定する
 sf.saveAsk = 1; //セーブ上書き時に確認する
 sf.loadAsk = 1; //ロード時に確認する
 sf.qloadAsk = 1; //クイックロード時に確認する
@@ -56,7 +129,7 @@ y = kag.fore.messages[0].top + kag.fore.messages[0].height - 30; // 初期 y 位置
 x_width = 70;  //ボタン間の幅
 y_height = 0;  //ボタン間の高さ
 
-また、config.ksはタイトル画面であたまから
+また、config.ks,load_mode.ksはタイトル画面であたまから
 サブルーチンとして呼び出しても使用可能
 
 
@@ -70,6 +143,7 @@ sf.menu_modeにあわせて右クリック、メニュー表示を
 
 set_unmenu
 右クリックを無効し、メニュー表示を非表示にする
+タイトル画面など、本編から戻る場所に置くこと
 
 laycount2
 laycountを使ってはならないlaycount2を使う
@@ -79,7 +153,7 @@ set_messageopacity
 
 
 in_scene_mode_button        
-回想モード用にボタンを無効化する
+回想モード用にボタンをセーブ、ロード、前の選択肢に戻るを無効化する
 
 out_scene_mode_button        
 回想モード用に無効化したボタンを有効化する
