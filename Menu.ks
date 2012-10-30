@@ -54,17 +54,17 @@ kag.lockSnapshot = function() {
 		exsystembutton_object.setObjProp(exsystembutton_object.foreButtons, 'visible', false);
 		
 		var mes0 = false;
-		var lay1 = false;
+		var lay0 = false;
 		
 		if (kag.fore.messages[0].visible)
 		{
 			mes0 = true;
 			kag.fore.messages[0].visible = false;
 		}
-		if (kag.fore.layers[1].visible) //レイヤ1にメッセージ枠を表示してるので
+		if (kag.fore.layers[0].visible) //レイヤ0にメッセージ枠を表示してるので
 		{
-			lay1 = true;
-			kag.fore.layers[1].visible = false;
+			lay0 = true;
+			kag.fore.layers[0].visible = false;
 		}
 		//スナップショット作成
 		snapshotLayer.piledCopy(0, 0, kag.fore.base, 0, 0, scWidth, scHeight);
@@ -77,9 +77,9 @@ kag.lockSnapshot = function() {
 		{
 			kag.fore.messages[0].visible = true;
 		}
-		if (lay1)
+		if (lay0)
 		{
-			kag.fore.layers[1].visible = true;
+			kag.fore.layers[0].visible = true;
 		}
 		//foreSeenは、ボタンが本来表示中であったかどうかを記録している
 		MoveMenu_object.setObjProp(MoveMenu_object.foreButtons, 'visible', MoveMenu_object.foreSeen);
