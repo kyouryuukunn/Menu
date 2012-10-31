@@ -28,6 +28,7 @@ first.ksで
 と呼び出す
 
 設定
+Config.tjsでthumbnailをtrueにする
 AfterInit.tjsに次の設定をする(なければ作る)
 kag.tagHandlers.s = function(elm)
 {
@@ -101,7 +102,7 @@ kag.restoreFromRightClick = function ()
 	skipToNextStopByKey();
 } incontextof kag;
 
-次にMenu.ksの6行目からのつぎの変数を設定する
+次にMenu.ksの6行目からのつぎの設定のデフォルト値を設定する
 sf.saveAsk = 1; //セーブ上書き時に確認する
 sf.loadAsk = 1; //ロード時に確認する
 sf.qloadAsk = 1; //クイックロード時に確認する
@@ -114,9 +115,13 @@ sf.sceneskip = 1; //シーン毎のスキップをする(scene.ksがないなら無意味)
 sf.menu_mode = 0; //使用メニューを選ぶ 
 	0:マウスオンメニュー 1:右クリックメニュー 2:通常のシステムボタン
 sf.messageopacity = 128; //メッセージ枠の透明度
+使わない設定は、デフォルト値を決めた後、config_bg.pngとconfig_bg_p.png
+から該当部分を削除すればよい 
+サンプルの画面はださいのでconfig_bg.pngとconfig_bg_p.png,
+config.ksの30～90行目を書きかえて自分好みに改造してくれ
 
 24行目からも設定する
-tf.chose_novel = 1;	//選択肢ありか(前の選択肢に戻るを表示)
+tf.chose_novel = 1;	//選択肢ありか(前の選択肢に戻るを表示するかどうか)
 tf.message_base = 'message'; //メッセージレイヤと同じ大きさの
 			     //黒い画像
 			     
