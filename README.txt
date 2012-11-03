@@ -6,8 +6,6 @@
 使用を明記する必要も報告する必要もない
 けど報告をくれるとうれしい
 当然なにかあっても責任は取れないけど
-使用にはBiscratのSKN_Slider.ks
-サークル煌明のMoveMouseCursorPlugin.tjsが必要
 exsystembutton.ksとconfig.ksはtjsに挑戦！で配布して
 いたのを改造した。
 
@@ -20,6 +18,22 @@ https://skydrive.live.com/#cid=8F8EF4D2142F33D4&id=8F8EF4D2142F33D4!257
 ボタンを無効化できるが、そのためボタンは無効化のときを含めて
 ひとつの画像に4つの絵が必要
 
+
+使っている変数
+sf.saveAsk = 1; //セーブ上書き時に確認する
+sf.loadAsk = 1; //ロード時に確認する
+sf.qloadAsk = 1; //クイックロード時に確認する
+sf.returnAsk = 1; //前に戻るで確認する
+sf.titleAsk = 1; //タイトルに戻るで確認する
+sf.exitAsk = 1; //終了時に確認する
+sf.autocontinue = 1; //選択肢後もオートモードを続ける
+sf.skipcontinue = 1; //選択肢後もスキップモードを続ける
+sf.sceneskip = 1; //シーン毎のスキップをする(scene.ksがないなら無意味)
+sf.menu_mode = 0; //使用メニューを選ぶ 
+global.chose_novel = 1;	//選択肢ありか(前の選択肢に戻るを表示するかどうか)
+global.message_base = 'message'; //メッセージレイヤと同じ大きさの黒い画像
+global.in_scene_mode_button = 0; //回想モードでいくつかのボタンを無効化する
+global.move_menuon = 0; //マウスオンメニューのオン、オフ
 
 
 セーブ、ロードの設定はSave_mode.txtを参照
@@ -119,6 +133,7 @@ sf.messageopacity = 128; //メッセージ枠の透明度
 から該当部分を削除すればよい 
 サンプルの画面はださいのでconfig_bg.pngとconfig_bg_p.png,
 config.ksの30～90行目を書きかえて自分好みに改造してくれ
+config_bg.pngの透明部分は、直前のゲーム画面を表示する
 
 24行目からも設定する
 tf.chose_novel = 1;	//選択肢ありか(前の選択肢に戻るを表示するかどうか)

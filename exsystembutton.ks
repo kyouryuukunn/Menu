@@ -212,7 +212,7 @@ class ExSystemButtonPlugin extends KAGPlugin
 		obj.hint = '‰æ‘œ‚ð•\Ž¦‚µ‚Ü‚·';
 		
 		//No 7
-		if (tf.chose_novel){
+		if (chose_novel){
 			array.add(obj = new ExSystemButtonLayer(kag, parent, onReturnButtonClick));
 			obj.loadImages('returnbutton'); 
 			obj.hint = '‘O‚Ì‘I‘ðŽˆ‚É–ß‚è‚Ü‚·';
@@ -354,7 +354,7 @@ class ExSystemButtonPlugin extends KAGPlugin
 			MoveMenu_object.setOptions(%['forevisible'=>'false','backvisible'=>'false']);
 		}
 	}
-	if (tf.chose_novel){
+	if (chose_novel){
 		function onReturnButtonClick()
 		{
 			if (sf.menu_mode == 1)

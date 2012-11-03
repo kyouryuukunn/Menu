@@ -21,15 +21,16 @@ if (sf.startconfig === void)
 }
 //自前の終了処理に置き替える
 kag.askOnClose=false;
-tf.chose_novel = 1;	//選択肢ありか, 前の選択肢に戻るを表示
-tf.in_scene_mode_button = 0; //回想モード
-tf.message_base = 'message'; //メッセージレイヤと同じ大きさの
+var chose_novel = 1;	//選択肢ありか, 前の選択肢に戻るを表示
+var in_scene_mode_button = 0; //回想モード
+var message_base = 'message'; //メッセージレイヤと同じ大きさの
 			     //黒い画像
+var move_menuon = 0;
 
-tf.move_menuon = 0;
 
 kag.bgm.buf1.volume2 = sf.bgmvolume;
 kag.se[0].volume2 = sf.sevolume;
+Scripts.evalStorage("SliderLayer.tjs");
 @endscript
 
 @call storage=save_mode_init.ks
@@ -95,12 +96,12 @@ function in_scene_mode_button(){
 		.foreButtons[1].enabled = false;
 		.foreButtons[2].enabled = false;
 		.foreButtons[3].enabled = false;
-		if (tf.chose_novel) .foreButtons[7].enabled = false;
+		if (chose_novel) .foreButtons[7].enabled = false;
 		.backButtons[0].enabled = false;
 		.backButtons[1].enabled = false;
 		.backButtons[2].enabled = false;
 		.backButtons[3].enabled = false;
-		if (tf.chose_novel) .backButtons[7].enabled = false;
+		if (chose_novel) .backButtons[7].enabled = false;
 	}
 	with(exsystembutton_object)
 	{
@@ -108,12 +109,12 @@ function in_scene_mode_button(){
 		.foreButtons[1].enabled = false;
 		.foreButtons[2].enabled = false;
 		.foreButtons[3].enabled = false;
-		if (tf.chose_novel) .foreButtons[7].enabled = false;
+		if (chose_novel) .foreButtons[7].enabled = false;
 		.backButtons[0].enabled = false;
 		.backButtons[1].enabled = false;
 		.backButtons[2].enabled = false;
 		.backButtons[3].enabled = false;
-		if (tf.chose_novel) .backButtons[7].enabled = false;
+		if (chose_novel) .backButtons[7].enabled = false;
 	}
 }
 
@@ -125,12 +126,12 @@ function out_scene_mode_button(){
 		.foreButtons[1].enabled = true;
 		.foreButtons[2].enabled = true;
 		.foreButtons[3].enabled = true;
-		if (tf.chose_novel) .foreButtons[7].enabled = true;
+		if (chose_novel) .foreButtons[7].enabled = true;
 		.backButtons[0].enabled = true;
 		.backButtons[1].enabled = true;
 		.backButtons[2].enabled = true;
 		.backButtons[3].enabled = true;
-		if (tf.chose_novel) .backButtons[7].enabled = true;
+		if (chose_novel) .backButtons[7].enabled = true;
 	}
 	with(exsystembutton_object)
 	{
@@ -138,19 +139,19 @@ function out_scene_mode_button(){
 		.foreButtons[1].enabled = true;
 		.foreButtons[2].enabled = true;
 		.foreButtons[3].enabled = true;
-		if (tf.chose_novel) .foreButtons[7].enabled = true;
+		if (chose_novel) .foreButtons[7].enabled = true;
 		.backButtons[0].enabled = true;
 		.backButtons[1].enabled = true;
 		.backButtons[2].enabled = true;
 		.backButtons[3].enabled = true;
-		if (tf.chose_novel) .backButtons[7].enabled = true;
+		if (chose_novel) .backButtons[7].enabled = true;
 	}
 }
 
 kag.onMouseMove=function(x, y, shift){
 	with(MoveMenu_object)
 	{
-		if (tf.in_scene_mode_button) //回想モードでは無効化
+		if (in_scene_mode_button) //回想モードでは無効化
 		{
 			in_scene_mode_button();
 		}
@@ -158,7 +159,7 @@ kag.onMouseMove=function(x, y, shift){
 		{
 			out_scene_mode_button();
 		}
-		if (tf.move_menuon && sf.menu_mode == 0)
+		if (move_menuon && sf.menu_mode == 0)
 		{
 			if (kag.fore.messages[0].visible == true && kag.historyLayer.visible == false && kag.inStable)
 			{
@@ -187,8 +188,8 @@ kag.onMouseMove=function(x, y, shift){
 @position page=fore layer=message0 opacity=0
 @position page=back layer=message0 opacity=0
 ;メッセージ枠を設定
-@image layer=0 storage=&tf.message_base page=fore opacity=&sf.messageopacity left=&kag.fore.messages[0].left top=&kag.fore.messages[0].top
-@image layer=0 storage=&tf.message_base page=back opacity=&sf.messageopacity left=&kag.fore.messages[0].left top=&kag.fore.messages[0].top
+@image layer=0 storage=&message_base page=fore opacity=&sf.messageopacity left=&kag.fore.messages[0].left top=&kag.fore.messages[0].top
+@image layer=0 storage=&message_base page=back opacity=&sf.messageopacity left=&kag.fore.messages[0].left top=&kag.fore.messages[0].top
 @layopt layer=0 page=fore autohide=true index=999999
 @layopt layer=0 page=back autohide=true index=999999
 
@@ -211,7 +212,7 @@ kag.onMouseMove=function(x, y, shift){
 ; 状況に合わせてメニュー設定
 @macro name=set_menu
 @set_rclick
-@eval exp="tf.move_menuon = sf.menu_mode == 0 && kag.canStore() ? 1 : 0"
+@eval exp="move_menuon = sf.menu_mode == 0 && kag.canStore() ? 1 : 0"
 @exsysbtopt forevisible=true backvisible=true cond="sf.menu_mode == 2 && kag.canStore()"
 @exsysbtopt forevisible=false backvisible=false cond="sf.menu_mode != 2 || !kag.canStore()"
 @endmacro
@@ -219,7 +220,7 @@ kag.onMouseMove=function(x, y, shift){
 ; メニュー無効化する
 @macro name=unset_menu
 @rclick enabled=false
-@eval exp="tf.move_menuon = 0"
+@eval exp="move_menuon = 0"
 @exsysbtopt forevisible=false backvisible=false
 @endmacro
 
@@ -231,13 +232,13 @@ kag.onMouseMove=function(x, y, shift){
 
 ; 回想モード用にボタンを無効化する
 @macro name=in_scene_mode_button        
-@eval exp="tf.in_scene_mode_button=1"
+@eval exp="in_scene_mode_button=1"
 @endmacro
 
 ; 回想モード用に無効化したボタンを有効化する
 ; タイトル画面など、回想モードから戻る場所において
 @macro name=out_scene_mode_button        
-@eval exp="tf.in_scene_mode_button=0"
+@eval exp="in_scene_mode_button=0"
 @endmacro
 
 ;メッセージレイヤの透明度を設定し、表示する(セーブ可能ラベルの後におく)
@@ -260,8 +261,13 @@ kag.onMouseMove=function(x, y, shift){
 @rclick enabled=true jump=true storage=Menu.ks target=*rclick_return
 @history enabled=false output=false
 @sysbtopt forevisible=true
-@MoveCursor time=100 x=750 y=10 cond="MoveMenu_object.position=='right'"
-@MoveCursor time=100 x=30  y=10 cond="MoveMenu_object.position=='top'"
+;@if exp="typeof(global.MoveMouseCursorPlugin_object) != 'undefined'"
+;	@MoveCursor time=100 x=750 y=10 cond="MoveMenu_object.position=='right'"
+;	@MoveCursor time=100 x=30  y=10 cond="MoveMenu_object.position=='top'"
+;@else
+	@eval exp="kag.fore.base.cursorX=kag.scWidth - MoveMenu_object.foreButtons[0].width/2, kag.fore.base.cursorY=10" cond="MoveMenu_object.position=='right'"
+	@eval exp="kag.fore.base.cursorX=MoveMenu_object.foreButtons[0].width/2, kag.fore.base.cursorY=10" cond="MoveMenu_object.position=='top'"
+;@endif
 @s
 
 *auto

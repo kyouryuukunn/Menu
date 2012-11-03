@@ -12,90 +12,140 @@ if(typeof(global.exsystembutton_object) != "undefined" && kag.fore.messages[0].v
 	exsystembutton_object.onMessageHiddenStateChanged(true);
 var i;
 var elm = %["visible" => false];
-// 全ての前景レイヤを非表示にします
-for(i=0;i<kag.numCharacterLayers;i++)
-	kag.fore.layers[i].setOptions(elm);
 // 全てのメッセージレイヤを非表示にします
 for(i=0;i<kag.numMessageLayers;i++)
 	kag.fore.messages[i].setOptions(elm);
 
 @endscript
 
-; 背景レイヤに画像（クリッカブルマップ）を読み込みます
-@image layer=base storage="config_bg" page=fore
 
-; レイヤを必要な数（前景レイヤ×16,）確保します
-@laycount layers=16 messages="&kag.numMessageLayers + 1"
+; レイヤを必要な数確保します
+@laycount layers="&kag.numCharacterLayers + 17" messages="&kag.numMessageLayers + 1"
+@layopt index="&2000000+100" layer="&kag.numCharacterLayers - 1"
+@layopt index="&2000000+101" layer="&kag.numCharacterLayers - 2"
+@layopt index="&2000000+102" layer="&kag.numCharacterLayers - 3"
+@layopt index="&2000000+103" layer="&kag.numCharacterLayers - 4"
+@layopt index="&2000000+104" layer="&kag.numCharacterLayers - 5"
+@layopt index="&2000000+105" layer="&kag.numCharacterLayers - 6"
+@layopt index="&2000000+106" layer="&kag.numCharacterLayers - 7"
+@layopt index="&2000000+107" layer="&kag.numCharacterLayers - 8"
+@layopt index="&2000000+108" layer="&kag.numCharacterLayers - 9"
+@layopt index="&2000000+109" layer="&kag.numCharacterLayers - 10"
+@layopt index="&2000000+110" layer="&kag.numCharacterLayers - 11"
+@layopt index="&2000000+111" layer="&kag.numCharacterLayers - 12"
+@layopt index="&2000000+112" layer="&kag.numCharacterLayers - 13"
+@layopt index="&2000000+113" layer="&kag.numCharacterLayers - 14"
+@layopt index="&2000000+114" layer="&kag.numCharacterLayers - 15"
+@layopt index="&2000000+115" layer="&kag.numCharacterLayers - 16"
+@layopt index="&2000000+116" layer="&kag.numCharacterLayers - 17"
+@layopt index="&2000000+117" layer="&'message' + (kag.numMessageLayers-1)"
+; 背景
+@image layer="&kag.numCharacterLayers-1" storage="config_bg" page=fore visible=true
 
 ; 前景レイヤに画像を読み込みます
 ; #0: フルスクリーンに表示するチェック画像
-@image layer=0 storage="checked" page=fore visible=false top=525 left=440
+@image layer="&kag.numCharacterLayers - 2" storage="checked" page=fore visible=false top=525 left=440
 ; #1: titleに表示するチェック画像
-@image layer=1 storage="checked" page=fore visible=false top=435 left=700
+@image layer="&kag.numCharacterLayers - 3" storage="checked" page=fore visible=false top=435 left=700
 ; #2: exitに表示するチェック画像
-@image layer=2 storage="checked" page=fore visible=false top=475 left=700
+@image layer="&kag.numCharacterLayers - 4" storage="checked" page=fore visible=false top=475 left=700
 ; #3: qloadに表示するチェック画像
-@image layer=3 storage="checked" page=fore visible=false top=435 left=440
+@image layer="&kag.numCharacterLayers - 5" storage="checked" page=fore visible=false top=435 left=440
 ; #4: returnに表示するチェック画像
-@image layer=4 storage="checked" page=fore visible=false top=475 left=440
+@image layer="&kag.numCharacterLayers - 6" storage="checked" page=fore visible=false top=475 left=440
 ; #5: saveに表示するチェック画像
-@image layer=5 storage="checked" page=fore visible=false top=435 left=160
+@image layer="&kag.numCharacterLayers - 7" storage="checked" page=fore visible=false top=435 left=160
 ; #6: loadに表示するチェック画像
-@image layer=6 storage="checked" page=fore visible=false top=475 left=160
+@image layer="&kag.numCharacterLayers - 8" storage="checked" page=fore visible=false top=475 left=160
 ; #7:「ページ末まで一度に表示」に表示するチェック画像
-@image layer=7 storage="checked" page=fore visible=false top=165 left=740 
+@image layer="&kag.numCharacterLayers - 9" storage="checked" page=fore visible=false top=165 left=740 
 ; #8: sceneskipに表示するチェック画像
-@image layer=8 storage="checked" page=fore visible=false top=205 left=740 
+@image layer="&kag.numCharacterLayers - 10" storage="checked" page=fore visible=false top=205 left=740 
 ; #9: autocontinueに表示するチェック画像
-@image layer=9 storage="checked" page=fore visible=false top=165 left=410 
+@image layer="&kag.numCharacterLayers - 11" storage="checked" page=fore visible=false top=165 left=410 
 ; #10: skipcontinueに表示するチェック画像
-@image layer=10 storage="checked" page=fore visible=false top=200  left=410 
+@image layer="&kag.numCharacterLayers - 12" storage="checked" page=fore visible=false top=200  left=410 
 ; #11:「Back」のロールオーバー用画像
-@image layer=11 storage="back_ro" page=fore visible=false top=520 left=680 
+@image layer="&kag.numCharacterLayers - 13" storage="back_ro" page=fore visible=false top=520 left=680 
 ; #12:「check」のロールオーバー用画像
-@image layer=12 storage="check_ro" page=fore visible=false opacity=160
+@image layer="&kag.numCharacterLayers - 14" storage="check_ro" page=fore visible=false opacity=160
 ; #13: menu0に表示するチェック画像
-@image layer=13 storage="checked" page=fore visible=false top=305  left=590
+@image layer="&kag.numCharacterLayers - 15" storage="checked" page=fore visible=false top=305  left=590
 ; #14: menu1に表示するチェック画像
-@image layer=14 storage="checked" page=fore visible=false top=355  left=590
+@image layer="&kag.numCharacterLayers - 16" storage="checked" page=fore visible=false top=355  left=590
 ; #14: menu2に表示するチェック画像
-@image layer=15 storage="checked" page=fore visible=false top=305  left=770
+@image layer="&kag.numCharacterLayers - 17" storage="checked" page=fore visible=false top=305  left=770
 
 ; メッセージレイヤの設定をします
 @history enabled=false output=false
 @current layer="&'message' + (kag.numMessageLayers - 1)"
+@position opacity=0 marginb=0 marginl=0 marginr=0 margint=0 left=0 top=0 width=&kag.scWidth height=&kag.scHeight visible=true
 ; ◆スライダー設定
-; ￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣
-; ◇スライダーの値を入れる配列
-@eval exp="f.slider = [ (int)(kag.bgm.buf1.volume2 / 1000), (int)(kag.se[0].volume2 / 1000), (int)(100 - kag.chSpeed),(int)(2000 - kag.autoModePageWait)/20, (int)(sf.messageopacity / 2.55)]"
-
-; ◇スライダーの数
-@setSliderCount sliders="5"
-
-; ◇スライダー0の設定 - (BGM音量調整)
-@setSliderImages slider="0" forebase="base_white" forethumb="thumb_gray"
-@setSliderOptions slider="0" page="fore" visible="true" left="190" top="305" changing="203" max="100" min="0" visible="true" scale="2" hit="true" cursor="true"
-; ◇スライダー1の設定 - (SE音量調整)
-@setSliderImages slider="1" forebase="base_white" forethumb="thumb_gray"
-@setSliderOptions slider="1" page="fore" visible="true" left="190" top="345" changing="203" max="100" min="0" visible="true" scale="2" hit="true" cursor="true"
-; ◇スライダー2の設定 - (文字速度)
-@setSliderImages slider="2" forebase="base_white" forethumb="thumb_gray"
-@setSliderOptions slider="2" page="fore" visible="true" left="450" top="70" changing="203" max="100" min="0" visible="true" scale="2" hit="true" cursor="true"
-; ◇スライダー3の設定 - (オートモード速度)
-@setSliderImages slider="3" forebase="base_white" forethumb="thumb_gray"
-@setSliderOptions slider="3" page="fore" visible="true" left="450" top="100" changing="203" max="100" min="0" visible="true" scale="2" hit="true" cursor="true"
-; ◇スライダー4の設定 - (透明度)
-@setSliderImages slider="4" forebase="base_white" forethumb="thumb_gray"
-@setSliderOptions slider="4" page="fore" visible="true" left="450" top="130" changing="203" max="100" min="0" visible="true" scale="2" hit="true" cursor="true"
-
-; ◇スライダの値を初期設定
-@setSliderValue slider="0" value="&f.slider[0]"
-@setSliderValue slider="1" value="&f.slider[1]"
-@setSliderValue slider="2" value="&f.slider[2]"
-@setSliderValue slider="3" value="&f.slider[3]"
-@setSliderValue slider="4" value="&f.slider[4]"
-
-@setSliderEnabled enabled="true"
+@iscript
+tf.slider = new Array();
+for (var i=0; i < 5; i++){
+	tf.slider[i] = new SliderLayer(kag, kag.fore.layers[kag.numCharacterLayers - 1]);
+	with(tf.slider[i]){
+		.width = 200;
+		.height = 12;
+		.min = 0;
+		.max = 100;
+		//.baseImage = 'base_white';
+		//.baseImage = 'thumb_gray';
+		.visible = true;
+	}
+}
+// ◇スライダー0の設定 - (BGM音量調整)
+with(tf.slider[0]){
+	.left = 190;
+	.top = 305;
+	.position = (int)(kag.bgm.buf1.volume2 / 1000);
+	.onChange = function(pos){
+		kag.tagHandlers.bgmopt(%['gvolume' => pos]);
+		sf.bgmvolume = kag.bgm.buf1.volume2;
+	};
+}
+// ◇スライダー1の設定 - (SE音量調整)
+with(tf.slider[1]){
+	.left = 190;
+	.top = 345;
+	.position = (int)(kag.se[0].volume2 / 1000);
+	.onChange = function(pos){
+		for(var i=0;i<kag.numSEBuffers;i++)
+			kag.se[i].setOptions(%['gvolume' => pos ]);
+		sf.sevolume = kag.se[0].volume2;
+	};
+}
+// ◇スライダー2の設定 - (文字速度)
+with(tf.slider[2]){
+	.left = 450;
+	.top = 70;
+	.position = (int)(100 - kag.chSpeed);
+	.onChange = function(pos){
+		kag.userChSpeed=( 100 - pos );
+	};
+}
+// ◇スライダー3の設定 - (オートモード速度)
+with(tf.slider[3]){
+	.left = 450;
+	.top = 100;
+	.position = (int)(2000 - kag.autoModePageWait)/20;
+	.onChange = function(pos){
+		// オート速度
+		kag.autoModePageWait = 2000 -  pos * 20;
+		kag.autoModeLineWait = 1000 -  pos * 10;
+	};
+}
+// ◇スライダー4の設定 - (透明度)
+with(tf.slider[4]){
+	.left = 450;
+	.top = 130;
+	.position = (int)(sf.messageopacity / 2.55);
+	.onChange = function(pos){
+		sf.messageopacity = (int)(pos * 2.55);
+	};
+}
+@endscript
 
 ; 各項目の表示を初期化します
 @call target=*update_autocontinue
@@ -124,7 +174,7 @@ for(i=0;i<kag.numMessageLayers;i++)
 
 ; ウィンドウモードのチェックボックスの表示を更新します
 *update_windowmode
-@layopt layer=0 page=fore visible="&kag.fullScreened ? true : false"
+@layopt layer="&kag.numCharacterLayers - 2" page=fore visible="&kag.fullScreened ? true : false"
 @return
 
 
@@ -139,7 +189,7 @@ for(i=0;i<kag.numMessageLayers;i++)
 @s
 
 *update_autocontinue
-@layopt layer=9 visible=&sf.autocontinue
+@layopt layer="&kag.numCharacterLayers - 11" visible=&sf.autocontinue
 @return
 ; スキップを継続するか確認する
 *skipcontinue
@@ -159,11 +209,11 @@ for(i=0;i<kag.numMessageLayers;i++)
 
 ;「ページ末まで一度に表示」のチェックボックスの表示を更新します
 *update_pagebreak
-[layopt layer=7 page=fore visible="&kag.chNonStopToPageBreak"]
+[layopt layer="&kag.numCharacterLayers - 9" page=fore visible="&kag.chNonStopToPageBreak"]
 [return]
 
 *update_skipcontinue
-@layopt layer=10 visible=&sf.skipcontinue
+@layopt layer="&kag.numCharacterLayers - 12" visible=&sf.skipcontinue
 @return
 ; シーンスキップをするか確認する
 *sceneskip
@@ -175,7 +225,7 @@ for(i=0;i<kag.numMessageLayers;i++)
 @call target=*update_sceneskip
 @s
 *update_sceneskip
-@layopt layer=8 visible=&sf.sceneskip
+@layopt layer="&kag.numCharacterLayers - 10" visible=&sf.sceneskip
 @return
 ; 右クリック
 *menu0
@@ -185,7 +235,7 @@ for(i=0;i<kag.numMessageLayers;i++)
 @call target=*update_menu2
 @s
 *update_menu0
-@layopt layer=13 visible="&sf.menu_mode == 0"
+@layopt layer="&kag.numCharacterLayers - 15" visible="&sf.menu_mode == 0"
 @return
 
 *menu1
@@ -195,7 +245,7 @@ for(i=0;i<kag.numMessageLayers;i++)
 @call target=*update_menu2
 @s
 *update_menu1
-@layopt layer=14 visible="&sf.menu_mode == 1"
+@layopt layer="&kag.numCharacterLayers - 16" visible="&sf.menu_mode == 1"
 @return
 
 *menu2
@@ -205,7 +255,7 @@ for(i=0;i<kag.numMessageLayers;i++)
 @call target=*update_menu2
 @s
 *update_menu2
-@layopt layer=15 visible="&sf.menu_mode == 2"
+@layopt layer="&kag.numCharacterLayers - 17" visible="&sf.menu_mode == 2"
 @return
 
 ; セーブするか確認する
@@ -219,7 +269,7 @@ for(i=0;i<kag.numMessageLayers;i++)
 @s
 
 *update_save
-@layopt layer=5 visible=&sf.saveAsk
+@layopt layer="&kag.numCharacterLayers - 7" visible=&sf.saveAsk
 @return
 ; ロードするか確認する
 *loadAsk
@@ -232,7 +282,7 @@ for(i=0;i<kag.numMessageLayers;i++)
 @s
 
 *update_load
-@layopt layer=6 visible=&sf.loadAsk
+@layopt layer="&kag.numCharacterLayers - 8" visible=&sf.loadAsk
 @return
 ; クイックロードするか確認する 
 *qloadAsk
@@ -245,7 +295,7 @@ for(i=0;i<kag.numMessageLayers;i++)
 @s
 
 *update_qload
-@layopt layer=3 visible=&sf.qloadAsk
+@layopt layer="&kag.numCharacterLayers - 5" visible=&sf.qloadAsk
 @return
 ; 前の選択肢に戻るか確認する
 *returnAsk
@@ -258,7 +308,7 @@ for(i=0;i<kag.numMessageLayers;i++)
 @s
 
 *update_return
-@layopt layer=4 visible=&sf.returnAsk
+@layopt layer="&kag.numCharacterLayers - 6" visible=&sf.returnAsk
 @return
 ; タイトルに戻るか確認する
 *titleAsk
@@ -271,7 +321,7 @@ for(i=0;i<kag.numMessageLayers;i++)
 @s
 
 *update_title
-@layopt layer=1 visible=&sf.titleAsk
+@layopt layer="&kag.numCharacterLayers - 3" visible=&sf.titleAsk
 @return
 ; 終了するか確認する
 *exitAsk
@@ -284,35 +334,11 @@ for(i=0;i<kag.numMessageLayers;i++)
 @s
 
 *update_exit
-@layopt layer=2 visible=&sf.exitAsk
+@layopt layer="&kag.numCharacterLayers - 4" visible=&sf.exitAsk
 @return
 
 ; コンフィグ画面を閉じます
 *back
-; スライダーを反映します
-[getSliderValue slider="0" name="f.slider[0]"]
-[getSliderValue slider="1" name="f.slider[1]"]
-[getSliderValue slider="2" name="f.slider[2]"]
-[getSliderValue slider="3" name="f.slider[3]"]
-[getSliderValue slider="4" name="f.slider[4]"]
-; ◇BGM音量調整のスライダが動いたときの処理
-@bgmopt gvolume="&f.slider[0]"
-@eval exp="sf.bgmvolume = kag.bgm.buf1.volume2"
-; ◇SE音量調整のスライダが動いたときの処理
-@iscript
-	var elm = %['gvolume' => f.slider[1] ];
-	for(var i=0;i<kag.numSEBuffers;i++)
-		kag.se[i].setOptions(elm);
-@endscript
-@eval exp="sf.sevolume = kag.se[0].volume2"
-; 文字速度
-@eval exp="kag.userChSpeed=( 100 - f.slider[2] )"
-; オート速度
-[eval exp="kag.autoModePageWait = 2000 -  f.slider[3] * 20"]
-[eval exp="kag.autoModeLineWait = 1000 -  f.slider[3] * 10"]
-; メッセージレイヤの濃度
-[eval exp="sf.messageopacity = (int)(f.slider[4] * 2.55)"]
-
 
 ; コンフィグ画面表示前の状態を復元します(但し BGM は復元しません)
 @tempload place=0 bgm=false
@@ -326,8 +352,8 @@ for(i=0;i<kag.numMessageLayers;i++)
 
 @iscript
 // システムボタンを使っていて、コンフィグ画面を表示する前にメッセージレイヤが表示されていた時は onMessageHiddenStateChanged を呼び出します
-if(typeof(global.MoveMenu_object) != "undefined" && kag.fore.messages[0].visible)
-	MoveMenu_object.onMessageHiddenStateChanged(false);
+if(typeof(global.exsystembutton_object) != "undefined" && kag.fore.messages[0].visible)
+	exsystembutton_object.onMessageHiddenStateChanged(false);
 @endscript
 
 ; 右クリックをデフォルトの動作（メッセージウィンドウ消去）に戻します
