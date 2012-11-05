@@ -30,7 +30,6 @@ var move_menuon = 0;
 
 kag.bgm.buf1.volume2 = sf.bgmvolume;
 kag.se[0].volume2 = sf.sevolume;
-Scripts.evalStorage("SliderLayer.tjs");
 @endscript
 
 @call storage=save_mode_init.ks
