@@ -16,6 +16,8 @@ var elm = %["visible" => false];
 for(i=0;i<kag.numMessageLayers;i++)
 	kag.fore.messages[i].setOptions(elm);
 
+kag.fore.base.cursorX = kag.scWidth/2;
+kag.fore.base.cursorY = kag.scHeight/2;
 @endscript
 
 
@@ -168,7 +170,7 @@ with(tf.slider[4]){
 
 ; ウィンドウモードの「フルスクリーン」をクリックした時に実行されるスクリプト
 *windowmode
-@eval exp="global.AltEnterFullScreen_obj.toggleFullScreen()"
+@eval exp="kag.fullScreened ? kag.onWindowedMenuItemClick() : kag.onFullScreenMenuItemClick()"
 @call target=*update_windowmode
 @s
 

@@ -449,10 +449,35 @@ class ExSystemButtonPlugin extends KAGPlugin
 	{
 		// 「安定」( s l p の各タグで停止中 ) か、
 		// 「走行中」 ( それ以外 ) かの状態が変わったときに呼ばれる
-
-		// 走行中は各ボタンを無効にする
-		//setObjProp(foreButtons, 'enabled', stable);
-		//setObjProp(backButtons, 'enabled', stable);
+		if (stable)
+		{ //安定時は、回想モードかどうかで有効にするボタンを変える
+			if (in_scene_mode_button_mark)
+			{ //回想モード
+				setObjProp(foreButtons, 'enabled', true);
+				setObjProp(backButtons, 'enabled', true);
+				// 一旦すべて有効化してから一部無効化する
+				foreButtons[0].enabled = false;
+				foreButtons[1].enabled = false;
+				foreButtons[2].enabled = false;
+				foreButtons[3].enabled = false;
+				if (chose_novel) foreButtons[7].enabled = false;
+				backButtons[0].enabled = false;
+				backButtons[1].enabled = false;
+				backButtons[2].enabled = false;
+				backButtons[3].enabled = false;
+				if (chose_novel) backButtons[7].enabled = false;
+			}else{
+				setObjProp(foreButtons, 'enabled', true);
+				setObjProp(backButtons, 'enabled', true);
+			}
+		}
+		else
+		{ // 走行中は各ボタンを無効にする
+			setObjProp(foreButtons, 'enabled', false);
+			setObjProp(backButtons, 'enabled', false);
+		}
+		
+		
 	}
 
 	function onMessageHiddenStateChanged(hidden)

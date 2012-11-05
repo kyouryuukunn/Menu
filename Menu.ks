@@ -22,7 +22,7 @@ if (sf.startconfig === void)
 //自前の終了処理に置き替える
 kag.askOnClose=false;
 var chose_novel = 1;	//選択肢ありか, 前の選択肢に戻るを表示
-var in_scene_mode_button = 0; //回想モード
+var in_scene_mode_button_mark = 0; //回想モード
 var message_base = 'message'; //メッセージレイヤと同じ大きさの
 			     //黒い画像
 var move_menuon = 0;
@@ -88,77 +88,10 @@ kag.lockSnapshot = function() {
 	}
 		snapshotLockCount ++;
 } incontextof kag;
-//回想モードではいくつかのボタンを無効化する
-function in_scene_mode_button(){
-	with(MoveMenu_object)
-	{
-		.foreButtons[0].enabled = false;
-		.foreButtons[1].enabled = false;
-		.foreButtons[2].enabled = false;
-		.foreButtons[3].enabled = false;
-		if (chose_novel) .foreButtons[7].enabled = false;
-		.backButtons[0].enabled = false;
-		.backButtons[1].enabled = false;
-		.backButtons[2].enabled = false;
-		.backButtons[3].enabled = false;
-		if (chose_novel) .backButtons[7].enabled = false;
-	}
-	with(exsystembutton_object)
-	{
-		.foreButtons[0].enabled = false;
-		.foreButtons[1].enabled = false;
-		.foreButtons[2].enabled = false;
-		.foreButtons[3].enabled = false;
-		if (chose_novel) .foreButtons[7].enabled = false;
-		.backButtons[0].enabled = false;
-		.backButtons[1].enabled = false;
-		.backButtons[2].enabled = false;
-		.backButtons[3].enabled = false;
-		if (chose_novel) .backButtons[7].enabled = false;
-	}
-}
-
-//回想モードで無効化したボタンを無効化する
-function out_scene_mode_button(){
-	with(MoveMenu_object)
-	{
-		.foreButtons[0].enabled = true;
-		.foreButtons[1].enabled = true;
-		.foreButtons[2].enabled = true;
-		.foreButtons[3].enabled = true;
-		if (chose_novel) .foreButtons[7].enabled = true;
-		.backButtons[0].enabled = true;
-		.backButtons[1].enabled = true;
-		.backButtons[2].enabled = true;
-		.backButtons[3].enabled = true;
-		if (chose_novel) .backButtons[7].enabled = true;
-	}
-	with(exsystembutton_object)
-	{
-		.foreButtons[0].enabled = true;
-		.foreButtons[1].enabled = true;
-		.foreButtons[2].enabled = true;
-		.foreButtons[3].enabled = true;
-		if (chose_novel) .foreButtons[7].enabled = true;
-		.backButtons[0].enabled = true;
-		.backButtons[1].enabled = true;
-		.backButtons[2].enabled = true;
-		.backButtons[3].enabled = true;
-		if (chose_novel) .backButtons[7].enabled = true;
-	}
-}
 
 kag.onMouseMove=function(x, y, shift){
 	with(MoveMenu_object)
 	{
-		if (in_scene_mode_button) //回想モードでは無効化
-		{
-			in_scene_mode_button();
-		}
-		else
-		{
-			out_scene_mode_button();
-		}
 		if (move_menuon && sf.menu_mode == 0)
 		{
 			if (kag.fore.messages[0].visible == true && kag.historyLayer.visible == false && kag.inStable)
@@ -232,16 +165,16 @@ kag.onMouseMove=function(x, y, shift){
 
 ; 回想モード用にボタンを無効化する
 @macro name=in_scene_mode_button        
-@eval exp="in_scene_mode_button=1"
+@eval exp="in_scene_mode_button_mark=1"
 @endmacro
 
 ; 回想モード用に無効化したボタンを有効化する
 ; タイトル画面など、回想モードから戻る場所において
 @macro name=out_scene_mode_button        
-@eval exp="in_scene_mode_button=0"
+@eval exp="in_scene_mode_button_mark=0"
 @endmacro
 
-;メッセージレイヤの透明度を設定し、表示する(セーブ可能ラベルの後におく)
+;メッセージレイヤの透明度を設定し、表示する
 @macro name=set_messageopacity
 @layopt layer=0 page=fore visible=true opacity=&sf.messageopacity cond="kag.canStore()"
 @layopt layer=0 page=back visible=true opacity=&sf.messageopacity cond="kag.canStore()"

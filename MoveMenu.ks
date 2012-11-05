@@ -141,7 +141,6 @@ class MoveMenuPlugin extends KAGPlugin
 
 	var menuon = false; //メニューを表示するかどうか
 	var position = 'top';	    //メニューの位置 (right or top)	
-	var scene_mode = false; //シーンモードかどうか
 	
 	var forelayer = new Layer(kag, kag.fore.base); //表画面のボタンの親レイヤ
 	var backlayer = new Layer(kag, kag.back.base); //裏画面のボタンの親レイヤ
@@ -197,14 +196,13 @@ class MoveMenuPlugin extends KAGPlugin
 		super.finalize(...);
 	}
 	//タイミング問題
-	function onRestore(elm, tempelm){
+	function onRestore(elm, clear, tempelm){
 		//状況に合わせて右クリックを設定
 		if  (kag.canStore() && sf.menu_mode == 0){
 			kag.tagHandlers.rclick(%['enabled' => true, 'call' => false, 'jump' => false]);
 		}else if (kag.canStore() && sf.menu_mode == 2){
 			kag.tagHandlers.rclick(%['enabled' => true, 'call' => false, 'jump' => false]);
 		}else if (kag.canStore() && sf.menu_mode == 1){
-			//System.inform('test');
 			kag.tagHandlers.rclick(%['enabled' => true, 'call' => true, 'jump' => false, 'storage' => 'Menu.ks', 'target' => '*rclick']);
 		}else if (!kag.canStore()){
 			kag.tagHandlers.rclick(%['enabled' => false]);
@@ -212,10 +210,9 @@ class MoveMenuPlugin extends KAGPlugin
 		move_menuon = sf.menu_mode == 0 && kag.canStore() ? 1 : 0;
 		if (kag.canStore() && sf.menu_mode == 2) exsystembutton_object.setOptions(%['forevisible'=>true, 'backvisible'=>true]);
 		if (sf.menu_mode != 2) exsystembutton_object.setOptions(%['forevisible'=>false, 'backvisible'=>false]);
-		//if (kag.canStore()) {
-		//	kag.tagHandlers.layopt(%['layer' => 0, 'page' => 'fore', 'visible' => true, 'opacity' => sf.messageopacity]);
-		//	kag.tagHandlers.layopt(%['layer' => 0, 'page' => 'back', 'visible' => true, 'opacity' => sf.messageopacity]);
-		//}
+		if (tempelm === void) {
+			kag.fore.layers[0].opacity = kag.back.layers[0].opacity = sf.messageopacity;
+		}
 	}
 	function setObjProp(array, member, value)
 	{
@@ -517,12 +514,32 @@ class MoveMenuPlugin extends KAGPlugin
 		// 「安定」( s l p の各タグで停止中 ) か、
 		// 「走行中」 ( それ以外 ) かの状態が変わったときに呼ばれる
 
-		// 走行中は各ボタンを無効にする
-		setObjProp(foreButtons, 'enabled', stable);
-		setObjProp(backButtons, 'enabled', stable);
-		
-		if (!stable)//動きだしたら非表示に
-		{
+		if (stable)
+		{ //安定時は、回想モードかどうかで有効にするボタンを変える
+			if (in_scene_mode_button_mark)
+			{ //回想モード
+				setObjProp(foreButtons, 'enabled', true);
+				setObjProp(backButtons, 'enabled', true);
+				// 一旦すべて有効化してから一部無効化する
+				foreButtons[0].enabled = false;
+				foreButtons[1].enabled = false;
+				foreButtons[2].enabled = false;
+				foreButtons[3].enabled = false;
+				if (chose_novel) foreButtons[7].enabled = false;
+				backButtons[0].enabled = false;
+				backButtons[1].enabled = false;
+				backButtons[2].enabled = false;
+				backButtons[3].enabled = false;
+				if (chose_novel) backButtons[7].enabled = false;
+			}else{
+				setObjProp(foreButtons, 'enabled', true);
+				setObjProp(backButtons, 'enabled', true);
+			}
+		}
+		else
+		{ //動きだしたら非表示に, 走行中は各ボタンを無効にする
+			setObjProp(foreButtons, 'enabled', false);
+			setObjProp(backButtons, 'enabled', false);
 			setOptions(%['forevisible'=>'false','backvisible'=>'false']);
 		}
 	}
