@@ -8,6 +8,7 @@
 当然なにかあっても責任は取れないけど
 exsystembutton.ksとconfig.ksはtjsに挑戦！で配布して
 いたのを改造した。
+またスライダーには色々な墓場のKLayers.ksを利用した
 
 全部入りサンプルをskydriveで公開している
 https://skydrive.live.com/#cid=8F8EF4D2142F33D4&id=8F8EF4D2142F33D4!257

@@ -36,6 +36,8 @@ Scripts.evalStorage("SliderLayer.tjs");
 @call storage=save_mode_init.ks
 @call storage=exsystembutton.ks
 @call storage=MoveMenu.ks
+@call storage=TJSFunctions.ks
+@call storage=KLayers.ks
 
 @iscript
 kag.lockSnapshot = function() {

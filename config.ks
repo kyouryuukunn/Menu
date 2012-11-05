@@ -84,68 +84,73 @@ kag.fore.base.cursorY = kag.scHeight/2;
 @position opacity=0 marginb=0 marginl=0 marginr=0 margint=0 left=0 top=0 width=&kag.scWidth height=&kag.scHeight visible=true
 ; ◆スライダー設定
 @iscript
+//関数の設定
+function config_bgmslider(hval,vval,drag){
+	kag.tagHandlers.bgmopt(%['gvolume' => hval*100]);
+	sf.bgmvolume = kag.bgm.buf1.volume2;
+};
+function config_seslider(hval,vval,drag){
+	for(var i=0;i<kag.numSEBuffers;i++)
+		kag.se[i].setOptions(%['gvolume' => hval*100 ]);
+	sf.sevolume = kag.se[0].volume2;
+};
+function config_chspeed(hval,vval,drag){ 
+	kag.userChSpeed=( 100 - hval*100 );
+};
+function config_autospeed(hval,vval,drag){
+	// オート速度
+	kag.autoModePageWait = 2000 -  hval * 2000;
+	kag.autoModeLineWait = 1000 -  hval * 1000;
+};
+function config_messageopacity(hval,vval,drag){
+	sf.messageopacity = (hval * 255);
+};
 tf.slider = new Array();
 for (var i=0; i < 5; i++){
-	tf.slider[i] = new SliderLayer(kag, kag.fore.layers[kag.numCharacterLayers - 1]);
+	tf.slider[i] = new KSliderLayer(kag, kag.fore.layers[kag.numCharacterLayers - 1]);
 	with(tf.slider[i]){
-		.width = 200;
-		.height = 12;
-		.min = 0;
-		.max = 100;
-		//.baseImage = 'base_white';
-		//.baseImage = 'thumb_gray';
-		.visible = true;
+		.setOptions(%['graphic' => 'slider_base', 'tabgraphic' => 'slider_tab']);
 	}
 }
 // ◇スライダー0の設定 - (BGM音量調整)
 with(tf.slider[0]){
 	.left = 190;
 	.top = 305;
-	.position = (int)(kag.bgm.buf1.volume2 / 1000);
-	.onChange = function(pos){
-		kag.tagHandlers.bgmopt(%['gvolume' => pos]);
-		sf.bgmvolume = kag.bgm.buf1.volume2;
-	};
+	.hval = kag.bgm.buf1.volume2 / 100000;
+	.updateState();
+	.onchangefunc = 'config_bgmslider';
 }
 // ◇スライダー1の設定 - (SE音量調整)
 with(tf.slider[1]){
 	.left = 190;
 	.top = 345;
-	.position = (int)(kag.se[0].volume2 / 1000);
-	.onChange = function(pos){
-		for(var i=0;i<kag.numSEBuffers;i++)
-			kag.se[i].setOptions(%['gvolume' => pos ]);
-		sf.sevolume = kag.se[0].volume2;
-	};
+	.hval = kag.se[0].volume2 / 100000;
+	.updateState();
+	.onchangefunc = 'config_seslider';
 }
 // ◇スライダー2の設定 - (文字速度)
 with(tf.slider[2]){
 	.left = 450;
 	.top = 70;
-	.position = (int)(100 - kag.chSpeed);
-	.onChange = function(pos){
-		kag.userChSpeed=( 100 - pos );
-	};
+	.hval = (100 - kag.chSpeed)/100;
+	.updateState();
+	.onchangefunc = 'config_chspeed';
 }
 // ◇スライダー3の設定 - (オートモード速度)
 with(tf.slider[3]){
 	.left = 450;
 	.top = 100;
-	.position = (int)(2000 - kag.autoModePageWait)/20;
-	.onChange = function(pos){
-		// オート速度
-		kag.autoModePageWait = 2000 -  pos * 20;
-		kag.autoModeLineWait = 1000 -  pos * 10;
-	};
+	.hval = (2000 - kag.autoModePageWait)/2000;
+	.updateState();
+	.onchangefunc = 'config_autospeed';
 }
 // ◇スライダー4の設定 - (透明度)
 with(tf.slider[4]){
 	.left = 450;
 	.top = 130;
-	.position = (int)(sf.messageopacity / 2.55);
-	.onChange = function(pos){
-		sf.messageopacity = (int)(pos * 2.55);
-	};
+	.hval = sf.messageopacity / 255;
+	.updateState();
+	.onchangefunc = 'config_messageopacity';
 }
 @endscript
 
