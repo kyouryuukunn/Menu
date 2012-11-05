@@ -141,6 +141,7 @@ class MoveMenuPlugin extends KAGPlugin
 
 	var menuon = false; //メニューを表示するかどうか
 	var position = 'top';	    //メニューの位置 (right or top)	
+	var move_menuon = 0; //マウスンンメニューの有効無効
 	
 	var forelayer = new Layer(kag, kag.fore.base); //表画面のボタンの親レイヤ
 	var backlayer = new Layer(kag, kag.back.base); //裏画面のボタンの親レイヤ
@@ -207,7 +208,7 @@ class MoveMenuPlugin extends KAGPlugin
 		}else if (!kag.canStore()){
 			kag.tagHandlers.rclick(%['enabled' => false]);
 		}
-		move_menuon = sf.menu_mode == 0 && kag.canStore() ? 1 : 0;
+		.move_menuon = sf.menu_mode == 0 && kag.canStore() ? 1 : 0;
 		if (kag.canStore() && sf.menu_mode == 2) exsystembutton_object.setOptions(%['forevisible'=>true, 'backvisible'=>true]);
 		if (sf.menu_mode != 2) exsystembutton_object.setOptions(%['forevisible'=>false, 'backvisible'=>false]);
 		if (tempelm === void) {

@@ -25,7 +25,6 @@ var chose_novel = 1;	//選択肢ありか, 前の選択肢に戻るを表示
 var in_scene_mode_button_mark = 0; //回想モード
 var message_base = 'message'; //メッセージレイヤと同じ大きさの
 			     //黒い画像
-var move_menuon = 0;
 
 
 kag.bgm.buf1.volume2 = sf.bgmvolume;
@@ -93,7 +92,7 @@ kag.lockSnapshot = function() {
 kag.onMouseMove=function(x, y, shift){
 	with(MoveMenu_object)
 	{
-		if (move_menuon && sf.menu_mode == 0)
+		if (.move_menuon && sf.menu_mode == 0)
 		{
 			if (kag.fore.messages[0].visible == true && kag.historyLayer.visible == false && kag.inStable)
 			{
@@ -146,7 +145,7 @@ kag.onMouseMove=function(x, y, shift){
 ; 状況に合わせてメニュー設定
 @macro name=set_menu
 @set_rclick
-@eval exp="move_menuon = sf.menu_mode == 0 && kag.canStore() ? 1 : 0"
+@eval exp="MoveMenu_object.move_menuon = sf.menu_mode == 0 && kag.canStore() ? 1 : 0"
 @exsysbtopt forevisible=true backvisible=true cond="sf.menu_mode == 2 && kag.canStore()"
 @exsysbtopt forevisible=false backvisible=false cond="sf.menu_mode != 2 || !kag.canStore()"
 @endmacro
@@ -154,7 +153,7 @@ kag.onMouseMove=function(x, y, shift){
 ; メニュー無効化する
 @macro name=unset_menu
 @rclick enabled=false
-@eval exp="move_menuon = 0"
+@eval exp="MoveMenu_object.move_menuon = 0"
 @exsysbtopt forevisible=false backvisible=false
 @endmacro
 
