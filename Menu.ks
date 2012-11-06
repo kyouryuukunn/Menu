@@ -12,7 +12,9 @@ if (sf.startconfig === void)
 	sf.autocontinue = 1; //選択肢後もオートモードを続ける
 	sf.skipcontinue = 1; //選択肢後もスキップモードを続ける
 	sf.sceneskip = 1; //シーン毎のスキップをする
-	sf.menu_mode = 0; //右クリックメニューを使用するかマウスオンメニューを使用する
+	sf.menu_mode = 0; //0:マウスオンメニューを使用する
+			  //1:右クリックメニューを使用する
+			  //2:システムボタンを使用する
 	sf.messageopacity = 128; //メッセージ枠の透明度
 	
 	sf.bgmvolume = kag.bgm.buf1.volume2;
