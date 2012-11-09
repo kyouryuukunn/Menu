@@ -310,11 +310,11 @@ class ExSystemButtonPlugin extends KAGPlugin
 	{
 		if (sf.menu_mode == 1)
 		{
-			kag.process('load.ks', '*qload');
+			kag.process('Menu.ks', '*qload');
 		}
 		else
 		{
-			kag.callExtraConductor('load.ks','*qload');
+			kag.callExtraConductor('Menu.ks','*qload');
 			MoveMenu_object.setOptions(%['forevisible'=>'false','backvisible'=>'false']);
 		}
 	}

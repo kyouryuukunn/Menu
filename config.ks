@@ -2,20 +2,22 @@
 
 ; 右クリックでコンフィグ画面を閉じられるように右クリックの設定を変更します
 @rclick jump=true storage="config.ks" target=*back enabled=true
+; 戻るために現在のメニューの設定を保存
 @eval exp="tf.pre_menu_mode = sf.menu_mode"
 ; 現在の状態をメモリ上の栞に保存しておきます
 @tempsave place=0
 
 @iscript
-// システムボタンを使っていて、メッセージレイヤが表示されている時は onMessageHiddenStateChanged を呼び出します
+// システムボタンを使っているなる消去
 if(typeof(global.exsystembutton_object) != "undefined" && kag.fore.messages[0].visible)
 	exsystembutton_object.onMessageHiddenStateChanged(true);
-var i;
-var elm = %["visible" => false];
+//SetMessageOpacityを使っているなら消去
+if (typeof(global.SetMessageOpacity_object) != 'undefined' && kag.fore.messages[0].visible)
+	SetMessageOpacity_object.onMessageHiddenStateChanged(true);
 // 全てのメッセージレイヤを非表示にします
-for(i=0;i<kag.numMessageLayers;i++)
-	kag.fore.messages[i].setOptions(elm);
-
+for(var i=0;i<kag.numMessageLayers;i++)
+	kag.fore.messages[i].setOptions(%["visible" => false]);
+//マウスを中心に移動
 kag.fore.base.cursorX = kag.scWidth/2;
 kag.fore.base.cursorY = kag.scHeight/2;
 @endscript
@@ -104,6 +106,8 @@ function config_autospeed(hval,vval,drag){
 };
 function config_messageopacity(hval,vval,drag){
 	sf.messageopacity = (hval * 255);
+	SetMessageOpacity_object.foreLay.opacity = sf.messageopacity;
+	SetMessageOpacity_object.backLay.opacity = sf.messageopacity;
 };
 tf.slider = new Array();
 for (var i=0; i < 5; i++){
@@ -353,14 +357,13 @@ with(tf.slider[4]){
 @history output=true enabled=true cond="kag.canStore()"
 ; メッセージ表示速度の設定を反映します
 @delay speed=user cond="kag.chUserMode"
-; メッセージレイヤの濃度
-@set_messageopacity
-
 
 @iscript
 // システムボタンを使っていて、コンフィグ画面を表示する前にメッセージレイヤが表示されていた時は onMessageHiddenStateChanged を呼び出します
 if(typeof(global.exsystembutton_object) != "undefined" && kag.fore.messages[0].visible)
 	exsystembutton_object.onMessageHiddenStateChanged(false);
+if (typeof(global.SetMessageOpacity_object) != 'undefined')
+	SetMessageOpacity_object.onMessageHiddenStateChanged(false);
 @endscript
 
 ; 右クリックをデフォルトの動作（メッセージウィンドウ消去）に戻します

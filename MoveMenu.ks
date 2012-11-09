@@ -12,6 +12,9 @@
 
 // 右クリックから変な方法で戻るので要改良
 //回想モードが反映されない無理矢理反映(なぜか、enabledがtrueになる)
+//enabledを使うとマウスがデフォルトに戻ってしまう
+//hitThreshold = 256;
+//joinFocusChain = false;
 
 
 class SystemButtonLayer extends ButtonLayer
@@ -152,11 +155,7 @@ class MoveMenuPlugin extends KAGPlugin
 		.visible = false;
 		.absolute = 2000000-3; // 重ね合わせ順序はメッセージ履歴よりも奥
 		//右クリックから戻るため
-		.onMouseUp = function (x, y, button, shift)
-		{
-			if(button == mbRight && sf.menu_mode == 1)
-				kag.process('Menu.ks', '*rclick_return');
-		};
+		.onMouseDown = kag.fore.base.onMouseDown;
         }
 	 with(backlayer)
         {
@@ -164,11 +163,8 @@ class MoveMenuPlugin extends KAGPlugin
 		.setPos(0, 0);
 		.visible = false;
 		.absolute = 2000000-3; // 重ね合わせ順序はメッセージ履歴よりも奥
-		.onMouseUp = function (x, y, button, shift) //右クリックから戻るため
-		{
-			if(button == mbRight && sf.menu_mode == 1)
-				kag.process('Menu.ks', '*rclick_return');
-		};
+		//右クリックから戻るため
+		.onMouseDown = kag.back.base.onMouseDown;
         }
 
 	function MoveMenuPlugin()
@@ -211,9 +207,6 @@ class MoveMenuPlugin extends KAGPlugin
 		move_menuon = sf.menu_mode == 0 && kag.canStore() ? 1 : 0;
 		if (kag.canStore() && sf.menu_mode == 2) exsystembutton_object.setOptions(%['forevisible'=>true, 'backvisible'=>true]);
 		if (sf.menu_mode != 2) exsystembutton_object.setOptions(%['forevisible'=>false, 'backvisible'=>false]);
-		if (tempelm === void) {
-			kag.fore.layers[0].opacity = kag.back.layers[0].opacity = sf.messageopacity;
-		}
 	}
 	function setObjProp(array, member, value)
 	{
