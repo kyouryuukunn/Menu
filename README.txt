@@ -19,8 +19,9 @@ https://skydrive.live.com/#cid=8F8EF4D2142F33D4&id=8F8EF4D2142F33D4!257
 ボタンを無効化できるが、そのためボタンは無効化のときを含めて
 ひとつの画像に4つの絵が必要
 exsystembutton.ksで通常のシステムボタン、MoveMenu.ksでマウスオン
-ボタン、右クリックボタンを作っている。ボタンを増やすときは
-onStableStateChangedに注意
+ボタン、右クリックボタンを作っている。
+現在どちらも同じボタン画像をしようしているが、適宜改造してくれ。
+ボタンを増やすときはonStableStateChangedに注意
 
 
 使っている変数
@@ -37,16 +38,14 @@ sf.menu_mode = 0; //使用メニューを選ぶ
 global.chose_novel = 1;	//選択肢ありか(前の選択肢に戻るを表示するかどうか)
 global.message_base = 'message'; //メッセージレイヤと同じ大きさの黒い画像
 global.in_scene_mode_button = 0; //回想モードでいくつかのボタンを無効化する
-global.move_menuon = 0; //マウスオンメニューのオン、オフ
+global.config
+global.MoveMenu_object
+global.exsystembutton_object
 
 
 セーブ、ロードの設定はSave_mode.txtを参照
-first.ksで
-@call storage=Menu.ks
-と呼び出す
 
 設定
-Config.tjsでthumbnailをtrueにする
 AfterInit.tjsに次の設定をする(なければ作る)
 kag.tagHandlers.s = function(elm)
 {
@@ -130,33 +129,54 @@ kag.restoreFromRightClick = function ()
 	//追加部分↑
 } incontextof kag;
 
-次にMenu.ksの6行目からのつぎの設定のデフォルト値を設定する
-sf.saveAsk = 1; //セーブ上書き時に確認する
-sf.loadAsk = 1; //ロード時に確認する
-sf.qloadAsk = 1; //クイックロード時に確認する
-sf.returnAsk = 1; //前に戻るで確認する
-sf.titleAsk = 1; //タイトルに戻るで確認する
-sf.exitAsk = 1; //終了時に確認する
-sf.autocontinue = 1; //選択肢後もオートモードを続ける
-sf.skipcontinue = 1; //選択肢後もスキップモードを続ける
-sf.sceneskip = 1; //シーン毎のスキップをする(scene.ksがないなら無意味)
-sf.menu_mode = 0; //使用メニューを選ぶ 
-	0:マウスオンメニュー 1:右クリックメニュー 2:通常のシステムボタン
-sf.messageopacity = 128; //メッセージ枠の透明度
-使わない設定は、デフォルト値を決めた後、config_bg.pngとconfig_bg_p.png
-から該当部分を削除すればよい 
-サンプルの画面はださいのでconfig_bg.pngとconfig_bg_p.png,
-config.ksの30～90行目を書きかえて自分好みに改造してくれ
-config_bg.pngの透明部分は、直前のゲーム画面を表示する
+次にMenu.ksの2,3行目のつぎの設定のデフォルト値を設定する
+var chose_novel = 1;	//選択肢ありか, 前の選択肢に戻るを表示
+var in_scene_mode_button_mark = 0; //回想モード
 
-24行目からも設定する
-var chose_novel = 1;	//選択肢ありか(前の選択肢に戻るを表示するかどうか)
-var message_base = 'message'; //メッセージレイヤと同じ大きさの
-			     //黒い画像
-			     
-メッセージレイヤの濃度を変えるのに前景レイヤー0に
-黒い画像をいれているので、前景レイヤー0は使ってはいけない
-また、MoveMenu.ksの143行目のpositionを変えればメニューの
+config_init.ksのつぎの設定のデフォルト値を設定する
+	sf.saveAsk = 1; //セーブ上書き時に確認する
+	sf.loadAsk = 1; //ロード時に確認する
+	sf.qsaveAsk = 0; //クイックセーブ時に確認する
+	sf.qloadAsk = 1; //クイックロード時に確認する
+	sf.returnAsk = 1; //前に戻るで確認する
+	sf.titleAsk = 1; //タイトルに戻るで確認する
+	sf.exitAsk = 1; //終了時に確認する
+	sf.autocontinue = 1; //選択肢後もオートモードを続ける
+	sf.skipcontinue = 1; //選択肢後もスキップモードを続ける
+	sf.sceneskip = 1; //シーン毎のスキップをする
+	sf.menu_mode = 0; //0:マウスオンメニューを使用する
+			  //1:右クリックメニューを使用する
+			  //2:システムボタンを使用する
+	sf.messageopacity = 128; //メッセージ枠の透明度
+
+また、次の変数でコンフィグ画面のレイアウトを変更する
+config.back = 'config_bg'; // 背景(透明部分には直前のゲーム画面を表示)
+config.slider_base = 'slider_base'; // スライダーの背景
+config.slider_tab = 'slider_tab';   // スライダーのつまみ(ボタンと同じ構成)
+config.windowmode=	[340, 525]; // #0: フルスクリーンに表示するチェック画像の座標
+config.titleAsk=	[680, 435]; // #1: titleに表示するチェック画像の座標
+config.exitAsk=		[680, 475]; // #2: exitに表示するチェック画像の座標
+config.qloadAsk=	[420, 435]; // #3: qloadに表示するチェック画像の座標
+config.returnAsk=	[420, 475]; // #4: returnに表示するチェック画像の座標
+config.saveAsk=		[140, 435]; // #5: saveに表示するチェック画像の座標
+config.loadAsk=		[140, 475]; // #6: loadに表示するチェック画像の座標
+config.pagebreak=	[740, 165]; // #7:「ページ末まで一度に表示」に表示するチェック画像の座標
+config.sceneskip=	[740, 205]; // #8: sceneskipに表示するチェック画像の座標
+config.autocontinue=	[390, 165]; // #9: autocontinueに表示するチェック画像の座標
+config.skipcontinue=	[390, 200]; // #10: skipcontinueに表示するチェック画像の座標
+config.menu0= 		[570, 305]; // #11: menu0に表示するチェック画像の座標
+config.menu1= 		[570, 355]; // #14: menu1に表示するチェック画像の座標
+config.menu2= 		[750, 305]; // #15: menu2に表示するチェック画像の座標
+config.slider0 = [190, 305]; // ◇スライダー0の座標 - (BGM音量調整)
+config.slider1 = [190, 345]; // ◇スライダー1の座標 - (SE音量調整)
+config.slider2 = [450, 70];  // ◇スライダー2の座標 - (文字速度)
+config.slider3 = [450, 100]; // ◇スライダー3の座標 - (オートモード速度)
+config.slider4 = [450, 130]; // ◇スライダー4の座標 - (透明度)
+config.basegraphic = '';	//トグルボタンの下レイヤ画像を指定(詳しくはKLayers.txtのKToggleButtonLayerを参照)
+config.graphic = '';		//トグルボタンの上レイヤ画像を指定(詳しくはKLayers.txtのKToggleButtonLayerを参照)
+使わない設定は、デフォルト値を決めた後、該当部分を画面外にでもやってくれ
+
+また、MoveMenu.ksの146行目のpositionを変えればメニューの
 位置を上端と右端から選べる
 	var position = 'top';	    //メニューの位置 (right or top)	
 exsystembutton.ksの240行目からの変数を設定すれば、通常ボタン
@@ -166,13 +186,17 @@ y = kag.fore.messages[0].top + kag.fore.messages[0].height - 30; // 初期 y 位置
 x_width = 70;  //ボタン間の幅
 y_height = 0;  //ボタン間の高さ
 
-また、config.ks,load_mode.ksはタイトル画面であたまから
+
+後はfirst.ksで次のように呼び出す
+@call storage=Menu.ks
+
+config.ks,load_mode.ksはタイトル画面であたまから
 サブルーチンとして呼び出しても使用可能、セーブ可能かどうか
 でタイトル画面かを判断しているのでちゃんとdisablestoreを
 使うこと
 
 
-使えるタグ
+使えるタグ------------------------------------------------------------------ 
 
 set_menu
 sf.menu_modeにあわせて右クリック、メニュー表示を
@@ -183,13 +207,6 @@ sf.menu_modeにあわせて右クリック、メニュー表示を
 unset_menu
 右クリックを無効し、メニュー表示を非表示にする
 タイトル画面など、本編から戻る場所に置くこと
-
-laycount2
-laycountを使ってはならないlaycount2を使う
-
-set_messageopacity
-メッセージレイヤの透明度を設定し、表示する
-
 
 in_scene_mode_button        
 回想モード用にボタンをセーブ、ロード、前の選択肢に戻るを無効化する

@@ -67,6 +67,8 @@ save.change_y=0; //y座標
 save.change_font = %['italic' => true]; //フォント
 save.maxpage = 3; //ページ数
 
+Config.tjsでthumbnailをtrueにする
+
 後はfirst.ksあたりで
 @call storage=save_mode_init.ks
 をして、save_mode.ks, load_mode.ksをあたまから呼び出せばいい
