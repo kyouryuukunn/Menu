@@ -22,7 +22,8 @@ exsystembutton.ksで通常のシステムボタン、MoveMenu.ksでマウスオン
 ボタン、右クリックボタンを作っている。
 現在どちらも同じボタン画像をしようしているが、適宜改造してくれ。
 ボタンを増やすときはonStableStateChangedに注意
-
+コンフィグ画面のシーン毎のスキップと、メッセージレイヤの透明度の
+設定はscene.ks, SetMessageOpacityがないと無意味
 
 使っている変数
 sf.saveAsk = 1; //セーブ上書き時に確認する
@@ -153,28 +154,51 @@ config_init.ksのつぎの設定のデフォルト値を設定する
 config.back = 'config_bg'; // 背景(透明部分には直前のゲーム画面を表示)
 config.slider_base = 'slider_base'; // スライダーの背景
 config.slider_tab = 'slider_tab';   // スライダーのつまみ(ボタンと同じ構成)
+config.basegraphic = 'basegraphic';	//トグルボタンの下レイヤ画像を指定(詳しくはKLayers.txtのKToggleButtonLayerを参照)
+config.graphic = 'graphic';		//トグルボタンの上レイヤ画像を指定(詳しくはKLayers.txtのKToggleButtonLayerを参照)
+
+
+//各ボタン、スライダーを表示するか
+config.windowmodeon	=	1; // #0: フルスクリーンを表示するか
+config.titleAskon	=	1; // #1: タイトルに戻るを確認するかを表示するか
+config.exitAskon	=	1; // #2: ゲーム終了を確認するかを表示するか
+config.qloadAskon	=	1; // #3: クイックロード時に確認するかを表示するか
+config.returnAskon	=	1; // #4: 前の選択肢に戻るで確認するかを表示するか
+config.saveAskon	=	1; // #5: セーブ上書き時に確認するかを表示するか
+config.loadAskon	=	1; // #6: ロード時に確認するかを表示するか
+config.pagebreakon	=	1; // #7:「ページ末まで一度に表示」を表示するか
+config.sceneskipon	=	1; // #8: シーン毎のスキップをするかを表示するか
+config.autocontinueon	=	1; // #9: 選択肢後もオートモードを継続するかを表示するか
+config.skipcontinueon	=	1; // #10: 選択肢後もスキップモードを継続するかを表示するか
+config.menu0on		=	1; // #11: マウスオンメニューを使用するを表示するか
+config.menu1on		=	1; // #14: 右クリックメニューを使用するを表示するか
+config.menu2on		=	1; // #15: システムメニューを使用するを表示するか
+config.slider0_on 	=	1; // ◇スライダー0を表示するか - (BGM音量調整)
+config.slider1_on 	=	1; // ◇スライダー1を表示するか - (SE音量調整)
+config.slider2_on 	=	1; // ◇スライダー2を表示するか - (文字速度)
+config.slider3_on 	=	1; // ◇スライダー3を表示するか - (オートモード速度)
+config.slider4_on 	=	1; // ◇スライダー4を表示するか - (透明度)
+
 config.windowmode=	[340, 525]; // #0: フルスクリーンに表示するチェック画像の座標
-config.titleAsk=	[680, 435]; // #1: titleに表示するチェック画像の座標
-config.exitAsk=		[680, 475]; // #2: exitに表示するチェック画像の座標
-config.qloadAsk=	[420, 435]; // #3: qloadに表示するチェック画像の座標
-config.returnAsk=	[420, 475]; // #4: returnに表示するチェック画像の座標
-config.saveAsk=		[140, 435]; // #5: saveに表示するチェック画像の座標
-config.loadAsk=		[140, 475]; // #6: loadに表示するチェック画像の座標
+config.titleAsk=	[680, 435]; // #1: タイトルに戻るを確認するかに表示するチェック画像の座標
+config.exitAsk=		[680, 475]; // #2: ゲーム終了を確認するかに表示するチェック画像の座標
+config.qloadAsk=	[420, 435]; // #3: クイックロード時に確認するかに表示するチェック画像の座標
+config.returnAsk=	[420, 475]; // #4: 前の選択肢に戻るで確認するかに表示するチェック画像の座標
+config.saveAsk=		[140, 435]; // #5: セーブ上書き時に確認するかに表示するチェック画像の座標
+config.loadAsk=		[140, 475]; // #6: ロード時に確認するかに表示するチェック画像の座標
 config.pagebreak=	[740, 165]; // #7:「ページ末まで一度に表示」に表示するチェック画像の座標
-config.sceneskip=	[740, 205]; // #8: sceneskipに表示するチェック画像の座標
-config.autocontinue=	[390, 165]; // #9: autocontinueに表示するチェック画像の座標
-config.skipcontinue=	[390, 200]; // #10: skipcontinueに表示するチェック画像の座標
-config.menu0= 		[570, 305]; // #11: menu0に表示するチェック画像の座標
-config.menu1= 		[570, 355]; // #14: menu1に表示するチェック画像の座標
-config.menu2= 		[750, 305]; // #15: menu2に表示するチェック画像の座標
-config.slider0 = [190, 305]; // ◇スライダー0の座標 - (BGM音量調整)
-config.slider1 = [190, 345]; // ◇スライダー1の座標 - (SE音量調整)
-config.slider2 = [450, 70];  // ◇スライダー2の座標 - (文字速度)
-config.slider3 = [450, 100]; // ◇スライダー3の座標 - (オートモード速度)
-config.slider4 = [450, 130]; // ◇スライダー4の座標 - (透明度)
-config.basegraphic = '';	//トグルボタンの下レイヤ画像を指定(詳しくはKLayers.txtのKToggleButtonLayerを参照)
-config.graphic = '';		//トグルボタンの上レイヤ画像を指定(詳しくはKLayers.txtのKToggleButtonLayerを参照)
-使わない設定は、デフォルト値を決めた後、該当部分を画面外にでもやってくれ
+config.sceneskip=	[740, 205]; // #8: シーン毎のスキップをするかに表示するチェック画像の座標
+config.autocontinue=	[390, 165]; // #9: 選択肢後もオートモードを継続するかに表示するチェック画像の座標
+config.skipcontinue=	[390, 200]; // #10: 選択肢後もスキップモードを継続するかに表示するチェック画像の座標
+config.menu0= 		[570, 305]; // #11: マウスオンメニューを使用するに表示するチェック画像の座標
+config.menu1= 		[570, 355]; // #14: 右クリックメニューを使用するに表示するチェック画像の座標
+config.menu2= 		[750, 305]; // #15: システムメニューを使用するに表示するチェック画像の座標
+config.slider0=		[190, 305]; // ◇スライダー0の座標 - (BGM音量調整)
+config.slider1=		[190, 345]; // ◇スライダー1の座標 - (SE音量調整)
+config.slider2=		[450, 70];  // ◇スライダー2の座標 - (文字速度)
+config.slider3=		[450, 100]; // ◇スライダー3の座標 - (オートモード速度)
+config.slider4=		[450, 130]; // ◇スライダー4の座標 - (透明度)
+使わない設定は、デフォルト値を決めた後、該当部分を非表示にしてくれ
 
 また、MoveMenu.ksの146行目のpositionを変えればメニューの
 位置を上端と右端から選べる
