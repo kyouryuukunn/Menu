@@ -5,6 +5,7 @@ if (sf.startconfig === void)
 	//設定の初期化
 	sf.saveAsk = 1; //セーブ上書き時に確認する
 	sf.loadAsk = 1; //ロード時に確認する
+	sf.qsaveAsk = 0; //クイックセーブ時に確認する
 	sf.qloadAsk = 1; //クイックロード時に確認する
 	sf.returnAsk = 1; //前に戻るで確認する
 	sf.titleAsk = 1; //タイトルに戻るで確認する
@@ -25,14 +26,13 @@ if (sf.startconfig === void)
 kag.askOnClose=false;
 var chose_novel = 1;	//選択肢ありか, 前の選択肢に戻るを表示
 var in_scene_mode_button_mark = 0; //回想モード
-var message_base = 'message'; //メッセージレイヤと同じ大きさの
-			     //黒い画像
 
 
 kag.bgm.buf1.volume2 = sf.bgmvolume;
 kag.se[0].volume2 = sf.sevolume;
 @endscript
 
+@call storage=SetMessageOpacity.ks
 @call storage=save_mode_init.ks
 @call storage=exsystembutton.ks
 @call storage=MoveMenu.ks
@@ -40,6 +40,29 @@ kag.se[0].volume2 = sf.sevolume;
 @call storage=KLayers.ks
 
 @iscript
+//exsystembutton_objectとMoveMenu_objectをくっつけるプラグイン
+class MenuPlugin extends KAGPlugin{
+	//2つの後に呼ばれないとまずいんだが、登録順に呼ばれるのか？
+	function onRestore(elm, clear, tempelm){
+		//状況に合わせて右クリックを設定
+		if  ( kag.canStore() && (sf.menu_mode == 0 || sf.menu_mode == 2) ){
+		//マウスオンまたはシステムメニューが有効なら、右クリックで背景を表示
+			kag.tagHandlers.rclick(%['enabled' => true, 'call' => false, 'jump' => false]);
+		}else if (kag.canStore() && sf.menu_mode == 1){
+		//右クリックメニューが有効なら、右クリックでメニュー表示
+			kag.tagHandlers.rclick(%['enabled' => true, 'call' => true, 'jump' => false, 'storage' => 'Menu.ks', 'target' => '*rclick']);
+		}else if (!kag.canStore()){
+		//セーブ不可ならタイトルと判断して右クリック禁止
+			kag.tagHandlers.rclick(%['enabled' => false]);
+		}
+		//マウスオンメニューを設定
+		MoveMenu_object.move_menuon = sf.menu_mode == 0 && kag.canStore() ? 1 : 0;
+		//システムメニューを設定
+		if (kag.canStore() && sf.menu_mode == 2) exsystembutton_object.setOptions(%['forevisible'=>true, 'backvisible'=>true]);
+		if (sf.menu_mode != 2) exsystembutton_object.setOptions(%['forevisible'=>false, 'backvisible'=>false]);
+	}
+}
+kag.addPlugin(global.Menu_object = new MenuPlugin());
 kag.lockSnapshot = function() {
 	// スナップショットをロックする
 	// 初めてスナップショットがロックされた時点での画面を保存する
@@ -55,38 +78,27 @@ kag.lockSnapshot = function() {
 		//スナップショットに表示させたくないレイヤーが表示されている場合、一時的に非表示にします。
 		MoveMenu_object.setObjProp(MoveMenu_object.foreButtons, 'visible', false);
 		exsystembutton_object.setObjProp(exsystembutton_object.foreButtons, 'visible', false);
+		SetMessageOpacity_object.foreLay.visible=false;
 		
 		var mes0 = false;
-		var lay0 = false;
 		
 		if (kag.fore.messages[0].visible)
 		{
 			mes0 = true;
 			kag.fore.messages[0].visible = false;
 		}
-		if (kag.fore.layers[0].visible) //レイヤ0にメッセージ枠を表示してるので
-		{
-			lay0 = true;
-			kag.fore.layers[0].visible = false;
-		}
 		//スナップショット作成
 		snapshotLayer.piledCopy(0, 0, kag.fore.base, 0, 0, scWidth, scHeight);
 		
-
-
-
 		//レイヤーの表示状態を元に戻します。
 		if (mes0)
 		{
 			kag.fore.messages[0].visible = true;
 		}
-		if (lay0)
-		{
-			kag.fore.layers[0].visible = true;
-		}
 		//foreSeenは、ボタンが本来表示中であったかどうかを記録している
 		MoveMenu_object.setObjProp(MoveMenu_object.foreButtons, 'visible', MoveMenu_object.foreSeen);
 		exsystembutton_object.setObjProp(exsystembutton_object.foreButtons, 'visible', exsystembutton_object.foreSeen);
+		SetMessageOpacity_object.setOptions(%[visible:SetMessageOpacity_object.foreSeen]);
 	}
 		snapshotLockCount ++;
 } incontextof kag;
@@ -123,10 +135,8 @@ kag.onMouseMove=function(x, y, shift){
 @position page=fore layer=message0 opacity=0
 @position page=back layer=message0 opacity=0
 ;メッセージ枠を設定
-@image layer=0 storage=&message_base page=fore opacity=&sf.messageopacity left=&kag.fore.messages[0].left top=&kag.fore.messages[0].top
-@image layer=0 storage=&message_base page=back opacity=&sf.messageopacity left=&kag.fore.messages[0].left top=&kag.fore.messages[0].top
-@layopt layer=0 page=fore autohide=true index=999999
-@layopt layer=0 page=back autohide=true index=999999
+@SetMessageOpacity page=fore visible=false opacity=&sf.messageopacity
+@SetMessageOpacity page=back visible=false opacity=&sf.messageopacity
 
 
 
@@ -176,33 +186,21 @@ kag.onMouseMove=function(x, y, shift){
 @eval exp="in_scene_mode_button_mark=0"
 @endmacro
 
-;メッセージレイヤの透明度を設定し、表示する
-@macro name=set_messageopacity
-@layopt layer=0 page=fore visible=true opacity=&sf.messageopacity cond="kag.canStore()"
-@layopt layer=0 page=back visible=true opacity=&sf.messageopacity cond="kag.canStore()"
-@endmacro
-; laycountの代用
-@macro name=laycount2
-@laycount *
-@layopt layer=0 page=fore autohide=true index=999999
-@layopt layer=0 page=back autohide=true index=999999
-@endmacro
-
 @return
 
-;右クリックサブルーチン
+;右クリックサブルーチン----------------------------------------------------- 
 *rclick
 @eval exp="kag.skipMode_rclick = false"
 @rclick enabled=true jump=true storage=Menu.ks target=*rclick_return
 @history enabled=false output=false
 @sysbtopt forevisible=true
-;@if exp="typeof(global.MoveMouseCursorPlugin_object) != 'undefined'"
-;	@MoveCursor time=100 x=750 y=10 cond="MoveMenu_object.position=='right'"
-;	@MoveCursor time=100 x=30  y=10 cond="MoveMenu_object.position=='top'"
-;@else
+@if exp="typeof(global.MoveMouseCursorPlugin_object) != 'undefined'"
+	@MoveCursor time=100 x=750 y=10 cond="MoveMenu_object.position=='right'"
+	@MoveCursor time=100 x=30  y=10 cond="MoveMenu_object.position=='top'"
+@else
 	@eval exp="kag.fore.base.cursorX=kag.scWidth - MoveMenu_object.foreButtons[0].width/2, kag.fore.base.cursorY=10" cond="MoveMenu_object.position=='right'"
 	@eval exp="kag.fore.base.cursorX=MoveMenu_object.foreButtons[0].width/2, kag.fore.base.cursorY=10" cond="MoveMenu_object.position=='top'"
-;@endif
+@endif
 @s
 
 *auto
@@ -239,24 +237,40 @@ kag.onMouseMove=function(x, y, shift){
 *hide
 @iscript
 	kag.fore.layers[0].visible=false;
-	var i;
-	var elm = %["visible" => false];
+	// システムボタンを使っていて、メッセージレイヤが表示されている時は onMessageHiddenStateChanged を呼び出します
+	if(typeof(global.exsystembutton_object) != "undefined")
+		exsystembutton_object.onMessageHiddenStateChanged(true);
+	if(typeof(global.MoveMenu_object) != "undefined")
+		MoveMenu_object.onMessageHiddenStateChanged(true);
+	if (typeof(global.SetMessageOpacity_object) != 'undefined')
+		SetMessageOpacity_object.onMessageHiddenStateChanged(true);
 	// 全てのメッセージレイヤを非表示にします
-	for(i=0;i<kag.numMessageLayers;i++)
-		kag.fore.messages[i].setOptions(elm);
-	MoveMenu_object.setOptions(%['forevisible'=>'false','backvisible'=>'false']);
+	for(var i=0;i<kag.numMessageLayers;i++)
+		kag.fore.messages[i].setOptions(%["visible" => false]);
 @endscript
 @l
 @iscript
 	kag.fore.messages[0].visible = true;
 	kag.fore.layers[0].visible=true;
-	MoveMenu_object.setOptions(%['forevisible'=>'true','backvisible'=>'true']);
+	if(typeof(global.exsystembutton_object) != "undefined" && sf.menu_mode == 2)
+		exsystembutton_object.onMessageHiddenStateChanged(false);
+	if (typeof(global.SetMessageOpacity_object) != 'undefined')
+		SetMessageOpacity_object.onMessageHiddenStateChanged(false);
 @endscript
+@myreturn
+
+*qsave
+@if exp="sf.qsaveAsk"
+	@if exp="!askYesNo('クイックロードしますか？')"
+		@myreturn
+	@endif
+@endif
+@save place=0
 @myreturn
 
 *qload
 @myreturn cond="kag.getBookMarkPageName(0) == '(未設定)'"
-@if exp="sf.qloadAsk==1"
+@if exp="sf.qloadAsk"
 	@if exp="!askYesNo('クイックロードしますか？')"
 		@myreturn
 	@endif

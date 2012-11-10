@@ -52,10 +52,12 @@ kag.tagHandlers.s = function(elm)
 {
 	// 実行停止
 	stablePosibility = true;
+	//追加部分↓
 	if (!sf.skipcontinue)
 		cancelSkip(); //スキップをキャンセルするのをやめます。
 	if (!sf.autocontinue)
 		cancelAutoMode();
+	//追加部分↑
 	if(!usingExtraConductor) incRecordLabel(true);
 	inSleep = true;
 	if(recordHistoryOfStore == 2) // 2 : 選択肢 ( @s タグ ) ごと
@@ -66,24 +68,31 @@ kag.tagHandlers.s = function(elm)
 kag.onCloseQuery = function ()
 {
 	saveSystemVariables();
+	//追加部分↓
 	//if(!askOnClose) { global.Window.onCloseQuery(true); return; }
 	if(!askOnClose && !sf.exitAsk) { global.Window.onCloseQuery(true); return; }
+	//追加部分↑
 	global.Window.onCloseQuery(askYesNo("終了しますか？"));
 } incontextof kag;
 kag.onHelpAboutMenuItemClick = function (sender)
 {
 	// 「このソフトについて」ウィンドウを表示
+	//追加部分↓
 	tf.exitAsktemp=sf.exitAsk;
 	sf.exitAsk=0;
+	//追加部分↑
 	var win = new global.KAGWindow(false, aboutWidth, aboutHeight);
 	win.setPos(left + ((width - win.width)>>1), top + ((height - win.height)>>1));
 	win.process('about.ks' ,,, true); // about.ks を immediate で表示
 	win.showModal(); // モード付きで表示
 	invalidate win;
+	//追加部分↓
 	sf.exitAsk=tf.exitAsktemp;
+	//追加部分↑
 } incontextof kag;
 kag.goToStartWithAsk = function ()
 {
+	//追加部分↓
 	// 最初に戻る(確認あり)
 	//var result = askYesNo("最初に戻ります。よろしいですか ?");
 	//if(result) goToStart();
@@ -95,6 +104,7 @@ kag.goToStartWithAsk = function ()
 	{
 		goToStart();
 	}
+	//追加部分↑
 } incontextof kag;
 kag.restoreFromRightClick = function ()
 {
@@ -106,8 +116,7 @@ kag.restoreFromRightClick = function ()
 		else
 			rightClickMenuItem.caption = rightClickCurrentMenuName = rightClickName;
 	}
-	// ここから下を追加
-	// 右クリック中でautoMode設定された場合に対応。 
+	//追加部分↓
 	if(autoMode) 
 	{
 		enterAutoMode(); 
@@ -118,6 +127,7 @@ kag.restoreFromRightClick = function ()
 	// 右クリック中でskipMode設定された場合に対応
 	if(skipMode_rclick)
 	skipToNextStopByKey();
+	//追加部分↑
 } incontextof kag;
 
 次にMenu.ksの6行目からのつぎの設定のデフォルト値を設定する

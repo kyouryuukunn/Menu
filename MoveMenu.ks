@@ -192,22 +192,56 @@ class MoveMenuPlugin extends KAGPlugin
 
 		super.finalize(...);
 	}
+	
+	function onStore(f, elm)
+	{
+		// 栞を保存するとき
+		var dic = f.MoveMenu = %[];
+			// f.MoveMenu に辞書配列を作成
+		dic.foreVisible = foreSeen;
+		dic.backVisible = backSeen;
+		dic.left = x;
+		dic.top = y;
+			// 各情報を辞書配列に記録
+	}
+	
 	//タイミング問題
 	function onRestore(elm, clear, tempelm){
+		// 栞を読み出すとき
+		var dic = f.MoveMenu;
+		if(dic === void)
+		{
+			// MoveMenu の情報が栞に保存されていない
+			setObjProp(foreButtons, 'visible', foreSeen = false);
+			setObjProp(backButtons, 'visible', backSeen = false);
+		}
+		else
+		{
+			// MoveMenu の情報が栞に保存されている
+			setOptions(%[ forevisible : dic.foreVisible, backvisible : dic.backVisible,
+				left : dic.left, top : dic.top]);
+				// オプションを設定
+		}
 		//状況に合わせて右クリックを設定
-		if  (kag.canStore() && sf.menu_mode == 0){
+		if  ( kag.canStore() && sf.menu_mode == 0 )
+		{
+		//マウスオンが有効なら、右クリックで背景を表示
 			kag.tagHandlers.rclick(%['enabled' => true, 'call' => false, 'jump' => false]);
-		}else if (kag.canStore() && sf.menu_mode == 2){
-			kag.tagHandlers.rclick(%['enabled' => true, 'call' => false, 'jump' => false]);
-		}else if (kag.canStore() && sf.menu_mode == 1){
+		}
+		else if (kag.canStore() && sf.menu_mode == 1)
+		{
+		//右クリックメニューが有効なら、右クリックでメニュー表示
 			kag.tagHandlers.rclick(%['enabled' => true, 'call' => true, 'jump' => false, 'storage' => 'Menu.ks', 'target' => '*rclick']);
-		}else if (!kag.canStore()){
+		}
+		else if (!kag.canStore())
+		{
+		//セーブ不可ならタイトルと判断して右クリック禁止
 			kag.tagHandlers.rclick(%['enabled' => false]);
 		}
-		move_menuon = sf.menu_mode == 0 && kag.canStore() ? 1 : 0;
-		if (kag.canStore() && sf.menu_mode == 2) exsystembutton_object.setOptions(%['forevisible'=>true, 'backvisible'=>true]);
-		if (sf.menu_mode != 2) exsystembutton_object.setOptions(%['forevisible'=>false, 'backvisible'=>false]);
+		//マウスオンメニューを設定
+		MoveMenu_object.move_menuon = sf.menu_mode == 0 && kag.canStore() ? 1 : 0;
 	}
+	
 	function setObjProp(array, member, value)
 	{
 		// array の各メンバのプロパティの設定
@@ -609,6 +643,69 @@ class MoveMenuPlugin extends KAGPlugin
 
 kag.addPlugin(global.MoveMenu_object = new MoveMenuPlugin());
 	// プラグインオブジェクトを作成し、登録する
+
+kag.lockSnapshot = function() {
+	// スナップショットをロックする
+	// 初めてスナップショットがロックされた時点での画面を保存する
+	if(snapshotLockCount == 0)
+	{
+		if(snapshotLayer === void)
+			snapshotLayer = new Layer(this, primaryLayer);
+		snapshotLayer.setImageSize(scWidth, scHeight);
+		snapshotLayer.face = dfAlpha;
+		
+
+
+		//スナップショットに表示させたくないレイヤーが表示されている場合、一時的に非表示にします。
+		MoveMenu_object.setObjProp(MoveMenu_object.foreButtons, 'visible', false);
+		
+		var mes0 = false;
+		
+		if (kag.fore.messages[0].visible)
+		{
+			mes0 = true;
+			kag.fore.messages[0].visible = false;
+		}
+		//スナップショット作成
+		snapshotLayer.piledCopy(0, 0, kag.fore.base, 0, 0, scWidth, scHeight);
+		
+		//レイヤーの表示状態を元に戻します。
+		if (mes0)
+		{
+			kag.fore.messages[0].visible = true;
+		}
+		//foreSeenは、ボタンが本来表示中であったかどうかを記録している
+		MoveMenu_object.setObjProp(MoveMenu_object.foreButtons, 'visible', MoveMenu_object.foreSeen);
+	}
+		snapshotLockCount ++;
+} incontextof kag;
+
+kag.onMouseMove=function(x, y, shift){
+	with(MoveMenu_object)
+	{
+		if (.move_menuon && sf.menu_mode == 0)
+		{
+			if (kag.fore.messages[0].visible == true && kag.historyLayer.visible == false && kag.inStable)
+			{
+				//マウスイベントで渡されるxとyの値はウィンドウモード時とフルスクリーンモード時で異なる
+				//fore.base.cursorXとfore.base.cursorYにはウィンドウモード時でもフルスクリーンモード時でも同じ値が入る
+				x = fore.base.cursorX, y = fore.base.cursorY;
+				
+				if ( 
+					( ( .position == 'right') && ( x >= kag.scWidth - .foreButtons[0].width) && ( x <= kag.scWidth - 10 ) && ( y <= .foreButtons[0].height*.foreButtons.count) ) || 
+					( ( .position == 'top' ) && (y <= .foreButtons[0].height) && (y >= 10) )
+				   )
+				{
+					.setOptions(%['forevisible'=>'true','backvisible'=>'true']);
+				}
+				else
+				{
+					.setOptions(%['forevisible'=>'false','backvisible'=>'false']);
+				}
+			}
+		}
+	}
+} incontextof kag;
 @endscript
 @endif
 

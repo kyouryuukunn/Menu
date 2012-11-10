@@ -362,7 +362,7 @@ with(tf.slider[4]){
 // システムボタンを使っていて、コンフィグ画面を表示する前にメッセージレイヤが表示されていた時は onMessageHiddenStateChanged を呼び出します
 if(typeof(global.exsystembutton_object) != "undefined" && kag.fore.messages[0].visible)
 	exsystembutton_object.onMessageHiddenStateChanged(false);
-if (typeof(global.SetMessageOpacity_object) != 'undefined')
+if (typeof(global.SetMessageOpacity_object) != 'undefined' && kag.fore.messages[0].visible)
 	SetMessageOpacity_object.onMessageHiddenStateChanged(false);
 @endscript
 
