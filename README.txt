@@ -106,17 +106,10 @@ kag.goToStartWithAsk = function ()
 	}
 	//追加部分↑
 } incontextof kag;
+var restoreFromRightClick_org = kag.restoreFromRightClick;
 kag.restoreFromRightClick = function ()
 {
-	// 右クリックサブルーチンから抜けるときに呼ばれる
-	if(typeof this.rightClickMenuItem != "undefined")
-	{
-		if(rightClickName == "default")
-			rightClickMenuItem.caption = rightClickCurrentMenuName = rightClickDefaultName;
-		else
-			rightClickMenuItem.caption = rightClickCurrentMenuName = rightClickName;
-	}
-	//追加部分↓
+	restoreFromRightClick_org();
 	if(autoMode) 
 	{
 		enterAutoMode(); 
@@ -127,7 +120,6 @@ kag.restoreFromRightClick = function ()
 	// 右クリック中でskipMode設定された場合に対応
 	if(skipMode_rclick)
 	skipToNextStopByKey();
-	//追加部分↑
 } incontextof kag;
 
 次にMenu.ksの2,3行目のつぎの設定のデフォルト値を設定する

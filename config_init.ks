@@ -79,6 +79,9 @@ config.slider1=		[190, 345]; // ◇スライダー1の座標 - (SE音量調整)
 config.slider2=		[450, 70];  // ◇スライダー2の座標 - (文字速度)
 config.slider3=		[450, 100]; // ◇スライダー3の座標 - (オートモード速度)
 config.slider4=		[450, 130]; // ◇スライダー4の座標 - (透明度)
+config.close_button = 'config_close'; //閉じるボタン
+config.close_x = kag.scWidth - 100;   //閉じるボタンのx座標
+config.close_y = kag.scHeight - 100;  //閉じるボタンのy座標
 
 //スライダー設定の関数設定
 config.bgmslider = function (hval,vval,drag){

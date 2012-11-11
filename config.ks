@@ -24,8 +24,9 @@ kag.fore.base.cursorY = kag.scHeight/2;
 
 
 ; レイヤを必要な数確保します
-@laycount layers="&kag.numCharacterLayers + 1"
+@laycount layers="&kag.numCharacterLayers + 1" messages="&kag.numMessageLayers + 1"
 @layopt index="&2000000+100" layer="&kag.numCharacterLayers - 1"
+@layopt index="&2000000+200" layer="&kag.numMessageLayers - 1"
 ; 背景
 @image layer="&kag.numCharacterLayers-1" storage=&config.back page=fore visible=true
 
@@ -65,14 +66,17 @@ config.togglebutton[11].setOptions(%[visible:config.menu0on, left:config.menu0[0
 config.togglebutton[12].setOptions(%[visible:config.menu1on, left:config.menu1[0], top:config.menu1[1], checkstorage:'config.ks', uncheckstorage:'config.ks', checktarget:'*menu1', unchecktarget:'*menu1', basegraphic:config.basegraphic, graphic:config.graphic, checked:sf.menu_mode == 1]);
 // #15: menu2に表示するチェック画像
 config.togglebutton[13].setOptions(%[visible:config.menu2on, left:config.menu2[0], top:config.menu2[1], checkstorage:'config.ks', uncheckstorage:'config.ks', checktarget:'*menu2', unchecktarget:'*menu2', basegraphic:config.basegraphic, graphic:config.graphic, checked:sf.menu_mode == 2]);
-// #11:「Back」のロールオーバー用画像
-//@image layer="&kag.numCharacterLayers - 13" storage="back_ro" page=fore visible=false top=520 left=680 
 @endscript
 
 ; メッセージレイヤの設定をします
 @history enabled=false output=false
 @current layer="&'message' + (kag.numMessageLayers - 1)"
 @position opacity=0 marginb=0 marginl=0 marginr=0 margint=0 left=0 top=0 width=&kag.scWidth height=&kag.scHeight visible=true
+;閉じるボタン
+@locate x=&config.close_x y=&config.close_y
+@button storage=config.ks target=*back graphic=&config.close_button 
+
+
 ; ◆スライダー設定
 @iscript
 config.slider = new Array();
