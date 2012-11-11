@@ -37,35 +37,35 @@ for (var i = 0; i < 14; i++){
 	config.togglebutton[i] = new KToggleButtonLayer(kag, kag.fore.layers[kag.numCharacterLayers-1]);
 }
 // #0: フルスクリーンに表示するチェック画像
-config.togglebutton[0].setOptions( %[visible:config.windowmodeon, left:config.windowmode[0], top:config.windowmode[1], checkstorage:'config.ks', uncheckstorage:'config.ks', checktarget:'*windowmode', unchecktarget:'*windowmode', basegraphic:config.basegraphic, graphic:config.graphic, checked:kag.fullScreened]);
+config.togglebutton[0].setOptions( %[visible:config.windowmodeon, left:config.windowmode[0], top:config.windowmode[1], checkstorage:'config.ks', uncheckstorage:'config.ks', checktarget:'*windowmode', unchecktarget:'*windowmode', graphic:config.graphic, checked:kag.fullScreened]);
 // #1: titleに表示するチェック画像
-config.togglebutton[1].setOptions( %[visible:config.titleAskon, left:config.titleAsk[0], top:config.titleAsk[1], checkstorage:'config.ks', uncheckstorage:'config.ks', checktarget:'*titleAsk', unchecktarget:'*titleAsk', basegraphic:config.basegraphic, graphic:config.graphic, checked:sf.titleAsk]);
+config.togglebutton[1].setOptions( %[visible:config.titleAskon, left:config.titleAsk[0], top:config.titleAsk[1], checkstorage:'config.ks', uncheckstorage:'config.ks', checktarget:'*titleAsk', unchecktarget:'*titleAsk', graphic:config.graphic, checked:sf.titleAsk]);
 // #2: exitに表示するチェック画像
-config.togglebutton[2].setOptions( %[visible:config.exitAskon, left:config.exitAsk[0], top:config.exitAsk[1], checkstorage:'config.ks', uncheckstorage:'config.ks', checktarget:'*exitAsk', unchecktarget:'*exitAsk', basegraphic:config.basegraphic, graphic:config.graphic, checked:sf.exitAsk]);
+config.togglebutton[2].setOptions( %[visible:config.exitAskon, left:config.exitAsk[0], top:config.exitAsk[1], checkstorage:'config.ks', uncheckstorage:'config.ks', checktarget:'*exitAsk', unchecktarget:'*exitAsk', graphic:config.graphic, checked:sf.exitAsk]);
 // #3: qloadに表示するチェック画像
-config.togglebutton[3].setOptions( %[visible:config.qloadAskon, left:config.qloadAsk[0], top:config.qloadAsk[1], checkstorage:'config.ks', uncheckstorage:'config.ks', checktarget:'*qloadAsk', unchecktarget:'*qloadAsk', basegraphic:config.basegraphic, graphic:config.graphic, checked:sf.qloadAsk]);
+config.togglebutton[3].setOptions( %[visible:config.qloadAskon, left:config.qloadAsk[0], top:config.qloadAsk[1], checkstorage:'config.ks', uncheckstorage:'config.ks', checktarget:'*qloadAsk', unchecktarget:'*qloadAsk', graphic:config.graphic, checked:sf.qloadAsk]);
 // #4: returnに表示するチェック画像
-config.togglebutton[4].setOptions( %[visible:config.returnAskon, left:config.returnAsk[0], top:config.returnAsk[1], checkstorage:'config.ks', uncheckstorage:'config.ks', checktarget:'*returnAsk', unchecktarget:'*returnAsk', basegraphic:config.basegraphic, graphic:config.graphic, checked:sf.returnAsk]);
+config.togglebutton[4].setOptions( %[visible:config.returnAskon, left:config.returnAsk[0], top:config.returnAsk[1], checkstorage:'config.ks', uncheckstorage:'config.ks', checktarget:'*returnAsk', unchecktarget:'*returnAsk', graphic:config.graphic, checked:sf.returnAsk]);
 // #5: saveに表示するチェック画像
-config.togglebutton[5].setOptions( %[visible:config.saveAskon, left:config.saveAsk[0], top:config.saveAsk[1], checkstorage:'config.ks', uncheckstorage:'config.ks', checktarget:'*saveAsk', unchecktarget:'*saveAsk', basegraphic:config.basegraphic, graphic:config.graphic, checked:sf.saveAsk]);
+config.togglebutton[5].setOptions( %[visible:config.saveAskon, left:config.saveAsk[0], top:config.saveAsk[1], checkstorage:'config.ks', uncheckstorage:'config.ks', checktarget:'*saveAsk', unchecktarget:'*saveAsk', graphic:config.graphic, checked:sf.saveAsk]);
 // #6: loadに表示するチェック画像
-config.togglebutton[6].setOptions( %[visible:config.loadAskon, left:config.loadAsk[0], top:config.loadAsk[1], checkstorage:'config.ks', uncheckstorage:'config.ks', checktarget:'*loadAsk', unchecktarget:'*loadAsk', basegraphic:config.basegraphic, graphic:config.graphic, checked:sf.loadAsk]);
+config.togglebutton[6].setOptions( %[visible:config.loadAskon, left:config.loadAsk[0], top:config.loadAsk[1], checkstorage:'config.ks', uncheckstorage:'config.ks', checktarget:'*loadAsk', unchecktarget:'*loadAsk', graphic:config.graphic, checked:sf.loadAsk]);
 // #7:「ページ末まで一度に表示」に表示するチェック画像
-config.togglebutton[7].setOptions( %[visible:config.pagebreakon, left:config.pagebreak[0], top:config.pagebreak[1], checkstorage:'config.ks', uncheckstorage:'config.ks', checktarget:'*pagebreak', unchecktarget:'*pagebreak', basegraphic:config.basegraphic, graphic:config.graphic, checked:kag.chNonStopToPageBreak]);
+config.togglebutton[7].setOptions( %[visible:config.pagebreakon, left:config.pagebreak[0], top:config.pagebreak[1], checkstorage:'config.ks', uncheckstorage:'config.ks', checktarget:'*pagebreak', unchecktarget:'*pagebreak', graphic:config.graphic, checked:kag.chNonStopToPageBreak]);
 // #8: sceneskipに表示するチェック画像
-config.togglebutton[8].setOptions( %[visible:config.sceneskipon, left:config.sceneskip[0], top:config.sceneskip[1], checkstorage:'config.ks', uncheckstorage:'config.ks', checktarget:'*sceneskip', unchecktarget:'*sceneskip', basegraphic:config.basegraphic, graphic:config.graphic, checked:sf.sceneskip]);
+config.togglebutton[8].setOptions( %[visible:config.sceneskipon, left:config.sceneskip[0], top:config.sceneskip[1], checkstorage:'config.ks', uncheckstorage:'config.ks', checktarget:'*sceneskip', unchecktarget:'*sceneskip', graphic:config.graphic, checked:sf.sceneskip]);
 // #9: autocontinueに表示するチェック画像
-config.togglebutton[9].setOptions( %[visible:config.autocontinueon, left:config.autocontinue[0], top:config.autocontinue[1], checkstorage:'config.ks', uncheckstorage:'config.ks', checktarget:'*autocontinue', unchecktarget:'*autocontinue', basegraphic:config.basegraphic, graphic:config.graphic, checked:sf.autocontinue]);
+config.togglebutton[9].setOptions( %[visible:config.autocontinueon, left:config.autocontinue[0], top:config.autocontinue[1], checkstorage:'config.ks', uncheckstorage:'config.ks', checktarget:'*autocontinue', unchecktarget:'*autocontinue', graphic:config.graphic, checked:sf.autocontinue]);
 // #10: skipcontinueに表示するチェック画像
-config.togglebutton[10].setOptions(%[visible:config.skipcontinueon, left:config.skipcontinue[0], top:config.skipcontinue[1], checkstorage:'config.ks', uncheckstorage:'config.ks', checktarget:'*skipcontinue', unchecktarget:'*skipcontinue', basegraphic:config.basegraphic, graphic:config.graphic, checked:sf.skipcontinue]);
+config.togglebutton[10].setOptions(%[visible:config.skipcontinueon, left:config.skipcontinue[0], top:config.skipcontinue[1], checkstorage:'config.ks', uncheckstorage:'config.ks', checktarget:'*skipcontinue', unchecktarget:'*skipcontinue', graphic:config.graphic, checked:sf.skipcontinue]);
 
 
 // #11: menu0に表示するチェック画像
-config.togglebutton[11].setOptions(%[visible:config.menu0on, left:config.menu0[0], top:config.menu0[1], checkstorage:'config.ks', uncheckstorage:'config.ks', checktarget:'*menu0', unchecktarget:'*menu0', basegraphic:config.basegraphic, graphic:config.graphic, checked:sf.menu_mode == 0]);
+config.togglebutton[11].setOptions(%[visible:config.menu0on, left:config.menu0[0], top:config.menu0[1], checkstorage:'config.ks', uncheckstorage:'config.ks', checktarget:'*menu0', unchecktarget:'*menu0', graphic:config.graphic, checked:sf.menu_mode == 0]);
 // #14: menu1に表示するチェック画像
-config.togglebutton[12].setOptions(%[visible:config.menu1on, left:config.menu1[0], top:config.menu1[1], checkstorage:'config.ks', uncheckstorage:'config.ks', checktarget:'*menu1', unchecktarget:'*menu1', basegraphic:config.basegraphic, graphic:config.graphic, checked:sf.menu_mode == 1]);
+config.togglebutton[12].setOptions(%[visible:config.menu1on, left:config.menu1[0], top:config.menu1[1], checkstorage:'config.ks', uncheckstorage:'config.ks', checktarget:'*menu1', unchecktarget:'*menu1', graphic:config.graphic, checked:sf.menu_mode == 1]);
 // #15: menu2に表示するチェック画像
-config.togglebutton[13].setOptions(%[visible:config.menu2on, left:config.menu2[0], top:config.menu2[1], checkstorage:'config.ks', uncheckstorage:'config.ks', checktarget:'*menu2', unchecktarget:'*menu2', basegraphic:config.basegraphic, graphic:config.graphic, checked:sf.menu_mode == 2]);
+config.togglebutton[13].setOptions(%[visible:config.menu2on, left:config.menu2[0], top:config.menu2[1], checkstorage:'config.ks', uncheckstorage:'config.ks', checktarget:'*menu2', unchecktarget:'*menu2', graphic:config.graphic, checked:sf.menu_mode == 2]);
 @endscript
 
 ; メッセージレイヤの設定をします

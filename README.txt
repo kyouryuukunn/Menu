@@ -146,9 +146,7 @@ config_init.ksのつぎの設定のデフォルト値を設定する
 config.back = 'config_bg'; // 背景(透明部分には直前のゲーム画面を表示)
 config.slider_base = 'slider_base'; // スライダーの背景
 config.slider_tab = 'slider_tab';   // スライダーのつまみ(ボタンと同じ構成)
-config.basegraphic = 'basegraphic';	//トグルボタンの下レイヤ画像を指定(詳しくはKLayers.txtのKToggleButtonLayerを参照)
-					//指定しないと表示されないが、無意味？
-config.graphic = 'graphic';		//トグルボタンの上レイヤ画像を指定(詳しくはKLayers.txtのKToggleButtonLayerを参照)
+config.graphic = 'graphic';		//トグルボタンの画像を指定(詳しくはKLayers.txtのKToggleButtonLayerを参照, basegraphicはいらないっぽい)
 
 
 //各ボタン、スライダーを表示するか
@@ -191,6 +189,10 @@ config.slider1=		[190, 345]; // ◇スライダー1の座標 - (SE音量調整)
 config.slider2=		[450, 70];  // ◇スライダー2の座標 - (文字速度)
 config.slider3=		[450, 100]; // ◇スライダー3の座標 - (オートモード速度)
 config.slider4=		[450, 130]; // ◇スライダー4の座標 - (透明度)
+config.close_button = 'config_close'; //閉じるボタン
+config.close_x = kag.scWidth - 100;   //閉じるボタンのx座標
+config.close_y = kag.scHeight - 100;  //閉じるボタンのy座標
+
 使わない設定は、デフォルト値を決めた後、該当部分を非表示にしてくれ
 
 また、MoveMenu.ksの146行目のpositionを変えればメニューの
