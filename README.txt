@@ -155,6 +155,7 @@ config.back = 'config_bg'; // 背景(透明部分には直前のゲーム画面を表示)
 config.slider_base = 'slider_base'; // スライダーの背景
 config.slider_tab = 'slider_tab';   // スライダーのつまみ(ボタンと同じ構成)
 config.basegraphic = 'basegraphic';	//トグルボタンの下レイヤ画像を指定(詳しくはKLayers.txtのKToggleButtonLayerを参照)
+					//指定しないと表示されないが、無意味？
 config.graphic = 'graphic';		//トグルボタンの上レイヤ画像を指定(詳しくはKLayers.txtのKToggleButtonLayerを参照)
 
 
