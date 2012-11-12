@@ -4,6 +4,8 @@
 @rclick jump=true storage="config.ks" target=*back enabled=true
 ; –ß‚é‚½‚ß‚ÉŒ»İ‚Ìƒƒjƒ…[‚Ìİ’è‚ğ•Û‘¶
 @eval exp="config.pre_menu_mode = sf.menu_mode"
+
+@history enabled=false output=false
 ; Œ»İ‚Ìó‘Ô‚ğƒƒ‚ƒŠã‚Ìx‚É•Û‘¶‚µ‚Ä‚¨‚«‚Ü‚·
 @tempsave place=0
 

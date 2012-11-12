@@ -269,141 +269,49 @@ class ExSystemButtonPlugin extends KAGPlugin
 
 	function onSaveButtonClick()
 	{
-		if (sf.menu_mode == 1)
-		{
-			MoveMenu_object.setOptions(%['forevisible'=>'false','backvisible'=>'false']);
-			kag.process('save_mode.ks');
-		}
-		else
-		{
-			kag.callExtraConductor('save_mode.ks');
-			MoveMenu_object.setOptions(%['forevisible'=>'false','backvisible'=>'false']);
-		}
+		kag.callExtraConductor('save_mode.ks');
 	}
 	function onLoadButtonClick()
 	{
-		if (sf.menu_mode == 1)
-		{
-			MoveMenu_object.setOptions(%['forevisible'=>'false','backvisible'=>'false']);
-			kag.process('load_mode.ks');
-		}
-		else
-		{
-			kag.callExtraConductor('load_mode.ks');
-			MoveMenu_object.setOptions(%['forevisible'=>'false','backvisible'=>'false']);
-		}
+		kag.callExtraConductor('load_mode.ks');
 	}
 	function onqSaveButtonClick()
 	{
-		if (sf.menu_mode == 1)
-		{
-			kag.storeBookMark(0,false);
-			kag.process('Menu.ks', '*rclick_return');
-		}
-		else
-		{
-			kag.storeBookMark(0,false);
-			MoveMenu_object.setOptions(%['forevisible'=>'false','backvisible'=>'false']);
-		}
+		kag.storeBookMark(0,false);
 	}
 	function onqLoadButtonClick()
 	{
-		if (sf.menu_mode == 1)
-		{
-			kag.process('Menu.ks', '*qload');
-		}
-		else
-		{
-			kag.callExtraConductor('Menu.ks','*qload');
-			MoveMenu_object.setOptions(%['forevisible'=>'false','backvisible'=>'false']);
-		}
+		kag.callExtraConductor('Menu.ks','*qload');
 	}
 	function onAutoButtonClick()
 	{
-		if (sf.menu_mode == 1)
-		{
-			kag.process('Menu.ks', '*auto');
-		}
-		else
-		{
-			kag.enterAutoMode();
-			MoveMenu_object.setOptions(%['forevisible'=>'false','backvisible'=>'false']);
-		}
+		kag.enterAutoMode();
 	}
 	function onSkipButtonClick()
 	{
-		if (sf.menu_mode == 1)
-		{
-			kag.process('Menu.ks', '*skip');
-		}
-		else
-		{
-			kag.skipToStop();
-			MoveMenu_object.setOptions(%['forevisible'=>'false','backvisible'=>'false']);
-		}
+		kag.skipToStop();
 	}
 	function onHideButtonClick()
 	{
-		if (sf.menu_mode == 1)
-		{
-			kag.process('Menu.ks', '*hide');
-		}
-		else
-		{
-			kag.callExtraConductor('Menu.ks','*hide');
-			MoveMenu_object.setOptions(%['forevisible'=>'false','backvisible'=>'false']);
-		}
+		kag.callExtraConductor('Menu.ks','*hide');
 	}
 	if (chose_novel){
 		function onReturnButtonClick()
 		{
-			if (sf.menu_mode == 1)
-			{
-				kag.process('Menu.ks', '*return');
-			}
-			else
-			{
-				kag.callExtraConductor('Menu.ks','*return');
-				MoveMenu_object.setOptions(%['forevisible'=>'false','backvisible'=>'false']);
-			}
+			kag.callExtraConductor('Menu.ks','*return');
 		}
 	}
 	function onConfigButtonClick()
 	{
-		if (sf.menu_mode == 1)
-		{
-			MoveMenu_object.setOptions(%['forevisible'=>'false','backvisible'=>'false']);
-			kag.process('config.ks', '*initialize');
-		}
-		else
-		{
-			kag.callExtraConductor('config.ks','*initialize');
-			MoveMenu_object.setOptions(%['forevisible'=>'false','backvisible'=>'false']);
-		}
+		kag.callExtraConductor('config.ks','*initialize');
 	}
 	function onTitleButtonClick()
 	{
-		if (sf.menu_mode == 1)
-		{
-			kag.process('Menu.ks', '*title');
-		}
-		else
-		{
-			kag.callExtraConductor('Menu.ks','*title');
-			MoveMenu_object.setOptions(%['forevisible'=>'false','backvisible'=>'false']);
-		}
+		kag.callExtraConductor('Menu.ks','*title');
 	}
 	function onExitButtonClick()
 	{
-		if (sf.menu_mode == 1)
-		{
-			kag.process('Menu.ks', '*exit');
-		}
-		else
-		{
-			kag.closeByScript(%[ask:false,ignore:true]);
-			MoveMenu_object.setOptions(%['forevisible'=>'false','backvisible'=>'false']);
-		}
+		kag.closeByScript(%[ask:false,ignore:true]);
 	}
 
 	function setOptions(elm)
