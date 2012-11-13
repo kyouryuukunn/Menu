@@ -5,6 +5,7 @@
 if (sf.config_init === void)
 {
 //初期設定 初回のみ設定したい項目を設定
+//ここを書き換える↓------------------------------------------------------- 
 	sf.saveAsk = 1; //セーブ上書き時に確認する
 	sf.loadAsk = 1; //ロード時に確認する
 	sf.qsaveAsk = 0; //クイックセーブ時に確認する
@@ -23,27 +24,31 @@ if (sf.config_init === void)
 	sf.bgmvolume = kag.bgm.buf1.volume2;
 	sf.sevolume = kag.se[0].volume2;
 	sf.config_init = 1;
+//ここを書き換える↑------------------------------------------------------- 
 }
 
+//ここを書き換える↓------------------------------------------------------- 
 //自前の終了処理に置き替える
 kag.askOnClose=false;
 
 kag.bgm.buf1.volume2 = sf.bgmvolume;
 kag.se[0].volume2 = sf.sevolume;
-
+//ここを書き換える↑------------------------------------------------------- 
 
 //config_pluginクラスに必要な変数、関数をまとめる
 class config_plugin{
 
 
-	var back = 'config_bg'; // 背景(透明部分には直前のゲーム画面を表示)
+//ここを書き換える↓------------------------------------------------------- 
+	//複数ページを使われないなら2ページ目から空欄にする
+	var back = ['config_bg', '', ''];  // 1, 2, 3ページの背景(透明部分には直前のゲーム画面を表示)
 	var slider_base = 'slider_base'; // スライダーの背景
 	var slider_tab = 'slider_tab';   // スライダーのつまみ(ボタンと同じ構成)
 	var graphic = 'graphic';		//トグルボタンの画像を指定(詳しくはKLayers.txtのKToggleButtonLayerを参照, basegraphicはいらないっぽい)
 	
 	var close_button = 'config_close'; //閉じるボタン
 	var close_x = kag.scWidth - 100;   //閉じるボタンのx座標
-	var close_y = kag.scHeight - 100;  //閉じるボタンのy座標
+	var close_y = kag.scHeight - 50;  //閉じるボタンのy座標
 	
 	var nowpage = 1; //現在のページ
 	//複数ページを使われないなら適当な画像を指定して非表示にする
@@ -51,17 +56,17 @@ class config_plugin{
 	//ページ1のボタン
 	var page1_button = 'graphic';  //ぺージ1ボタン
 	var page1_visible = 0; //ぺージ1ボタンを表示するか
-	var page1_pos = [0, 0];   //ぺージ1ボタンの座標
+	var page1_pos = [kag.scWidth-300, 0];   //ぺージ1ボタンの座標
 	
 	//ページ2のボタン
 	var page2_button = 'graphic';  //ぺージ2ボタン
 	var page2_visible = 0; 		   //ぺージ2ボタンを表示するか
-	var page2_pos = [100, 0];   //ぺージ2ボタンの座標
+	var page2_pos = [kag.scWidth-200, 0];   //ぺージ2ボタンの座標
 	
 	//ページ3のボタン
 	var page3_button = 'graphic';  //ぺージ3ボタン
 	var page3_visible = 0; 		    //ぺージ3ボタンを表示するか
-	var page3_pos = [200, 0];   //ぺージ3ボタンの座標
+	var page3_pos = [kag.scWidth-100, 0];   //ぺージ3ボタンの座標
 	
 	//開始時に呼ばれるサブルーチン
 	var start_sub_label	= '*config_sub_start'; //ラベル名
@@ -71,10 +76,10 @@ class config_plugin{
 	var close_sub_storage	= 'config_sub.ks'; //ファイル名
 	
 	// 各ボタン、スライダーの操作する変数
-	// ボタンはトグルボタンに合わせて0か1
 	//ボタンは1ページ15個づつ
 	//スライダーは1ぺージ10個づつある
 	
+	// ボタンはトグルボタンに合わせて0か1をとる
 	//1ページ目
 	var button_01 = 0;
 	var button_02 = 0;
@@ -315,6 +320,7 @@ class config_plugin{
 	var slider_28_pos = [0, 0];
 	var slider_29_pos = [0, 0];
 	var slider_30_pos = [0, 0];
+//ここを書き換える↑------------------------------------------------------- 
 	
 	//スライダーが操作される時に
 	//呼びだされる関数(もし必要なら設定する)
