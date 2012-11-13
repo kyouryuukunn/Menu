@@ -3,20 +3,20 @@
 ; 戻るために現在のメニューの設定を保存
 @eval exp="tf.pre_menu_mode = sf.menu_mode"
 @iscript
-config_plugin_obj.button_01 = kag.fullScreened; // #0: ウィドウモード
-config_plugin_obj.button_02 = sf.titleAsk; // #1: タイトルに戻るを確認するか
-config_plugin_obj.button_03 = sf.exitAsk; // #2: ゲーム終了を確認するか
-config_plugin_obj.button_04 = sf.qloadAsk; // #3: クイックロード時に確認するか
-config_plugin_obj.button_05 = sf.returnAsk; // #4: 前の選択肢に戻るで確認するか
-config_plugin_obj.button_06 = sf.saveAsk; // #5: セーブ上書き時に確認するか
-config_plugin_obj.button_07 = sf.loadAsk; // #6: ロード時に確認するか
-config_plugin_obj.button_08 = sf.pagebreak; // #7:「ページ末まで一度に表示」
-config_plugin_obj.button_09 = sf.sceneskip; // #8: シーン毎のスキップをするか
-config_plugin_obj.button_10 = sf.autocontinue; // #9: 選択肢後もオートモードを継続するか
-config_plugin_obj.button_11 = sf.skipcontinue; // #10: 選択肢後もスキップモードを継続するか
-config_plugin_obj.button_12 = sf.menu_mode == 0; // #11: マウスオンメニューを使用する
-config_plugin_obj.button_13 = sf.menu_mode == 1; // #12: 右クリックメニューを使用する
-config_plugin_obj.button_14 = sf.menu_mode == 2; // #13: システムメニューを使用する
+config_plugin_obj.button_01 = kag.fullScreened; // #1: ウィドウモード
+config_plugin_obj.button_02 = sf.titleAsk; // #2: タイトルに戻るを確認するか
+config_plugin_obj.button_03 = sf.exitAsk; // #3: ゲーム終了を確認するか
+config_plugin_obj.button_04 = sf.qloadAsk; // #4: クイックロード時に確認するか
+config_plugin_obj.button_05 = sf.returnAsk; // #5: 前の選択肢に戻るで確認するか
+config_plugin_obj.button_06 = sf.saveAsk; // #6: セーブ上書き時に確認するか
+config_plugin_obj.button_07 = sf.loadAsk; // #7: ロード時に確認するか
+config_plugin_obj.button_08 = kag.chNonStopToPageBreak; // #8:「ページ末まで一度に表示」
+config_plugin_obj.button_09 = sf.sceneskip; // #9: シーン毎のスキップをするか
+config_plugin_obj.button_10 = sf.autocontinue; // #10: 選択肢後もオートモードを継続するか
+config_plugin_obj.button_11 = sf.skipcontinue; // #11: 選択肢後もスキップモードを継続するか
+config_plugin_obj.button_12 = sf.menu_mode == 0; // #12: マウスオンメニューを使用する
+config_plugin_obj.button_13 = sf.menu_mode == 1; // #13: 右クリックメニューを使用する
+config_plugin_obj.button_14 = sf.menu_mode == 2; // #14: システムメニューを使用する
 
 config_plugin_obj.slider_01 = kag.bgm.buf1.volume2 / 100000;
 config_plugin_obj.slider_02 = kag.se[0].volume2 / 100000;
@@ -31,56 +31,62 @@ config_plugin_obj.slider_05 = sf.messageopacity / 255;
 ;終了時の処理
 ;右クリックの設定もここでする
 *config_sub_close
-@iscript
-// 変数の変更を反映する
-sf.titleAsk		=	config_plugin_obj.button_02; // #1: タイトルに戻るを確認するか
-sf.exitAsk		=	config_plugin_obj.button_03; // #2: ゲーム終了を確認するか
-sf.qloadAsk		=	config_plugin_obj.button_04; // #3: クイックロード時に確認するか
-sf.returnAsk		=	config_plugin_obj.button_05; // #4: 前の選択肢に戻るで確認するか
-sf.saveAsk		=	config_plugin_obj.button_06; // #5: セーブ上書き時に確認するか
-sf.loadAsk		=	config_plugin_obj.button_07; // #6: ロード時に確認するか
-sf.pagebreak		=	config_plugin_obj.button_08; // #7:「ページ末まで一度に表示」
-sf.sceneskip		=	config_plugin_obj.button_09; // #8: シーン毎のスキップをするか
-sf.autocontinue		=	config_plugin_obj.button_10; // #9: 選択肢後もオートモードを継続するか
-sf.skipcontinue		=	config_plugin_obj.button_11; // #10: 選択肢後もスキップモードを継続するか
-@endscript
-
+; 右クリックの設定
 @set_menu
-; メッセージ履歴の出力・表示を有効にします
-@history output=true enabled=true cond="kag.canStore()"
 ; メッセージ表示速度の設定を反映します
 @delay speed=user cond="kag.chUserMode"
-
 @return
 
 
 ;各サブルーチン変更を即座に反映したいときはここに記述する
 *config_sub_button_01
+;#1: ウィドウモード
 ; ウィンドウモードの「フルスクリーン」をクリックした時に実行されるスクリプト
 @eval exp="kag.fullScreened ? kag.onWindowedMenuItemClick() : kag.onFullScreenMenuItemClick()"
 @jump storage=config.ks target=*return
-
 *config_sub_button_02
+;#2: タイトルに戻るを確認するか
+@eval exp="sf.titleAsk = config_plugin_obj.button_02"
 @jump storage=config.ks target=*return
 *config_sub_button_03
+;#3: ゲーム終了を確認するか
+@eval exp="sf.exitAsk = config_plugin_obj.button_03"
 @jump storage=config.ks target=*return
 *config_sub_button_04
+;#4: クイックロード時に確認するか
+@eval exp="sf.qloadAsk = config_plugin_obj.button_04"
 @jump storage=config.ks target=*return
 *config_sub_button_05
+;#5: 前の選択肢に戻るで確認するか
+@eval exp="sf.returnAsk = config_plugin_obj.button_05"
 @jump storage=config.ks target=*return
 *config_sub_button_06
+;#6: セーブ上書き時に確認するか
+@eval exp="sf.saveAsk = config_plugin_obj.button_06"
 @jump storage=config.ks target=*return
 *config_sub_button_07
+;#7: ロード時に確認するか
+@eval exp="sf.loadAsk = config_plugin_obj.button_07"
 @jump storage=config.ks target=*return
 *config_sub_button_08
+;#8:「ページ末まで一度に表示」
+@eval exp="sf.pagebreak = config_plugin_obj.button_08"
+@eval exp="kag.onChNonStopToPageBreakItemClick()"
 @jump storage=config.ks target=*return
 *config_sub_button_09
+;#9: シーン毎のスキップをするか
+@eval exp="sf.sceneskip = config_plugin_obj.button_09"
 @jump storage=config.ks target=*return
 *config_sub_button_10
+;#10: 選択肢後もオートモードを継続するか
+@eval exp="sf.autocontinue = config_plugin_obj.button_10"
 @jump storage=config.ks target=*return
 *config_sub_button_11
+;#11: 選択肢後もスキップモードを継続するか
+@eval exp="sf.skipcontinue = config_plugin_obj.button_11"
 @jump storage=config.ks target=*return
 *config_sub_button_12
+;#12: マウスオンメニューを使用する
 ;ラジオボタンにするために
 ;その場で他のボタンを変更する
 ;配列の数字はひとつずれているので注意
@@ -93,6 +99,7 @@ sf.skipcontinue		=	config_plugin_obj.button_11; // #10: 選択肢後もスキップモード
 @eval exp="tf.config_togglebutton[13].draw()"
 @jump storage=config.ks target=*return
 *config_sub_button_13
+;#13: 右クリックメニューを使用する
 @eval exp="sf.menu_mode=1 if config_plugin_obj.button_13"
 @eval exp="config_plugin_obj.button_12 = tf.config_togglebutton[11].checked=sf.menu_mode == 0"
 @eval exp="config_plugin_obj.button_13 = tf.config_togglebutton[12].checked=sf.menu_mode == 1"
@@ -102,6 +109,7 @@ sf.skipcontinue		=	config_plugin_obj.button_11; // #10: 選択肢後もスキップモード
 @eval exp="tf.config_togglebutton[13].draw()"
 @jump storage=config.ks target=*return
 *config_sub_button_14
+;#14: システムメニューを使用する
 @eval exp="sf.menu_mode=2 if config_plugin_obj.button_14"
 @eval exp="config_plugin_obj.button_12 = tf.config_togglebutton[11].checked=sf.menu_mode == 0"
 @eval exp="config_plugin_obj.button_13 = tf.config_togglebutton[12].checked=sf.menu_mode == 1"

@@ -1,0 +1,36 @@
+赤恐竜	http://akakyouryuu.blog.fc2.com/
+
+ゲーム中に文字をクリアせずにメッセージレイヤの濃度を変更できるプラグイン
+実際にはメッセージレイヤ0のひとつ後ろに黒いレイヤを表示する。
+
+もしも使いたい人がいたなら好きに使っていいです。
+改変、再配布は自由
+使用を明記する必要も報告する必要もないですが、
+報告をくれるとうれしいです。
+当然なにかあっても責任は取れないけど
+
+
+全部入りサンプルをskydriveで公開中
+https://skydrive.live.com/#cid=8F8EF4D2142F33D4&id=8F8EF4D2142F33D4!257
+
+
+使い方
+first.ksで呼び出す
+@call storage=SetMessageOpacity.ks
+
+レイヤの表示、非表示を記録しているので、コンフィグ画面等では
+システムボタン同様にSetMessageOpacity_object.onMessageHiddenStateChanged()
+を呼び出してくれればよい
+
+使えるタグ
+SetMessageOpacity
+メッセージフレームを設定する
+属性名
+page		:fore or back  (デフォルト fore)
+visible		:true or false (デフォルト true)
+opacity		:透明度(0~255)
+reset		:true or false (デフォルト false)
+		 メッセージレイヤ0と同じ位置、大きさに
+		 枠を再描画する(ゲーム中にメッセージレイヤの
+		 設定が変わったとき用)
+

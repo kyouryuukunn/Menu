@@ -1,5 +1,8 @@
+赤恐竜	http://akakyouryuu.blog.fc2.com/
+
 吉里吉里にメニューとそれにともなう
 セーブ、ロード、コンフィグ画面を設定する
+つまりシステム一式そろえられるので楽ができるかと。
 
 もしも使いたい人がいたなら好きに使っていい
 改変、再配布は自由
@@ -10,41 +13,25 @@ exsystembutton.ksとconfig.ksはtjsに挑戦！で配布して
 いたのを改造した。
 またスライダーには色々な墓場のKLayers.ksを利用した
 
+内部でSetMessageOpacity、SceneSkip、SaveMode、ConfigModeを
+使用している。
+
 全部入りサンプルをskydriveで公開している
 https://skydrive.live.com/#cid=8F8EF4D2142F33D4&id=8F8EF4D2142F33D4!257
 
 
 メニューはマウスオン、右クリック、通常のシステムボタン
-から選べ、ゲーム中に変更も出来る。回想モードではいくつかの
-ボタンを無効化できるが、そのためボタンは無効化のときを含めて
+から選べ、ゲーム中に変更も出来る(大体の人は使いたい一つを選んでお終いだと思うけど)
+回想モードではいくつかのボタンを無効化できるが、そのためボタンは無効化のときを加えて
 ひとつの画像に4つの絵が必要
 exsystembutton.ksで通常のシステムボタン、MoveMenu.ksでマウスオン
 ボタン、右クリックボタンを作っている。
-現在どちらも同じボタン画像をしようしているが、適宜改造してくれ。
+現在どちらも同じボタン画像を使用しているが、適宜改造してくれ。
 ボタンを増やすときはonStableStateChangedに注意
-コンフィグ画面のシーン毎のスキップと、メッセージレイヤの透明度の
-設定はscene.ks, SetMessageOpacityがないと無意味
-
-使っている変数
-sf.saveAsk = 1; //セーブ上書き時に確認する
-sf.loadAsk = 1; //ロード時に確認する
-sf.qloadAsk = 1; //クイックロード時に確認する
-sf.returnAsk = 1; //前に戻るで確認する
-sf.titleAsk = 1; //タイトルに戻るで確認する
-sf.exitAsk = 1; //終了時に確認する
-sf.autocontinue = 1; //選択肢後もオートモードを続ける
-sf.skipcontinue = 1; //選択肢後もスキップモードを続ける
-sf.sceneskip = 1; //シーン毎のスキップをする(scene.ksがないなら無意味)
-sf.menu_mode = 0; //使用メニューを選ぶ 
-global.chose_novel = 1;	//選択肢ありか(前の選択肢に戻るを表示するかどうか)
-global.message_base = 'message'; //メッセージレイヤと同じ大きさの黒い画像
-global.in_scene_mode_button = 0; //回想モードでいくつかのボタンを無効化する
-global.config
-global.MoveMenu_object
-global.exsystembutton_object
-
 
 セーブ、ロードの設定はSave_mode.txtを参照
+コンフィグ画面の設定はConfigMode.txtを参照
+またSetMessageOpacity.ksも参照のこと
 
 設定
 AfterInit.tjsに次の設定をする(なければ作る)
@@ -123,77 +110,7 @@ kag.restoreFromRightClick = function ()
 } incontextof kag;
 
 次にMenu.ksの2,3行目のつぎの設定のデフォルト値を設定する
-var chose_novel = 1;	//選択肢ありか, 前の選択肢に戻るを表示
-var in_scene_mode_button_mark = 0; //回想モード
-
-config_init.ksのつぎの設定のデフォルト値を設定する
-	sf.saveAsk = 1; //セーブ上書き時に確認する
-	sf.loadAsk = 1; //ロード時に確認する
-	sf.qsaveAsk = 0; //クイックセーブ時に確認する
-	sf.qloadAsk = 1; //クイックロード時に確認する
-	sf.returnAsk = 1; //前に戻るで確認する
-	sf.titleAsk = 1; //タイトルに戻るで確認する
-	sf.exitAsk = 1; //終了時に確認する
-	sf.autocontinue = 1; //選択肢後もオートモードを続ける
-	sf.skipcontinue = 1; //選択肢後もスキップモードを続ける
-	sf.sceneskip = 1; //シーン毎のスキップをする
-	sf.menu_mode = 0; //0:マウスオンメニューを使用する
-			  //1:右クリックメニューを使用する
-			  //2:システムボタンを使用する
-	sf.messageopacity = 128; //メッセージ枠の透明度
-
-また、次の変数でコンフィグ画面のレイアウトを変更する
-config.back = 'config_bg'; // 背景(透明部分には直前のゲーム画面を表示)
-config.slider_base = 'slider_base'; // スライダーの背景
-config.slider_tab = 'slider_tab';   // スライダーのつまみ(ボタンと同じ構成)
-config.graphic = 'graphic';		//トグルボタンの画像を指定(詳しくはKLayers.txtのKToggleButtonLayerを参照, basegraphicはいらないっぽい)
-
-
-//各ボタン、スライダーを表示するか
-config.windowmodeon	=	1; // #0: フルスクリーンを表示するか
-config.titleAskon	=	1; // #1: タイトルに戻るを確認するかを表示するか
-config.exitAskon	=	1; // #2: ゲーム終了を確認するかを表示するか
-config.qloadAskon	=	1; // #3: クイックロード時に確認するかを表示するか
-config.returnAskon	=	1; // #4: 前の選択肢に戻るで確認するかを表示するか
-config.saveAskon	=	1; // #5: セーブ上書き時に確認するかを表示するか
-config.loadAskon	=	1; // #6: ロード時に確認するかを表示するか
-config.pagebreakon	=	1; // #7:「ページ末まで一度に表示」を表示するか
-config.sceneskipon	=	1; // #8: シーン毎のスキップをするかを表示するか
-config.autocontinueon	=	1; // #9: 選択肢後もオートモードを継続するかを表示するか
-config.skipcontinueon	=	1; // #10: 選択肢後もスキップモードを継続するかを表示するか
-config.menu0on		=	1; // #11: マウスオンメニューを使用するを表示するか
-config.menu1on		=	1; // #14: 右クリックメニューを使用するを表示するか
-config.menu2on		=	1; // #15: システムメニューを使用するを表示するか
-config.slider0_on 	=	1; // ◇スライダー0を表示するか - (BGM音量調整)
-config.slider1_on 	=	1; // ◇スライダー1を表示するか - (SE音量調整)
-config.slider2_on 	=	1; // ◇スライダー2を表示するか - (文字速度)
-config.slider3_on 	=	1; // ◇スライダー3を表示するか - (オートモード速度)
-config.slider4_on 	=	1; // ◇スライダー4を表示するか - (透明度)
-
-config.windowmode=	[340, 525]; // #0: フルスクリーンに表示するチェック画像の座標
-config.titleAsk=	[680, 435]; // #1: タイトルに戻るを確認するかに表示するチェック画像の座標
-config.exitAsk=		[680, 475]; // #2: ゲーム終了を確認するかに表示するチェック画像の座標
-config.qloadAsk=	[420, 435]; // #3: クイックロード時に確認するかに表示するチェック画像の座標
-config.returnAsk=	[420, 475]; // #4: 前の選択肢に戻るで確認するかに表示するチェック画像の座標
-config.saveAsk=		[140, 435]; // #5: セーブ上書き時に確認するかに表示するチェック画像の座標
-config.loadAsk=		[140, 475]; // #6: ロード時に確認するかに表示するチェック画像の座標
-config.pagebreak=	[740, 165]; // #7:「ページ末まで一度に表示」に表示するチェック画像の座標
-config.sceneskip=	[740, 205]; // #8: シーン毎のスキップをするかに表示するチェック画像の座標
-config.autocontinue=	[390, 165]; // #9: 選択肢後もオートモードを継続するかに表示するチェック画像の座標
-config.skipcontinue=	[390, 200]; // #10: 選択肢後もスキップモードを継続するかに表示するチェック画像の座標
-config.menu0= 		[570, 305]; // #11: マウスオンメニューを使用するに表示するチェック画像の座標
-config.menu1= 		[570, 355]; // #14: 右クリックメニューを使用するに表示するチェック画像の座標
-config.menu2= 		[750, 305]; // #15: システムメニューを使用するに表示するチェック画像の座標
-config.slider0=		[190, 305]; // ◇スライダー0の座標 - (BGM音量調整)
-config.slider1=		[190, 345]; // ◇スライダー1の座標 - (SE音量調整)
-config.slider2=		[450, 70];  // ◇スライダー2の座標 - (文字速度)
-config.slider3=		[450, 100]; // ◇スライダー3の座標 - (オートモード速度)
-config.slider4=		[450, 130]; // ◇スライダー4の座標 - (透明度)
-config.close_button = 'config_close'; //閉じるボタン
-config.close_x = kag.scWidth - 100;   //閉じるボタンのx座標
-config.close_y = kag.scHeight - 100;  //閉じるボタンのy座標
-
-使わない設定は、デフォルト値を決めた後、該当部分を非表示にしてくれ
+var chose_novel = 1;	//選択肢ありか, (前の選択肢に戻るを表示するかどうか)
 
 また、MoveMenu.ksの146行目のpositionを変えればメニューの
 位置を上端と右端から選べる
