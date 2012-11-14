@@ -41,7 +41,7 @@ class config_plugin{
 
 //ここを書き換える↓------------------------------------------------------- 
 	//複数ページを使われないなら2ページ目から空欄にする
-	var back = ['config_bg', '', ''];  // 1, 2, 3ページの背景(透明部分には直前のゲーム画面を表示)
+	var back = ['config_bg', 'black', 'black'];  // 1, 2, 3ページの背景(透明部分には直前のゲーム画面を表示)
 	var slider_base = 'slider_base'; // スライダーの背景
 	var slider_tab = 'slider_tab';   // スライダーのつまみ(ボタンと同じ構成)
 	var graphic = 'graphic';		//トグルボタンの画像を指定(詳しくはKLayers.txtのKToggleButtonLayerを参照, basegraphicはいらないっぽい)
@@ -81,6 +81,7 @@ class config_plugin{
 	
 	// ボタンはトグルボタンに合わせて0か1をとる
 	//1ページ目
+	var button_00 = 0;
 	var button_01 = 0;
 	var button_02 = 0;
 	var button_03 = 0;
@@ -95,8 +96,8 @@ class config_plugin{
 	var button_12 = 0;
 	var button_13 = 0;
 	var button_14 = 0;
-	var button_15 = 0;
 	//2ページ目
+	var button_15 = 0;
 	var button_16 = 0;
 	var button_17 = 0;
 	var button_18 = 0;
@@ -111,8 +112,8 @@ class config_plugin{
 	var button_27 = 0;
 	var button_28 = 0;
 	var button_29 = 0;
-	var button_30 = 0;
 	//3ページ目
+	var button_30 = 0;
 	var button_31 = 0;
 	var button_32 = 0;
 	var button_33 = 0;
@@ -127,11 +128,11 @@ class config_plugin{
 	var button_42 = 0;
 	var button_43 = 0;
 	var button_44 = 0;
-	var button_45 = 0;
 	
 	// スライダーの操作する変数は、
 	//スライダーに合わせて0～1まで変化する
 	//1ページ目
+	var slider_00 = 0;
 	var slider_01 = 0;
 	var slider_02 = 0;
 	var slider_03 = 0;
@@ -141,8 +142,8 @@ class config_plugin{
 	var slider_07 = 0;
 	var slider_08 = 0;
 	var slider_09 = 0;
-	var slider_10 = 0;
 	//2ページ目
+	var slider_10 = 0;
 	var slider_11 = 0;
 	var slider_12 = 0;
 	var slider_13 = 0;
@@ -152,8 +153,8 @@ class config_plugin{
 	var slider_17 = 0;
 	var slider_18 = 0;
 	var slider_19 = 0;
-	var slider_20 = 0;
 	//3ページ目
+	var slider_20 = 0;
 	var slider_21 = 0;
 	var slider_22 = 0;
 	var slider_23 = 0;
@@ -163,197 +164,204 @@ class config_plugin{
 	var slider_27 = 0;
 	var slider_28 = 0;
 	var slider_29 = 0;
-	var slider_30 = 0;
 
 	//各ボタン、スライダーを表示するか
-	var button_01_visible = 1;
-	var button_02_visible = 1;
-	var button_03_visible = 1;
-	var button_04_visible = 1;
-	var button_05_visible = 1;
-	var button_06_visible = 1;
-	var button_07_visible = 1;
-	var button_08_visible = 1;
-	var button_09_visible = 1;
-	var button_10_visible = 1;
-	var button_11_visible = 1;
-	var button_12_visible = 1;
-	var button_13_visible = 1;
-	var button_14_visible = 1;
-	var button_15_visible = 0;
-	var button_16_visible = 0;
-	var button_17_visible = 0;
-	var button_18_visible = 0;
-	var button_19_visible = 0;
-	var button_20_visible = 0;
-	var button_21_visible = 0;
-	var button_22_visible = 0;
-	var button_23_visible = 0;
-	var button_24_visible = 0;
-	var button_25_visible = 0;
-	var button_26_visible = 0;
-	var button_27_visible = 0;
-	var button_28_visible = 0;
-	var button_29_visible = 0;
-	var button_30_visible = 0;
-	var button_31_visible = 0;
-	var button_32_visible = 0;
-	var button_33_visible = 0;
-	var button_34_visible = 0;
-	var button_35_visible = 0;
-	var button_36_visible = 0;
-	var button_37_visible = 0;
-	var button_38_visible = 0;
-	var button_39_visible = 0;
-	var button_40_visible = 0;
-	var button_41_visible = 0;
-	var button_42_visible = 0;
-	var button_43_visible = 0;
-	var button_44_visible = 0;
-	var button_45_visible = 0;
+	var button_visible = [
+				 1,  //00 
+				 1,  //01 
+				 1,  //02 
+				 1,  //03 
+				 1,  //04 
+				 1,  //05 
+				 1,  //06 
+				 1,  //07 
+				 1,  //08 
+				 1,  //09 
+				 1,  //10 
+				 1,  //11 
+				 1,  //12 
+				 1,  //13 
+				 0,  //14 
+				 0,  //15 
+				 0,  //16 
+				 0,  //17 
+				 0,  //18 
+				 0,  //19 
+				 0,  //20 
+				 0,  //21 
+				 0,  //22 
+				 0,  //23 
+				 0,  //24 
+				 0,  //25 
+				 0,  //26 
+				 0,  //27 
+				 0,  //28 
+				 0,  //29 
+				 0,  //30 
+				 0,  //31 
+				 0,  //32 
+				 0,  //33 
+				 0,  //34 
+				 0,  //35 
+				 0,  //36 
+				 0,  //37 
+				 0,  //38 
+				 0,  //39 
+				 0,  //40 
+				 0,  //41 
+				 0,  //42 
+				 0,  //43 
+				 0   //44 
+			];
 
-	var slider_01_visible = 1;
-	var slider_02_visible = 1;
-	var slider_03_visible = 1;
-	var slider_04_visible = 1;
-	var slider_05_visible = 1;
-	var slider_06_visible = 0;
-	var slider_07_visible = 0;
-	var slider_08_visible = 0;
-	var slider_09_visible = 0;
-	var slider_10_visible = 0;
-	var slider_11_visible = 0;
-	var slider_12_visible = 0;
-	var slider_13_visible = 0;
-	var slider_14_visible = 0;
-	var slider_15_visible = 0;
-	var slider_16_visible = 0;
-	var slider_17_visible = 0;
-	var slider_18_visible = 0;
-	var slider_19_visible = 0;
-	var slider_20_visible = 0;
-	var slider_21_visible = 0;
-	var slider_22_visible = 0;
-	var slider_23_visible = 0;
-	var slider_24_visible = 0;
-	var slider_25_visible = 0;
-	var slider_26_visible = 0;
-	var slider_27_visible = 0;
-	var slider_28_visible = 0;
-	var slider_29_visible = 0;
-	var slider_30_visible = 0;
+	var slider_visible = [
+				1,  //00
+				1,  //01
+				1,  //02
+				1,  //03
+				1,  //04
+				0,  //05
+				0,  //06
+				0,  //07
+				0,  //08
+				0,  //09
+				0,  //10
+				0,  //11
+				0,  //12
+				0,  //13
+				0,  //14
+				0,  //15
+				0,  //16
+				0,  //17
+				0,  //18
+				0,  //19
+				0,  //20
+				0,  //21
+				0,  //22
+				0,  //23
+				0,  //24
+				0,  //25
+				0,  //26
+				0,  //27
+				0,  //28
+				0   //29
+			];
 
 	// 各ボタン、スライダーの座標を設定
-	var button_01_pos = [340, 525];
-	var button_02_pos = [680, 435];
-	var button_03_pos = [680, 475];
-	var button_04_pos = [420, 435];
-	var button_05_pos = [420, 475];
-	var button_06_pos = [140, 435];
-	var button_07_pos = [140, 475];
-	var button_08_pos = [740, 165];
-	var button_09_pos = [740, 205];
-	var button_10_pos = [390, 165];
-	var button_11_pos = [390, 200];
-	var button_12_pos = [570, 305];
-	var button_13_pos = [570, 355];
-	var button_14_pos = [750, 305];
-	var button_15_pos = [0, 0];
-	var button_16_pos = [0, 0];
-	var button_17_pos = [0, 0];
-	var button_18_pos = [0, 0];
-	var button_19_pos = [0, 0];
-	var button_20_pos = [0, 0];
-	var button_21_pos = [0, 0];
-	var button_22_pos = [0, 0];
-	var button_23_pos = [0, 0];
-	var button_24_pos = [0, 0];
-	var button_25_pos = [0, 0];
-	var button_26_pos = [0, 0];
-	var button_27_pos = [0, 0];
-	var button_28_pos = [0, 0];
-	var button_29_pos = [0, 0];
-	var button_30_pos = [0, 0];
-	var button_31_pos = [0, 0];
-	var button_32_pos = [0, 0];
-	var button_33_pos = [0, 0];
-	var button_34_pos = [0, 0];
-	var button_35_pos = [0, 0];
-	var button_36_pos = [0, 0];
-	var button_37_pos = [0, 0];
-	var button_38_pos = [0, 0];
-	var button_39_pos = [0, 0];
-	var button_40_pos = [0, 0];
-	var button_41_pos = [0, 0];
-	var button_42_pos = [0, 0];
-	var button_43_pos = [0, 0];
-	var button_44_pos = [0, 0];
-	var button_45_pos = [0, 0];
+	var button_pos = [
+				[340, 525],  //00
+				[680, 435],  //01
+				[680, 475],  //02
+				[420, 435],  //03
+				[420, 475],  //04
+				[140, 435],  //05
+				[140, 475],  //06
+				[740, 165],  //07
+				[740, 205],  //08
+				[390, 165],  //09
+				[390, 200],  //10
+				[570, 305],  //11
+				[570, 355],  //12
+				[750, 305],  //13
+				[0, 0],      //14
+				[0, 0],      //15
+				[0, 0],      //16
+				[0, 0],      //17
+				[0, 0],      //18
+				[0, 0],      //19
+				[0, 0],      //20
+				[0, 0],      //21
+				[0, 0],      //22
+				[0, 0],      //23
+				[0, 0],      //24
+				[0, 0],      //25
+				[0, 0],      //26
+				[0, 0],      //27
+				[0, 0],      //28
+				[0, 0],      //29
+				[0, 0],      //30
+				[0, 0],      //31
+				[0, 0],      //32
+				[0, 0],      //33
+				[0, 0],      //34
+				[0, 0],      //35
+				[0, 0],      //36
+				[0, 0],      //37
+				[0, 0],      //38
+				[0, 0],      //39
+				[0, 0],      //40
+				[0, 0],      //41
+				[0, 0],      //42
+				[0, 0],      //43
+				[0, 0]       //44
+			];
 	
-	var slider_01_pos = [190, 305];
-	var slider_02_pos = [190, 345];
-	var slider_03_pos = [450, 70];
-	var slider_04_pos = [450, 100];
-	var slider_05_pos = [450, 130];
-	var slider_06_pos = [0, 0];
-	var slider_07_pos = [0, 0];
-	var slider_08_pos = [0, 0];
-	var slider_09_pos = [0, 0];
-	var slider_10_pos = [0, 0];
-	var slider_11_pos = [0, 0];
-	var slider_12_pos = [0, 0];
-	var slider_13_pos = [0, 0];
-	var slider_14_pos = [0, 0];
-	var slider_15_pos = [0, 0];
-	var slider_16_pos = [0, 0];
-	var slider_17_pos = [0, 0];
-	var slider_18_pos = [0, 0];
-	var slider_19_pos = [0, 0];
-	var slider_20_pos = [0, 0];
-	var slider_21_pos = [0, 0];
-	var slider_22_pos = [0, 0];
-	var slider_23_pos = [0, 0];
-	var slider_24_pos = [0, 0];
-	var slider_25_pos = [0, 0];
-	var slider_26_pos = [0, 0];
-	var slider_27_pos = [0, 0];
-	var slider_28_pos = [0, 0];
-	var slider_29_pos = [0, 0];
-	var slider_30_pos = [0, 0];
+	var slider_pos = [
+				[190, 305],  //00
+				[190, 345],  //01
+				[450, 70],   //02
+				[450, 100],  //03
+				[450, 130],  //04
+				[0, 0],      //05
+				[0, 0],      //06
+				[0, 0],      //07
+				[0, 0],      //08
+				[0, 0],      //09
+				[0, 0],      //10
+				[0, 0],      //11
+				[0, 0],      //12
+				[0, 0],      //13
+				[0, 0],      //14
+				[0, 0],      //15
+				[0, 0],      //16
+				[0, 0],      //17
+				[0, 0],      //18
+				[0, 0],      //19
+				[0, 0],      //20
+				[0, 0],      //21
+				[0, 0],      //22
+				[0, 0],      //23
+				[0, 0],      //24
+				[0, 0],      //25
+				[0, 0],      //26
+				[0, 0],      //27
+				[0, 0],      //28
+				[0, 0]       //29
+			];
 //ここを書き換える↑------------------------------------------------------- 
 	
 	//スライダーが操作される時に
 	//呼びだされる関数(もし必要なら設定する)
-	function slider_01_func(hval,vval,drag) {slider_01 = hval;}
-	function slider_02_func(hval,vval,drag) {slider_02 = hval;}
-	function slider_03_func(hval,vval,drag) {slider_03 = hval;}
-	function slider_04_func(hval,vval,drag) {slider_04 = hval;}
-	function slider_05_func(hval,vval,drag) {slider_05 = hval;}
-	function slider_06_func(hval,vval,drag) {slider_06 = hval;}
-	function slider_07_func(hval,vval,drag) {slider_07 = hval;}
-	function slider_08_func(hval,vval,drag) {slider_08 = hval;}
-	function slider_09_func(hval,vval,drag) {slider_09 = hval;}
-	function slider_10_func(hval,vval,drag) {slider_10 = hval;}
-	function slider_11_func(hval,vval,drag) {slider_11 = hval;}
-	function slider_12_func(hval,vval,drag) {slider_12 = hval;}
-	function slider_13_func(hval,vval,drag) {slider_13 = hval;}
-	function slider_14_func(hval,vval,drag) {slider_14 = hval;}
-	function slider_15_func(hval,vval,drag) {slider_15 = hval;}
-	function slider_16_func(hval,vval,drag) {slider_16 = hval;}
-	function slider_17_func(hval,vval,drag) {slider_17 = hval;}
-	function slider_18_func(hval,vval,drag) {slider_18 = hval;}
-	function slider_19_func(hval,vval,drag) {slider_19 = hval;}
-	function slider_20_func(hval,vval,drag) {slider_20 = hval;}
-	function slider_21_func(hval,vval,drag) {slider_20 = hval;}
-	function slider_22_func(hval,vval,drag) {slider_20 = hval;}
-	function slider_23_func(hval,vval,drag) {slider_20 = hval;}
-	function slider_24_func(hval,vval,drag) {slider_20 = hval;}
-	function slider_25_func(hval,vval,drag) {slider_20 = hval;}
-	function slider_26_func(hval,vval,drag) {slider_20 = hval;}
-	function slider_27_func(hval,vval,drag) {slider_20 = hval;}
-	function slider_28_func(hval,vval,drag) {slider_20 = hval;}
-	function slider_29_func(hval,vval,drag) {slider_20 = hval;}
-	function slider_30_func(hval,vval,drag) {slider_20 = hval;}
+	function slider_func_00(hval,vval,drag) {slider_00 = hval;}
+	function slider_func_01(hval,vval,drag) {slider_01 = hval;}
+	function slider_func_02(hval,vval,drag) {slider_02 = hval;}
+	function slider_func_03(hval,vval,drag) {slider_03 = hval;}
+	function slider_func_04(hval,vval,drag) {slider_04 = hval;}
+	function slider_func_05(hval,vval,drag) {slider_05 = hval;}
+	function slider_func_06(hval,vval,drag) {slider_06 = hval;}
+	function slider_func_07(hval,vval,drag) {slider_07 = hval;}
+	function slider_func_08(hval,vval,drag) {slider_08 = hval;}
+	function slider_func_09(hval,vval,drag) {slider_09 = hval;}
+	function slider_func_10(hval,vval,drag) {slider_10 = hval;}
+	function slider_func_11(hval,vval,drag) {slider_11 = hval;}
+	function slider_func_12(hval,vval,drag) {slider_12 = hval;}
+	function slider_func_13(hval,vval,drag) {slider_13 = hval;}
+	function slider_func_14(hval,vval,drag) {slider_14 = hval;}
+	function slider_func_15(hval,vval,drag) {slider_15 = hval;}
+	function slider_func_16(hval,vval,drag) {slider_16 = hval;}
+	function slider_func_17(hval,vval,drag) {slider_17 = hval;}
+	function slider_func_18(hval,vval,drag) {slider_18 = hval;}
+	function slider_func_19(hval,vval,drag) {slider_19 = hval;}
+	function slider_func_20(hval,vval,drag) {slider_20 = hval;}
+	function slider_func_21(hval,vval,drag) {slider_21 = hval;}
+	function slider_func_22(hval,vval,drag) {slider_22 = hval;}
+	function slider_func_23(hval,vval,drag) {slider_23 = hval;}
+	function slider_func_24(hval,vval,drag) {slider_24 = hval;}
+	function slider_func_25(hval,vval,drag) {slider_25 = hval;}
+	function slider_func_26(hval,vval,drag) {slider_26 = hval;}
+	function slider_func_27(hval,vval,drag) {slider_27 = hval;}
+	function slider_func_28(hval,vval,drag) {slider_28 = hval;}
+	function slider_func_29(hval,vval,drag) {slider_29 = hval;}
 }
 
 var config_plugin_obj = new config_plugin();
