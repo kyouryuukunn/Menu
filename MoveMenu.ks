@@ -155,7 +155,7 @@ class MoveMenuPlugin extends KAGPlugin
 		.visible = false;
 		.absolute = 2000000-3; // 重ね合わせ順序はメッセージ履歴よりも奥
 		//右クリックから戻るため
-		.onMouseDown = kag.fore.base.onMouseDown;
+		.onMouseDown = kag.onPrimaryRightClick;
         }
 	 with(backlayer)
         {
@@ -164,7 +164,7 @@ class MoveMenuPlugin extends KAGPlugin
 		.visible = false;
 		.absolute = 2000000-3; // 重ね合わせ順序はメッセージ履歴よりも奥
 		//右クリックから戻るため
-		.onMouseDown = kag.back.base.onMouseDown;
+		.onMouseDown = kag.onPrimaryRightClick;
         }
 
 	function MoveMenuPlugin()

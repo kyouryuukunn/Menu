@@ -2,8 +2,9 @@
 ;前処理と設定
 @iscript
 var save = %[];
-save.save_base = 'black'; //セーブ画面背景
-save.load_base = 'black'; //ロード画面背景
+//ここを書き換える↓------------------------------------------------------- 
+save.save_base = 'black'; //セーブ画面背景、透明部分があれば、直前のゲーム画面が見える
+save.load_base = 'black'; //ロード画面背景、透明部分があれば、直前のゲーム画面が見える
 save.save_button = 'save_button'; //サムネイルと同じ大きさのボタン
 save.dummy = 'save_dummy'; //未セーブの時のサムネイル
 save.thumbnail_width  = 120; //サムネイルの幅
@@ -41,7 +42,7 @@ save.change_x=100; //x座標
 save.change_y=0; //y座標
 save.change_font = %['italic' => true]; //フォント
 save.maxpage = 2; //ページ数
-
+//ここを書き換える↑------------------------------------------------------- 
 
 save.maxpage -= 1;
 // 日付を返す
@@ -99,6 +100,74 @@ function save_info_del(){
 		kag.tagHandlers.current(%['layer'=>'message' + (kag.numMessageLayers - 1)]);
 	}
 }
+//マウスホイール用関数
+save.onMouseWheel = function(shift, delta, x, y){
+	if (save.in_save_mode){
+		if (delta < 0){
+			if  (save.change){
+				if  (sf.save_page > save.maxpage){
+					sf.save_page = 0;
+				}else{
+					sf.save_page += 1;
+				}
+			}else{
+				if  (sf.save_page >= save.maxpage){
+					sf.save_page = 0;
+				}else{
+					sf.save_page += 1;
+				}
+			}
+			kag.process('save_mode.ks', '*sub_draw');
+		}else if(delta > 0){
+			if  (save.change){
+				if  (sf.save_page <= 0){
+					sf.save_page = save.maxpage + 1;
+				}else{
+					sf.save_page -= 1;
+				}
+			}else{
+				if  (sf.save_page <= 0){
+					sf.save_page = save.maxpage;
+				}else{
+					sf.save_page -= 1;
+				}
+			}
+			kag.process('save_mode.ks', '*sub_draw');
+		}
+	}else{
+		if (delta < 0){
+			if  (save.change){
+				if  (sf.save_page > save.maxpage){
+					sf.save_page = 0;
+				}else{
+					sf.save_page += 1;
+				}
+			}else{
+				if  (sf.save_page >= save.maxpage){
+					sf.save_page = 0;
+				}else{
+					sf.save_page += 1;
+				}
+			}
+			kag.process('load_mode.ks', '*sub_draw');
+		}else if(delta > 0){
+			if  (save.change){
+				if  (sf.save_page <= 0){
+					sf.save_page = save.maxpage + 1;
+				}else{
+					sf.save_page -= 1;
+				}
+			}else{
+				if  (sf.save_page <= 0){
+					sf.save_page = save.maxpage;
+				}else{
+					sf.save_page -= 1;
+				}
+			}
+			kag.process('load_mode.ks', '*sub_draw');
+		}
+	}
+} incontextof global;
 @endscript
 
 @macro name=autosave        
