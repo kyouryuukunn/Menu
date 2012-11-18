@@ -16,9 +16,6 @@ exsystembutton.ksとconfig.ksはtjsに挑戦！で配布して
 内部でSetMessageOpacity、SaveMode、ConfigModeを
 使用している。
 
-全部入りサンプルをskydriveで公開している
-https://skydrive.live.com/#cid=8F8EF4D2142F33D4&id=8F8EF4D2142F33D4!257
-
 
 メニューはマウスオン、右クリック、通常のシステムボタン
 から選べ、ゲーム中に変更も出来る(大体の人は使いたい一つを選んでお終いだと思うけど)

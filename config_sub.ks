@@ -1,17 +1,20 @@
+;各トグルボタン、スライダーの値には
+;config_plugin_obj.togglebutton_00~44、config_plugin_obj.slider_00~14
+;からアクセス出来る
+
 ;開始時の処理
+;ここでトグルボタン、スライダーの初期状態を決める
 *config_sub_start
 ; 戻るために現在のメニューの設定を保存
 @eval exp="tf.pre_menu_mode = sf.menu_mode"
 @iscript
-//各トグルボタン、スライダーの値には
-//config_plugin_obj.togglebutton_00~44、config_plugin_obj.slider_00~14
-//からアクセス出来る
 
 //メニューを無効化しておく
 kag.displayMenu.enabled=0;
 kag.characterMenu.enabled=0;
 kag.storeMenu.enabled=0;
 kag.restoreMenu.enabled=0;
+//トグルボタンの初期値を決める
 //1ページ目
 config_plugin_obj.togglebutton_00 = kag.chNonStopToPageBreak; //ページ末まで一度に表示
 config_plugin_obj.togglebutton_01 = kag.ch2ndNonStopToPageBreak; //既読ページ末まで一度に表示
