@@ -15,7 +15,6 @@ if (sf.config_init === void)
 	sf.init_exitAsk = sf.exitAsk = 1; //終了時に確認する
 	sf.init_autocontinue = sf.autocontinue = 1; //選択肢後もオートモードを続ける
 	sf.init_skipcontinue = sf.skipcontinue = 1; //選択肢後もスキップモードを続ける
-	sf.init_sceneskip = sf.sceneskip = 1; //シーン毎のスキップをする
 	sf.init_menu_mode = sf.menu_mode = 0; //マウスオンメニューを使用する
 						  //右クリックメニューを使用する
 						  //システムボタンを使用する
@@ -235,7 +234,7 @@ class config_plugin extends KAGPlugin
 				 1,  //25 
 				 1,  //26 
 				 1,  //27 
-				 1,  //28 
+				 0,  //28 
 				 0,  //29 
 				 0,  //30 
 				 0,  //31 

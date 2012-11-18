@@ -13,7 +13,7 @@ exsystembutton.ksとconfig.ksはtjsに挑戦！で配布して
 いたのを改造した。
 またスライダーには色々な墓場のKLayers.ksを利用した
 
-内部でSetMessageOpacity、SceneSkip、SaveMode、ConfigModeを
+内部でSetMessageOpacity、SaveMode、ConfigModeを
 使用している。
 
 全部入りサンプルをskydriveで公開している

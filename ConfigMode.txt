@@ -38,6 +38,3 @@ first.ksで次のようにconfig_init.ksを呼び出す
 (注意)
 Menu.ksに添付しているconfig_init.ksとconifg_sub.ks
 にはすでに処理が書かれている。
-シーンスキップその他必要のない項目は非表示にしておくこと
-シーンスキップはデフォルトでは無意味。使いたいなら
-赤恐竜からSceneSkipを入手してくれ。

@@ -41,7 +41,6 @@ config_plugin_obj.togglebutton_24 = sf.skipcontinue;		// ‘I‘ğˆŒã‚àƒXƒLƒbƒvƒ‚[ƒ
 config_plugin_obj.togglebutton_25 = sf.menu_mode == 0;		// ƒ}ƒEƒXƒIƒ“ƒƒjƒ…[‚ğg—p‚·‚é
 config_plugin_obj.togglebutton_26 = sf.menu_mode == 1;		// ‰EƒNƒŠƒbƒNƒƒjƒ…[‚ğg—p‚·‚é
 config_plugin_obj.togglebutton_27 = sf.menu_mode == 2;		// ƒVƒXƒeƒ€ƒƒjƒ…[‚ğg—p‚·‚é
-config_plugin_obj.togglebutton_28 = sf.sceneskip;		// ƒV[ƒ“–ˆ‚ÌƒXƒLƒbƒv‚ğ‚·‚é
 
 @endscript
 
@@ -163,7 +162,6 @@ sf.menu_mode = sf.init_menu_mode;
 config_plugin_obj.togglebutton_25 = sf.menu_mode == 0;
 config_plugin_obj.togglebutton_26 = sf.menu_mode == 1;
 config_plugin_obj.togglebutton_27 = sf.menu_mode == 2;
-config_plugin_obj.togglebutton_28 = sf.sceneskip = sf.init_sceneskip;
 
 if (config_plugin_obj.nowpage == 2)
 {
@@ -179,7 +177,6 @@ if (config_plugin_obj.nowpage == 2)
 	tf.config_togglebutton[10].checked = config_plugin_obj.togglebutton_25;
 	tf.config_togglebutton[11].checked = config_plugin_obj.togglebutton_26;
 	tf.config_togglebutton[12].checked = config_plugin_obj.togglebutton_27;
-	tf.config_togglebutton[13].checked = config_plugin_obj.togglebutton_28;
 	tf.config_togglebutton[1].draw();
 	tf.config_togglebutton[2].draw();
 	tf.config_togglebutton[3].draw();
@@ -192,7 +189,6 @@ if (config_plugin_obj.nowpage == 2)
 	tf.config_togglebutton[10].draw();
 	tf.config_togglebutton[11].draw();
 	tf.config_togglebutton[12].draw();
-	tf.config_togglebutton[13].draw();
 }
 
 config_plugin_obj.slider_00 = sf.init_bgmvolume / 100000;
@@ -274,7 +270,6 @@ sf.menu_mode = sf.init_menu_mode;
 config_plugin_obj.togglebutton_25 = sf.menu_mode == 0;
 config_plugin_obj.togglebutton_26 = sf.menu_mode == 1;
 config_plugin_obj.togglebutton_27 = sf.menu_mode == 2;
-config_plugin_obj.togglebutton_28 = sf.sceneskip = sf.init_sceneskip;
 
 if (config_plugin_obj.nowpage == 2)
 {
@@ -290,7 +285,6 @@ if (config_plugin_obj.nowpage == 2)
 	tf.config_togglebutton[10].checked = config_plugin_obj.togglebutton_25;
 	tf.config_togglebutton[11].checked = config_plugin_obj.togglebutton_26;
 	tf.config_togglebutton[12].checked = config_plugin_obj.togglebutton_27;
-	tf.config_togglebutton[13].checked = config_plugin_obj.togglebutton_28;
 	tf.config_togglebutton[1].draw();
 	tf.config_togglebutton[2].draw();
 	tf.config_togglebutton[3].draw();
@@ -303,7 +297,6 @@ if (config_plugin_obj.nowpage == 2)
 	tf.config_togglebutton[10].draw();
 	tf.config_togglebutton[11].draw();
 	tf.config_togglebutton[12].draw();
-	tf.config_togglebutton[13].draw();
 }
 
 config_plugin_obj.slider_00 = sf.init_bgmvolume / 100000;
@@ -558,8 +551,6 @@ sf.chBold = config_plugin_obj.togglebutton_05;
 @jump storage=config.ks target=*return
 
 *config_sub_togglebutton_28
-;ƒV[ƒ“–ˆ‚ÌƒXƒLƒbƒv‚ğ‚·‚é‚©
-@eval exp="sf.sceneskip = config_plugin_obj.togglebutton_28"
 @jump storage=config.ks target=*return
 
 *config_sub_togglebutton_29
