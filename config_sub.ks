@@ -521,7 +521,7 @@ sf.chBold = config_plugin_obj.togglebutton_05;
 ;マウスオンメニューを使用する
 ;ラジオボタンにするために
 ;その場で他のボタンを変更する
-;配列の数字はひとつずれているので注意
+;配列の数字はずれているので注意( ボタン番号 - 15 X (現在のページ - 1) )
 @eval exp="sf.menu_mode=0 if config_plugin_obj.togglebutton_25"
 @eval exp="config_plugin_obj.togglebutton_25 = tf.config_togglebutton[10].checked=sf.menu_mode == 0"
 @eval exp="config_plugin_obj.togglebutton_26 = tf.config_togglebutton[11].checked=sf.menu_mode == 1"

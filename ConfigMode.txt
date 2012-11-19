@@ -32,6 +32,62 @@ first.ksで次のようにconfig_init.ksを呼び出す
 
 あとは必要な時にサブルーチンとして呼び出せばよい
 
-(注意)
 Menu.ksに添付しているconfig_init.ksとconifg_sub.ks
 にはすでに処理が書かれている。
+
+*注意点--------------------------------------------------------------------- 
+
+
+開始時のサブルーチン *config_sub_start はテンプセーブとレイヤの追加が終わった後に呼ばれる。
+終了時のサブルーチン *config_sub_close はテンプロード後におこなわれる。
+
+メッセージレイヤを使いたいときは ------------------------------------------- 
+
+メッセージレイヤはなにも使っていません。好きに使ってください
+ただしレイヤをクリアするときは[cm]ではなく[er]を使うこと
+
+
+追加のレイヤを使いたいときは------------------------------------------------ 
+背景に(現在の前景レイヤ数 - 1), メッセージレイヤに(現在のメッセージレイヤ数 - 1)
+が使われるので、追加のレイヤを使いたいときは(現在の前景, メッセージレイヤ数 - 2)を使う
+このとき、laycountを使うとインデックスが変わってしまうので再設定が必要
+背景、メッセージレイヤそれぞれインデックスは2000100, 2000200です
+(例)
+;前景レイヤを追加
+@laycount layers="&kag.numCharacterLayers + 1"
+;背景用レイヤの設定
+@layopt index="&2000000+100" layer="&kag.numCharacterLayers - 1"
+;追加の前景レイヤの設定
+@layopt index="&2000000+101" layer="&kag.numCharacterLayers - 2"
+;メッセージレイヤの設定
+@layopt index="&2000000+200" layer="&'message'+ ( kag.numMessageLayers - 1 )"
+
+;追加のレイヤに何か画像を読み込む
+@image layer="&kag.numCharacterLayers - 2" storage=sample
+
+ラジオボタンを使いたいときは ----------------------------------------------- 
+
+ラジオボタン(いくつかのボタンのグループのうち、一つをONにすると他のボタンがOFFになるもの)
+を実現するにはトグルボタンを使い、次のようにする
+
+先に値を入れ
+config_plugin_obj.togglebutton_(該当の番号) = tf.config_togglebutton[( ボタン番号 - 15 * (現在のページ - 1) )].checked = (変更したい値 0 or 1)
+次の関数で表示を変える
+tf.config_togglebutton[( ボタン番号 - 15 * (現在のページ - 1) )].draw()
+
+(例)
+25,26,27番のトグルボタンのうち一つのみがONになるようにするとき
+*config_sub_togglebutton_25で記述するべき文
+
+@if exp="config_plugin_obj.togglebutton_25"
+	;25番がONになったときは他のボタンをOFFにする
+	@eval exp="config_plugin_obj.togglebutton_26 = tf.config_togglebutton[11].checked = 0"
+	@eval exp="config_plugin_obj.togglebutton_27 = tf.config_togglebutton[12].checked = 0"
+	@eval exp="tf.config_togglebutton[11].draw()"
+	@eval exp="tf.config_togglebutton[12].draw()"
+@else
+	;25番がOFFになったときはONにしなおす
+	@eval exp="config_plugin_obj.togglebutton_25 = tf.config_togglebutton[10].checked = 1"
+	@eval exp="tf.config_togglebutton[10].draw()"
+@endif
+
