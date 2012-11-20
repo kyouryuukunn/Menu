@@ -16,6 +16,13 @@ if (typeof(global.SetMessageOpacity_object) != 'undefined' && kag.fore.messages[
 // 全てのメッセージレイヤを非表示にします
 for(var i=0;i<kag.numMessageLayers;i++)
 	kag.fore.messages[i].setOptions(%["visible" => false]);
+// マウスホイールの動作を一時的に変える
+var config_onMouseWheel_org = kag.onMouseWheel;
+kag.onMouseWheel = function (shift, delta, x, y)
+{
+	config_onMouseWheel_org(...);
+	config_plugin_obj.wheel(...);
+} incontextof kag;
 //マウスを中心に移動
 kag.fore.base.cursorX = kag.scWidth/2;
 kag.fore.base.cursorY = kag.scHeight/2;
@@ -173,6 +180,8 @@ for (var i = 0; i < tf.config_togglebutton.count; i++)
 delete tf.config_slider;
 delete tf.config_togglebutton;
 delete tf.config_button;
+// マウスホイールの動作を戻す
+kag.onMouseWheel = config_onMouseWheel_org;
 @endscript
 
 ;@return

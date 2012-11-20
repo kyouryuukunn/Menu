@@ -407,6 +407,44 @@ class config_plugin extends KAGPlugin
 	function slider_func_28(hval,vval,drag) {slider_28 = hval;}
 	function slider_func_29(hval,vval,drag) {slider_29 = hval;}
 	
+	function wheel(shift, delta, x, y)	//マウスホイールでページ移動
+	{
+		var temp_nowpage = nowpage;
+		if (delta < 0)
+		{
+			switch(temp_nowpage)
+			{
+				case 1:
+					if (page2_visible) nowpage+=1;
+					break;
+				case 2:
+					if (page3_visible) nowpage+=1;
+					else nowpage-=1;
+					break;
+				case 3:
+					nowpage-=1;
+					break;
+			}
+		}
+		else
+		{
+			switch(temp_nowpage)
+			{
+				case 1:
+					if (page3_visible) nowpage=3;
+					else if (page2_visible) nowpage=2;
+					break;
+				case 2:
+					nowpage-=1;
+					break;
+				case 3:
+					nowpage-=1;
+					break;
+			}
+		}
+		if (temp_nowpage != nowpage) kag.process('config.ks', '*pagedraw');
+	}
+	
 	// 各ボタン、スライダーの操作する変数
 	//ボタンは1ページ15個づつ
 	//スライダーは1ぺージ10個づつある
