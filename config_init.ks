@@ -15,6 +15,8 @@ if (sf.config_init === void)
 	sf.init_exitAsk = sf.exitAsk = 1; //終了時に確認する
 	sf.init_autocontinue = sf.autocontinue = 1; //選択肢後もオートモードを続ける
 	sf.init_skipcontinue = sf.skipcontinue = 1; //選択肢後もスキップモードを続ける
+	sf.init_allskip = sf.allskip = 0; //未読もスキップする
+	//sf.init_sceneskip = sf.sceneskip = 1; //シーン毎のスキップをする
 	sf.init_menu_mode = sf.menu_mode = 0; //マウスオンメニューを使用する
 						  //右クリックメニューを使用する
 						  //システムボタンを使用する
@@ -97,95 +99,6 @@ class config_plugin extends KAGPlugin
 	var close_sub_label	= '*config_sub_close'; //ラベル名
 	var close_sub_storage	= 'config_sub.ks'; //ファイル名
 	
-	// 各ボタン、スライダーの操作する変数
-	//ボタンは1ページ15個づつ
-	//スライダーは1ぺージ10個づつある
-	
-	// ボタンはトグルボタンに合わせて0か1をとる
-	//1ページ目
-	var togglebutton_00 = 0;
-	var togglebutton_01 = 0;
-	var togglebutton_02 = 0;
-	var togglebutton_03 = 0;
-	var togglebutton_04 = 0;
-	var togglebutton_05 = 0;
-	var togglebutton_06 = 0;
-	var togglebutton_07 = 0;
-	var togglebutton_08 = 0;
-	var togglebutton_09 = 0;
-	var togglebutton_10 = 0;
-	var togglebutton_11 = 0;
-	var togglebutton_12 = 0;
-	var togglebutton_13 = 0;
-	var togglebutton_14 = 0;
-	//2ページ目
-	var togglebutton_15 = 0;
-	var togglebutton_16 = 0;
-	var togglebutton_17 = 0;
-	var togglebutton_18 = 0;
-	var togglebutton_19 = 0;
-	var togglebutton_20 = 0;
-	var togglebutton_21 = 0;
-	var togglebutton_22 = 0;
-	var togglebutton_23 = 0;
-	var togglebutton_24 = 0;
-	var togglebutton_25 = 0;
-	var togglebutton_26 = 0;
-	var togglebutton_27 = 0;
-	var togglebutton_28 = 0;
-	var togglebutton_29 = 0;
-	//3ページ目
-	var togglebutton_30 = 0;
-	var togglebutton_31 = 0;
-	var togglebutton_32 = 0;
-	var togglebutton_33 = 0;
-	var togglebutton_34 = 0;
-	var togglebutton_35 = 0;
-	var togglebutton_36 = 0;
-	var togglebutton_37 = 0;
-	var togglebutton_38 = 0;
-	var togglebutton_39 = 0;
-	var togglebutton_40 = 0;
-	var togglebutton_41 = 0;
-	var togglebutton_42 = 0;
-	var togglebutton_43 = 0;
-	var togglebutton_44 = 0;
-	
-	// スライダーの操作する変数は、
-	//スライダーに合わせて0～1まで変化する
-	//1ページ目
-	var slider_00 = 0;
-	var slider_01 = 0;
-	var slider_02 = 0;
-	var slider_03 = 0;
-	var slider_04 = 0;
-	var slider_05 = 0;
-	var slider_06 = 0;
-	var slider_07 = 0;
-	var slider_08 = 0;
-	var slider_09 = 0;
-	//2ページ目
-	var slider_10 = 0;
-	var slider_11 = 0;
-	var slider_12 = 0;
-	var slider_13 = 0;
-	var slider_14 = 0;
-	var slider_15 = 0;
-	var slider_16 = 0;
-	var slider_17 = 0;
-	var slider_18 = 0;
-	var slider_19 = 0;
-	//3ページ目
-	var slider_20 = 0;
-	var slider_21 = 0;
-	var slider_22 = 0;
-	var slider_23 = 0;
-	var slider_24 = 0;
-	var slider_25 = 0;
-	var slider_26 = 0;
-	var slider_27 = 0;
-	var slider_28 = 0;
-	var slider_29 = 0;
 
 	//各ボタン、トグルボタン 、スライダーを表示するか
 	var button_visible = [
@@ -235,7 +148,7 @@ class config_plugin extends KAGPlugin
 				 1,  //26 
 				 1,  //27 
 				 0,  //28 
-				 0,  //29 
+				 1,  //29 
 				 0,  //30 
 				 0,  //31 
 				 0,  //32 
@@ -335,7 +248,7 @@ class config_plugin extends KAGPlugin
 				[460, 330],      //26
 				[730, 330],      //27
 				[470, 260],      //28
-				[0, 0],      //29
+				[470, 170],      //29
 				[0, 0],      //30
 				[0, 0],      //31
 				[0, 0],      //32
@@ -493,6 +406,96 @@ class config_plugin extends KAGPlugin
 	function slider_func_27(hval,vval,drag) {slider_27 = hval;}
 	function slider_func_28(hval,vval,drag) {slider_28 = hval;}
 	function slider_func_29(hval,vval,drag) {slider_29 = hval;}
+	
+	// 各ボタン、スライダーの操作する変数
+	//ボタンは1ページ15個づつ
+	//スライダーは1ぺージ10個づつある
+	
+	// ボタンはトグルボタンに合わせて0か1をとる
+	//1ページ目
+	var togglebutton_00 = 0;
+	var togglebutton_01 = 0;
+	var togglebutton_02 = 0;
+	var togglebutton_03 = 0;
+	var togglebutton_04 = 0;
+	var togglebutton_05 = 0;
+	var togglebutton_06 = 0;
+	var togglebutton_07 = 0;
+	var togglebutton_08 = 0;
+	var togglebutton_09 = 0;
+	var togglebutton_10 = 0;
+	var togglebutton_11 = 0;
+	var togglebutton_12 = 0;
+	var togglebutton_13 = 0;
+	var togglebutton_14 = 0;
+	//2ページ目
+	var togglebutton_15 = 0;
+	var togglebutton_16 = 0;
+	var togglebutton_17 = 0;
+	var togglebutton_18 = 0;
+	var togglebutton_19 = 0;
+	var togglebutton_20 = 0;
+	var togglebutton_21 = 0;
+	var togglebutton_22 = 0;
+	var togglebutton_23 = 0;
+	var togglebutton_24 = 0;
+	var togglebutton_25 = 0;
+	var togglebutton_26 = 0;
+	var togglebutton_27 = 0;
+	var togglebutton_28 = 0;
+	var togglebutton_29 = 0;
+	//3ページ目
+	var togglebutton_30 = 0;
+	var togglebutton_31 = 0;
+	var togglebutton_32 = 0;
+	var togglebutton_33 = 0;
+	var togglebutton_34 = 0;
+	var togglebutton_35 = 0;
+	var togglebutton_36 = 0;
+	var togglebutton_37 = 0;
+	var togglebutton_38 = 0;
+	var togglebutton_39 = 0;
+	var togglebutton_40 = 0;
+	var togglebutton_41 = 0;
+	var togglebutton_42 = 0;
+	var togglebutton_43 = 0;
+	var togglebutton_44 = 0;
+	
+	// スライダーの操作する変数は、
+	//スライダーに合わせて0～1まで変化する
+	//1ページ目
+	var slider_00 = 0;
+	var slider_01 = 0;
+	var slider_02 = 0;
+	var slider_03 = 0;
+	var slider_04 = 0;
+	var slider_05 = 0;
+	var slider_06 = 0;
+	var slider_07 = 0;
+	var slider_08 = 0;
+	var slider_09 = 0;
+	//2ページ目
+	var slider_10 = 0;
+	var slider_11 = 0;
+	var slider_12 = 0;
+	var slider_13 = 0;
+	var slider_14 = 0;
+	var slider_15 = 0;
+	var slider_16 = 0;
+	var slider_17 = 0;
+	var slider_18 = 0;
+	var slider_19 = 0;
+	//3ページ目
+	var slider_20 = 0;
+	var slider_21 = 0;
+	var slider_22 = 0;
+	var slider_23 = 0;
+	var slider_24 = 0;
+	var slider_25 = 0;
+	var slider_26 = 0;
+	var slider_27 = 0;
+	var slider_28 = 0;
+	var slider_29 = 0;
 }
 
 kag.addPlugin(global.config_plugin_obj = new config_plugin());

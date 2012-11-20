@@ -31,7 +31,8 @@ exsystembutton.ksで通常のシステムボタン、MoveMenu.ksでマウスオン
 またSetMessageOpacity.ksも参照のこと
 
 設定
-AfterInit.tjsに次の設定をする(なければ作る)
+AfterInit.tjsに次の文を書く(なければ作る)
+---------------------------------------------------------------------------- 
 kag.tagHandlers.s = function(elm)
 {
 	// 実行停止
@@ -105,7 +106,32 @@ kag.restoreFromRightClick = function ()
 	if(skipMode_rclick)
 	skipToNextStopByKey();
 } incontextof kag;
-
+// OUTFOCUSより
+// ［システム‐未読もスキップ］メニューハンドラの定義
+kag.onAllSkipClick = function(sender)
+{
+	sf.allskip = !sf.allskip;
+	allSkipMenuItem.checked = sf.allskip;
+	if (sf.allskip)
+		skipToNextStopMenuItem.caption = "次の選択肢まで進む(&F)";
+	else
+		skipToNextStopMenuItem.caption = autoRecordPageShowing ? "次の選択肢/未読まで進む(&F)" : "次の選択肢まで進む(&F)";
+} incontextof kag;
+// ［未読もスキップ］メニューアイテムを作成
+kag.allSkipMenuItem = new KAGMenuItem(kag, "未読もスキップ(&L)", 0, kag.onAllSkipClick, false);
+kag.allSkipMenuItem.checked = sf.allskip;
+// ［システム］メニューに［未読もスキップ］メニューアイテムを登録
+kag.systemMenu.insert(kag.allSkipMenuItem, 3);
+// kag.getCurrentRead()メソッドを差し換える
+kag.getCurrentRead_org = kag.getCurrentRead;
+kag.getCurrentRead = function()
+{
+	if (sf.allskip)                 // 未読もスキップするなら全て既読
+		return true;
+	else
+		return getCurrentRead_org();  // そうでなければ旧kag.getCurrentRead()メソッドの戻り値を使う
+} incontextof kag;
+---------------------------------------------------------------------------- 
 次にMenu.ksの2,3行目のつぎの設定のデフォルト値を設定する
 var chose_novel = 1;	//選択肢ありか, (前の選択肢に戻るを表示するかどうか)
 

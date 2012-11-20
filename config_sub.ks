@@ -10,6 +10,7 @@
 @iscript
 
 //ƒƒjƒ…[‚ğ–³Œø‰»‚µ‚Ä‚¨‚­
+kag.systemMenu.enabled=0;
 kag.displayMenu.enabled=0;
 kag.characterMenu.enabled=0;
 kag.storeMenu.enabled=0;
@@ -44,6 +45,8 @@ config_plugin_obj.togglebutton_24 = sf.skipcontinue;		// ‘I‘ğˆŒã‚àƒXƒLƒbƒvƒ‚[ƒ
 config_plugin_obj.togglebutton_25 = sf.menu_mode == 0;		// ƒ}ƒEƒXƒIƒ“ƒƒjƒ…[‚ğg—p‚·‚é
 config_plugin_obj.togglebutton_26 = sf.menu_mode == 1;		// ‰EƒNƒŠƒbƒNƒƒjƒ…[‚ğg—p‚·‚é
 config_plugin_obj.togglebutton_27 = sf.menu_mode == 2;		// ƒVƒXƒeƒ€ƒƒjƒ…[‚ğg—p‚·‚é
+//config_plugin_obj.togglebutton_28 = sf.sceneskip;		// ƒV[ƒ“–ˆ‚ÌƒXƒLƒbƒv‚ğ‚·‚é
+config_plugin_obj.togglebutton_29 = sf.allskip;			// –¢“Ç‚àƒXƒLƒbƒv‚·‚é
 
 @endscript
 
@@ -69,6 +72,7 @@ config_plugin_obj.togglebutton_27 = sf.menu_mode == 2;		// ƒVƒXƒeƒ€ƒƒjƒ…[‚ğg—
 @set_menu
 @iscript
 //ƒƒjƒ…[‚ğ—LŒø‰»
+kag.systemMenu.enabled=1;
 kag.displayMenu.enabled=1;
 kag.characterMenu.enabled=1;
 kag.storeMenu.enabled=1;
@@ -165,6 +169,8 @@ sf.menu_mode = sf.init_menu_mode;
 config_plugin_obj.togglebutton_25 = sf.menu_mode == 0;
 config_plugin_obj.togglebutton_26 = sf.menu_mode == 1;
 config_plugin_obj.togglebutton_27 = sf.menu_mode == 2;
+//config_plugin_obj.togglebutton_28 = sf.sceneskip = sf.init_sceneskip;
+config_plugin_obj.togglebutton_29 = sf.allskip = sf.init_allskip;
 
 if (config_plugin_obj.nowpage == 2)
 {
@@ -180,6 +186,8 @@ if (config_plugin_obj.nowpage == 2)
 	tf.config_togglebutton[10].checked = config_plugin_obj.togglebutton_25;
 	tf.config_togglebutton[11].checked = config_plugin_obj.togglebutton_26;
 	tf.config_togglebutton[12].checked = config_plugin_obj.togglebutton_27;
+	//tf.config_togglebutton[13].checked = config_plugin_obj.togglebutton_28;
+	tf.config_togglebutton[14].checked = config_plugin_obj.togglebutton_29;
 	tf.config_togglebutton[1].draw();
 	tf.config_togglebutton[2].draw();
 	tf.config_togglebutton[3].draw();
@@ -192,6 +200,8 @@ if (config_plugin_obj.nowpage == 2)
 	tf.config_togglebutton[10].draw();
 	tf.config_togglebutton[11].draw();
 	tf.config_togglebutton[12].draw();
+	//tf.config_togglebutton[13].draw();
+	tf.config_togglebutton[14].draw();
 }
 
 config_plugin_obj.slider_00 = sf.init_bgmvolume / 100000;
@@ -273,6 +283,8 @@ sf.menu_mode = sf.init_menu_mode;
 config_plugin_obj.togglebutton_25 = sf.menu_mode == 0;
 config_plugin_obj.togglebutton_26 = sf.menu_mode == 1;
 config_plugin_obj.togglebutton_27 = sf.menu_mode == 2;
+//config_plugin_obj.togglebutton_28 = sf.sceneskip = sf.init_sceneskip;
+config_plugin_obj.togglebutton_29 = sf.allskip = sf.init_allskip;
 
 if (config_plugin_obj.nowpage == 2)
 {
@@ -288,6 +300,8 @@ if (config_plugin_obj.nowpage == 2)
 	tf.config_togglebutton[10].checked = config_plugin_obj.togglebutton_25;
 	tf.config_togglebutton[11].checked = config_plugin_obj.togglebutton_26;
 	tf.config_togglebutton[12].checked = config_plugin_obj.togglebutton_27;
+	//tf.config_togglebutton[13].checked = config_plugin_obj.togglebutton_28;
+	tf.config_togglebutton[14].checked = config_plugin_obj.togglebutton_29;
 	tf.config_togglebutton[1].draw();
 	tf.config_togglebutton[2].draw();
 	tf.config_togglebutton[3].draw();
@@ -300,6 +314,8 @@ if (config_plugin_obj.nowpage == 2)
 	tf.config_togglebutton[10].draw();
 	tf.config_togglebutton[11].draw();
 	tf.config_togglebutton[12].draw();
+	//tf.config_togglebutton[13].draw();
+	tf.config_togglebutton[14].draw();
 }
 
 config_plugin_obj.slider_00 = sf.init_bgmvolume / 100000;
@@ -521,7 +537,7 @@ sf.chBold = config_plugin_obj.togglebutton_05;
 ;ƒ}ƒEƒXƒIƒ“ƒƒjƒ…[‚ğg—p‚·‚é
 ;ƒ‰ƒWƒIƒ{ƒ^ƒ“‚É‚·‚é‚½‚ß‚É
 ;‚»‚Ìê‚Å‘¼‚Ìƒ{ƒ^ƒ“‚ğ•ÏX‚·‚é
-;”z—ñ‚Ì”š‚Í‚¸‚ê‚Ä‚¢‚é‚Ì‚Å’ˆÓ( ƒ{ƒ^ƒ“”Ô† - 15 X (Œ»İ‚Ìƒy[ƒW - 1) )
+;”z—ñ‚Ì”š‚Í‚¸‚ê‚Ä‚¢‚é‚Ì‚Å’ˆÓ( ƒ{ƒ^ƒ“”Ô† - 15 * (Œ»İ‚Ìƒy[ƒW - 1) )
 @eval exp="sf.menu_mode=0 if config_plugin_obj.togglebutton_25"
 @eval exp="config_plugin_obj.togglebutton_25 = tf.config_togglebutton[10].checked=sf.menu_mode == 0"
 @eval exp="config_plugin_obj.togglebutton_26 = tf.config_togglebutton[11].checked=sf.menu_mode == 1"
@@ -554,9 +570,13 @@ sf.chBold = config_plugin_obj.togglebutton_05;
 @jump storage=config.ks target=*return
 
 *config_sub_togglebutton_28
+;ƒV[ƒ“–ˆ‚ÌƒXƒLƒbƒv‚ğ‚·‚é‚©
+;@eval exp="sf.sceneskip = config_plugin_obj.togglebutton_28"
 @jump storage=config.ks target=*return
 
 *config_sub_togglebutton_29
+;–¢“Ç‚àƒXƒLƒbƒv‚·‚é
+@eval exp="sf.allskip = config_plugin_obj.togglebutton_29"
 @jump storage=config.ks target=*return
 
 *config_sub_togglebutton_30

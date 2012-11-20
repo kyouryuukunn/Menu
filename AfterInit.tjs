@@ -72,3 +72,28 @@ kag.restoreFromRightClick = function ()
 	if(skipMode_rclick)
 	skipToNextStopByKey();
 } incontextof kag;
+// OUTFOCUSより
+// ［システム‐未読もスキップ］メニューハンドラの定義
+kag.onAllSkipClick = function(sender)
+{
+	sf.allskip = !sf.allskip;
+	allSkipMenuItem.checked = sf.allskip;
+	if (sf.allskip)
+		skipToNextStopMenuItem.caption = "次の選択肢まで進む(&F)";
+	else
+		skipToNextStopMenuItem.caption = autoRecordPageShowing ? "次の選択肢/未読まで進む(&F)" : "次の選択肢まで進む(&F)";
+} incontextof kag;
+// ［未読もスキップ］メニューアイテムを作成
+kag.allSkipMenuItem = new KAGMenuItem(kag, "未読もスキップ(&L)", 0, kag.onAllSkipClick, false);
+kag.allSkipMenuItem.checked = sf.allskip;
+// ［システム］メニューに［未読もスキップ］メニューアイテムを登録
+kag.systemMenu.insert(kag.allSkipMenuItem, 3);
+// kag.getCurrentRead()メソッドを差し換える
+kag.getCurrentRead_org = kag.getCurrentRead;
+kag.getCurrentRead = function()
+{
+	if (sf.allskip)                 // 未読もスキップするなら全て既読
+		return true;
+	else
+		return getCurrentRead_org();  // そうでなければ旧kag.getCurrentRead()メソッドの戻り値を使う
+} incontextof kag;
