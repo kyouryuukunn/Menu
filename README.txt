@@ -12,6 +12,9 @@
 exsystembutton.ksとconfig.ksはtjsに挑戦！で配布して
 いたのを改造した。
 またスライダーには色々な墓場のKLayers.ksを利用した
+マウスカーソル自動移動は
+サークル煌明のMoveMouseCursorPluginがあれば
+それをつかう
 
 内部でSetMessageOpacity、SaveMode、ConfigModeを
 使用している。

@@ -220,10 +220,9 @@ kag.onMouseMove=function(x, y, shift){
 	for(var i=0;i<kag.numMessageLayers;i++)
 		kag.fore.messages[i].setOptions(%["visible" => false]);
 @endscript
-@l
+@p
 @iscript
 	kag.fore.messages[0].visible = true;
-	kag.fore.layers[0].visible=true;
 	if(typeof(global.exsystembutton_object) != "undefined" && sf.menu_mode == 2)
 		exsystembutton_object.onMessageHiddenStateChanged(false);
 	if (typeof(global.SetMessageOpacity_object) != 'undefined')
@@ -233,7 +232,7 @@ kag.onMouseMove=function(x, y, shift){
 
 *qsave
 @if exp="sf.qsaveAsk"
-	@if exp="!askYesNo('クイックロードしますか？')"
+	@if exp="!askYesNo('クイックセーブしますか？')"
 		@myreturn
 	@endif
 @endif

@@ -24,8 +24,15 @@ kag.onMouseWheel = function (shift, delta, x, y)
 	config_plugin_obj.wheel(...);
 } incontextof kag;
 //マウスを中心に移動
-kag.fore.base.cursorX = kag.scWidth/2;
-kag.fore.base.cursorY = kag.scHeight/2;
+if (typeof(global.MoveMouseCursorPlugin_object) != 'undefined')
+{
+	MouseCursorMover.set(%['layer'=>kag.fore.base,'time'=>100, 'x'=>kag.scWidth/2, 'y'=>kag.scHeight/2]);
+}
+else
+{
+	kag.fore.base.cursorX = kag.scWidth/2;
+	kag.fore.base.cursorY = kag.scHeight/2;
+}
 @endscript
 
 
