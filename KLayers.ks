@@ -6,6 +6,10 @@
 
 ;アニメーションのセーブ・ロードでアニメが復活できるか？
 
+; 2012/12/06	0.98d	・onMouseDown()中にfullScreen切り替えするとmouseUp
+;			　イベントが発生しない吉里吉里の問題(?)を避けるため、
+;			　KToggleButtonのonCheck()/onUncheck()をonMouseUp()で
+;			　呼ぶように変更
 ; 2012/04/23	0.98c	・フォーカスされているレイヤを削除する時(delOnPage()と
 ;			　del()する時)にwindow.focusedLayer=nullを追加
 ;			・onFocus()でマウスカーソルを動かすのを、キーが
@@ -1547,7 +1551,7 @@ class KToggleButtonLayer extends KAnimButtonLayer
 		super.loadImages(graphic, key);
 	}
 
-	// チェックされた時に呼ばれるる(makeCheck()も兼ねる)
+	// チェックされた時に呼ばれる(makeCheck()も兼ねる)
 	function onCheck(x, y, button=mbLeft, shift=0)
 	{
 		if (checked)	// 押されてた時は何もしない
@@ -1580,6 +1584,13 @@ class KToggleButtonLayer extends KAnimButtonLayer
 	// マウスが押された時
 	function onMouseDown(x, y, button=mbLeft, shift=0)
 	{
+		// 何もしないよう override
+		// super.onMouseUp(...); は不要。トグルしないため
+	}
+
+	// マウスが放された時
+	function onMouseUp(x, y, button=mbLeft, shift=0)
+	{
 		if (button != mbLeft) {
 			// 左クリック以外は無視
 			super.onMouseDown(...);
@@ -1590,13 +1601,6 @@ class KToggleButtonLayer extends KAnimButtonLayer
 			onUncheck(...); // チェックが解除された
 		else
 			onCheck(...);	// チェックされた
-	}
-
-	// マウスが放された時
-	function onMouseUp(x, y, button=mbLeft, shift=0)
-	{
-		// 何もしないよう override
-		// super.onMouseUp(...); は不要。トグルしないため
 	}
 
 	// マウスが入った時

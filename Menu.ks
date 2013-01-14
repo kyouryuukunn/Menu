@@ -208,7 +208,6 @@ kag.onMouseMove=function(x, y, shift){
 
 *hide
 @iscript
-	kag.fore.layers[0].visible=false;
 	// システムボタンを使っていて、メッセージレイヤが表示されている時は onMessageHiddenStateChanged を呼び出します
 	if(typeof(global.exsystembutton_object) != "undefined")
 		exsystembutton_object.onMessageHiddenStateChanged(true);
