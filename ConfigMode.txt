@@ -1,4 +1,4 @@
-赤恐竜	http://akakyouryuu.blog.fc2.com/
+赤恐竜	http://akakyouryuu.com/
 
 よくあるコンフィグ画面を実装する(のを助けるプラグイン、単体では何もしない。)
 画面のデザインを容易にする。

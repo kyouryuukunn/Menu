@@ -1,4 +1,4 @@
-赤恐竜	http://akakyouryuu.blog.fc2.com/
+赤恐竜	http://akakyouryuu.com/
 
 吉里吉里にメニューとそれにともなう
 セーブ、ロード、コンフィグ画面を設定する
