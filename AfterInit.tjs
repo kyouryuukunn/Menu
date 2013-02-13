@@ -41,6 +41,16 @@ kag.onHelpAboutMenuItemClick = function (sender)
 	sf.exitAsk=tf.exitAsktemp;
 	//’Ç‰Á•”•ªª
 } incontextof kag;
+//‘O‚Ì‘I‘ğˆ‚É–ß‚é
+var goBackHistory_org = kag.goBackHistory;
+kag.goBackHistory = function()
+{
+	if (sf.returnAsk)
+		goBackHistory_org(true);
+	else
+		goBackHistory_org(false);
+} incontextof kag;
+
 kag.goToStartWithAsk = function ()
 {
 	//’Ç‰Á•”•ª«

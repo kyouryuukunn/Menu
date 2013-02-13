@@ -39,8 +39,6 @@ if (sf.config_init === void)
 //ここを書き換える↓------------------------------------------------------- 
 //ゲーム開始時常にしたい処理を設定
 
-//自前の終了処理に置き替える
-kag.askOnClose=false;
 
 kag.bgm.buf1.volume2 = sf.bgmvolume;
 kag.se[0].volume2 = sf.sevolume;

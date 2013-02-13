@@ -192,19 +192,8 @@ kag.onMouseMove=function(x, y, shift){
 @return		
 
 *return
-@if exp="kag.historyOfStore.count==0"
-	@myreturn
-@else
-	@if exp="sf.returnAsk==1"
-		@if exp="askYesNo('1つ前の選択肢に戻りますか？')"
-			@goback ask=false
-		@else
-			@myreturn
-		@endif
-	@else
-		@goback ask=false
-	@endif
-@endif
+@goback ask=false
+@myreturn
 
 *hide
 @iscript
@@ -249,15 +238,9 @@ kag.onMouseMove=function(x, y, shift){
 @load place=0
 
 *title
-@if exp="sf.titleAsk"
-	@if exp="askYesNo('タイトルに戻りますか?')"
-		@gotostart ask=false
-	@else
-		@myreturn
-	@endif
-@else
-		@gotostart ask=false
-@endif
+@gotostart ask=true
+@myreturn
+
 
 *exit
 @eval exp="kag.closeByScript(%[ask:false])"
